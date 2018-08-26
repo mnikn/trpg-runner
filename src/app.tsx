@@ -5,7 +5,8 @@ const { Header, Sider, Content } = Layout;
 import 'antd/dist/antd.min.css'
 import './app.css';
 import NavgiationBar from './base/nav-bar/nav-bar';
-import PersonCardList from './coc/person-card/person-card-list';
+import PlayerCardList from './coc/player-card/player-card-list';
+import ToolBar from './base/tool-bar/tool-bar';
 
 export default class App extends React.Component {
     render() {
@@ -16,15 +17,18 @@ export default class App extends React.Component {
                 </Sider>
                 <Layout className='full-height'>
                     <Header className='theme-gray' style={{ marginLeft: 1 + 'px' }}>
+                        <ToolBar />
                     </Header>
-                    <Content className='full-height' style={{ padding: 12 + 'px' }}>
+                    <Content
+                        className='full-height'
+                        style={{ padding: 12 + 'px' }}>
                         <Switch>
-                            <Route path='/coc/person-card/list' component={PersonCardList} />
+                            <Route path='/coc/player-card/list' component={PlayerCardList} onEnter={
+                                (a: any, b: any) => console.log(a)} />
                         </Switch>
                     </Content>
                 </Layout>
             </Layout>;
-        <div>App</div>;
         return element;
     }
 }

@@ -5,6 +5,10 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 export default class NavgiationBar extends React.Component {
+    constructor(props: any) {
+        super(props);
+        this.handleOnRouteChange = this.handleOnRouteChange.bind(this);
+    }
     render() {
         const element =
 
@@ -16,7 +20,7 @@ export default class NavgiationBar extends React.Component {
                 </Link>
                 <Menu mode="vertical" theme='light'>
                     <Menu.Item>
-                        <Link to='/coc/person-card/list'>
+                        <Link to='/coc/player-card/list' onChange={this.handleOnRouteChange}>
                             <Icon type='user' />
                             <span>人物卡</span>
                         </Link>
@@ -32,5 +36,10 @@ export default class NavgiationBar extends React.Component {
             </div>
             ;
         return element;
+    }
+
+
+    handleOnRouteChange(a: any): void {
+        console.log(a);
     }
 }

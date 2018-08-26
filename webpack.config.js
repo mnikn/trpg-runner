@@ -10,6 +10,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    devtool: 'eval-source-map',
     module: {
         rules: [{
                 test: /\.tsx$|\.ts$/,
@@ -19,6 +20,10 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
+            },
+            {
+                test: /\.(png|jpg|gif|jpeg)$/,
+                loader: 'file-loader'
             },
             {
                 test: /\.css$/,
@@ -35,10 +40,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+
     ],
     devServer: {
-        contentBase: './',
+        // contentBase: './',
         historyApiFallback: true,
         inline: true,
         hot: true,

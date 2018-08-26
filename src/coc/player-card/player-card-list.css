@@ -1,0 +1,21 @@
+.player-card {
+    background: gray;
+    border-radius: 16px;
+    color: white;
+    text-align: center;
+    min-height: 300px;
+}
+
+.player-card:hover {
+    cursor: pointer;
+}
+
+.player-card-avtar {
+    width: 50%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+ }
