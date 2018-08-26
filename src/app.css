@@ -1,0 +1,15 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.theme-gray {
+    color: white;
+    background: rgb(72, 66, 66)
+}

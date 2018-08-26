@@ -4,7 +4,6 @@ const webpack = require('webpack');
 module.exports = {
     mode: 'development',
     entry: [
-        // 'webpack-dev-server/client?http://localhost:8080/',
         path.resolve(__dirname, 'index.tsx')
     ],
     output: {
@@ -23,10 +22,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                include: [
-                    /src/
-                ],
-                loader: 'css-loader'
+                loader: 'style-loader!css-loader'
             }
         ]
     },
