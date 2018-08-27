@@ -6,7 +6,7 @@
   "author": "mnikn",
   "license": "MIT",
   "scripts": {
-    "start": "electron electron.js",
+    "start": "electron electron.ts",
     "watch": "webpack --watch",
     "debug": "webpack-dev-server --inline"
   },
