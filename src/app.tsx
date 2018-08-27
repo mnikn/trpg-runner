@@ -5,7 +5,7 @@ const { Header, Sider, Content } = Layout;
 import 'antd/dist/antd.min.css'
 import './app.css';
 import NavgiationBar from './base/nav-bar/nav-bar';
-import PlayerCardList from './coc/player-card/player-card-list';
+import PlayerCardList from './coc/components/player-card/player-card-list';
 import ToolBar from './base/tool-bar/tool-bar';
 
 export default class App extends React.Component {
@@ -23,8 +23,7 @@ export default class App extends React.Component {
                         className='full-height'
                         style={{ padding: 12 + 'px' }}>
                         <Switch>
-                            <Route path='/coc/player-card/list' component={PlayerCardList} onEnter={
-                                (a: any, b: any) => console.log(a)} />
+                            <Route path='/coc/player-card/list' component={PlayerCardList} />
                         </Switch>
                     </Content>
                 </Layout>

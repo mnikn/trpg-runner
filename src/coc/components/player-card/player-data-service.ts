@@ -1,8 +1,8 @@
-import { Police } from './../models/profession';
-import Player from "../models/player";
-import { Sex } from "../../base/models/sex";
-import BaseService from '../../platform/services/base-service';
-import Service from '../../platform/decorators/service';
+import { Police } from '../../models/profession';
+import Player from "../../models/player";
+import { Sex } from "../../../base/models/sex";
+import BaseService from '../../../platform/services/base-service';
+import Service from '../../../platform/decorators/service';
 
 @Service()
 export default class PlayerDataService extends BaseService {

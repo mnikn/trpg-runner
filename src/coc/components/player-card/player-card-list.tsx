@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Card, Row, Col } from 'antd';
-import Player from '../models/player';
+import { Card, Row, Col, Icon, Button } from 'antd';
+import Player from '../../models/player';
 import PlayerDataService from './player-data-service';
 import './player-card-list.css';
-import MenuButton from '../../platform/components/menu-button';
-import ToolBarService from '../../base/tool-bar/tool-bar-service';
-import Inject from '../../platform/decorators/inject';
+import MenuButton from '../../../platform/components/menu-button';
+import ToolBarService from '../../../base/tool-bar/tool-bar-service';
+import Inject from '../../../platform/decorators/inject';
 
 interface PlayerCardProps {
     player: Player;
@@ -38,20 +38,30 @@ class PlayerCard extends React.Component<PlayerCardProps, PlayerCardState> {
     render() {
         const { player, handleOnCardClick } = this.props;
         const { isActive } = this.state;
-        const defaultAvtar = require('./../resources/default-player-avtar.jpg');
+        const defaultAvtar = require('../../resources/default-player-avtar.jpg');
         const element =
             <Card className='player-card' style={isActive ? { borderColor: 'rgb(0,136,237)', borderWidth: 4 + 'px' } : {}}
                 onClick={handleOnCardClick}>
                 <img className='player-card-avtar' src={defaultAvtar} />
-                <p style={{
+                <div style={{
                     marginTop: 24 + 'px',
                     fontSize: 16 + 'px'
                 }}>
                     姓名: {player.name}<br />
-                    职业: {player.profession.getName()}
-                </p>
+                    职业: {player.profession.getName()}<br />
+                </div>
+                <Button id=''
+                    style={{ position: 'absolute', right: 16 + 'px', bottom: 16 + 'px' }}
+                    onClick={this.handleOnEditButtonClick}
+                    shape='circle-outline' icon='edit' size='default' />
             </Card>;
         return element;
+    }
+
+    handleOnEditButtonClick(event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        event.nativeEvent.stopImmediatePropagation();
     }
 }
 
