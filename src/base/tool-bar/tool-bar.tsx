@@ -3,6 +3,7 @@ import { Button, Row, Col } from 'antd';
 import MenuButton from '../../platform/components/menu-button';
 import ToolBarService from './tool-bar-service';
 import Inject from '../../platform/decorators/inject';
+import CommandMessager from '../../platform/services/command-messager';
 
 
 interface Props {
@@ -35,8 +36,8 @@ export default class ToolBar extends React.Component<Props, State> {
                 this._toolBarService.clearToolBarButtons();
             } else if (location.hash === '#/coc/player-card/list') {
                 const toolbarButtons: MenuButton[] = [
-                    new MenuButton('coc.player.create', 'plus'),
-                    new MenuButton('coc.player.delete', 'minus', true)
+                    new MenuButton('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
+                    new MenuButton('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
                 ];
                 this._toolBarService.setToolBarButtons(toolbarButtons);
             }
@@ -55,6 +56,7 @@ export default class ToolBar extends React.Component<Props, State> {
                                 shape='circle'
                                 icon={button.icon}
                                 disabled={button.isDisabled}
+                                onClick={button.onClick}
                                 size='default' />
                         </Col>)}
                 </Row>
@@ -67,8 +69,8 @@ export default class ToolBar extends React.Component<Props, State> {
             this._toolBarService.clearToolBarButtons();
         } else if (location.hash === '#/coc/player-card/list') {
             const toolbarButtons: MenuButton[] = [
-                new MenuButton('coc.player.create', 'plus'),
-                new MenuButton('coc.player.delete', 'minus', true)
+                new MenuButton('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
+                new MenuButton('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
             ];
             this._toolBarService.setToolBarButtons(toolbarButtons);
         }

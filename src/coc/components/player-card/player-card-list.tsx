@@ -6,6 +6,7 @@ import './player-card-list.css';
 import MenuButton from '../../../platform/components/menu-button';
 import ToolBarService from '../../../base/tool-bar/tool-bar-service';
 import Inject from '../../../platform/decorators/inject';
+import CommandMessager from '../../../platform/services/command-messager';
 
 interface PlayerCardProps {
     player: Player;
@@ -50,7 +51,7 @@ class PlayerCard extends React.Component<PlayerCardProps, PlayerCardState> {
                     姓名: {player.name}<br />
                     职业: {player.profession.getName()}<br />
                 </div>
-                <Button id=''
+                <Button
                     style={{ position: 'absolute', right: 16 + 'px', bottom: 16 + 'px' }}
                     onClick={this.handleOnEditButtonClick}
                     shape='circle-outline' icon='edit' size='default' />
@@ -108,6 +109,7 @@ export default class PlayerCardList extends React.Component<PlayerCardListProps,
                                 this._toolBarService.updateToolBarButton(new MenuButton(
                                     'coc.player.delete',
                                     'minus',
+                                    () => CommandMessager.execute('coc.player.delete'),
                                     !this._dataService.hasSelection()));
                             }} />
                         </Col>)}

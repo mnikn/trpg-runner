@@ -8,6 +8,8 @@ import NavgiationBar from './base/nav-bar/nav-bar';
 import PlayerCardList from './coc/components/player-card/player-card-list';
 import ToolBar from './base/tool-bar/tool-bar';
 
+import './coc/commands/index';
+
 export default class App extends React.Component {
     render() {
         const element =
