@@ -5,7 +5,7 @@ import PlayerDataService from './player-data-service';
 import './player-card-list.css';
 import MenuButton from '../../platform/components/menu-button';
 import ToolBarService from '../../base/tool-bar/tool-bar-service';
-import Injector from '../../platform/services/injector';
+import Inject from '../../platform/decorators/inject';
 
 interface PlayerCardProps {
     player: Player;
@@ -17,7 +17,8 @@ interface PlayerCardState {
 }
 
 class PlayerCard extends React.Component<PlayerCardProps, PlayerCardState> {
-    private _dataService: PlayerDataService = Injector.get(PlayerDataService.token);
+    @Inject(PlayerDataService)
+    private _dataService: PlayerDataService;
 
     constructor(props: PlayerCardProps) {
         super(props);
@@ -63,8 +64,11 @@ interface PlayerCardListState {
 }
 
 export default class PlayerCardList extends React.Component<PlayerCardListProps, PlayerCardListState> {
-    private _dataService: PlayerDataService = Injector.get(PlayerDataService.token);
-    private _toolBarService = Injector.get<ToolBarService>(ToolBarService.token);
+    @Inject(PlayerDataService)
+    private _dataService: PlayerDataService;
+
+    @Inject(ToolBarService)
+    private _toolBarService: ToolBarService;
 
 
     constructor(props: PlayerCardListProps) {

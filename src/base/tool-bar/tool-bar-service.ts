@@ -1,10 +1,11 @@
 import MenuButton from "../../platform/components/menu-button";
+import BaseService from "../../platform/services/base-service";
+import Service from "../../platform/decorators/service";
 
-export default class ToolBarService {
+@Service()
+export default class ToolBarService extends BaseService {
     private _buttons: Map<string, MenuButton> = new Map<string, MenuButton>();
     private _onToolBarButtonChanged : Array<(buttons: MenuButton[]) => void> = [];
-
-    public static token: string = 'toolbar.service';
 
     public addToolBarButton(button: MenuButton): void {
         this._buttons.set(button.id, button);

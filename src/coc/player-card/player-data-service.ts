@@ -1,10 +1,11 @@
 import { Police } from './../models/profession';
 import Player from "../models/player";
 import { Sex } from "../../base/models/sex";
+import BaseService from '../../platform/services/base-service';
+import Service from '../../platform/decorators/service';
 
-export default class PlayerDataService {
-    public static token: string = 'coc.player.service';
-
+@Service()
+export default class PlayerDataService extends BaseService {
     private _selected: Set<number> = new Set<number>();
 
     private _onSelectionChanged: Array<(selectedItems: number[]) => void> = [];

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Row, Col } from 'antd';
 import MenuButton from '../../platform/components/menu-button';
 import ToolBarService from './tool-bar-service';
-import Injector from '../../platform/services/injector';
+import Inject from '../../platform/decorators/inject';
 
 
 interface Props {
@@ -13,7 +13,9 @@ interface State {
 }
 
 export default class ToolBar extends React.Component<Props, State> {
-    private _toolBarService = Injector.get<ToolBarService>(ToolBarService.token);
+    @Inject(ToolBarService)
+    private _toolBarService: ToolBarService;
+
     constructor(props: Props) {
         super(props);
         this.initButtons();
