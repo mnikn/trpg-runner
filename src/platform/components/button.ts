@@ -1,4 +1,4 @@
-export default class IconButton {
+export default class ButtonModel {
     id: string;
     icon: string;
     onClick: () => void;

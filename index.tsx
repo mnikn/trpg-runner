@@ -2,11 +2,11 @@ import App from './src/app';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter, HashRouter } from 'react-router-dom';
-import { createStore, Store } from 'redux';
-import { app } from './src/reducers/index';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { initToolBarButtons } from './src/actions/base/tool-bar';
 import { NAVIGATE_LOCATION_TABLE } from './src/base/constants/navigate';
+import { app } from './src/base/reducers';
+import { initToolBarButtons } from './src/base/actions/base/tool-bar';
 
 export const appStore = createStore(app);
 const nowLocation = window.location.hash.substring(1);

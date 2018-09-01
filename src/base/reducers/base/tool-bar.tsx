@@ -1,7 +1,7 @@
-import Button from '../../platform/components/button';
-import CommandMessager from '../../platform/services/command-messager';
 import { AnyAction } from 'redux';
-import { NAVIGATE_LOCATION } from '../../base/constants/navigate';
+import CommandMessager from '../../../platform/services/command-messager';
+import ButtonModel from '../../../platform/components/button';
+import { NAVIGATE_LOCATION } from '../../constants/navigate';
 
 function initHomeButtons(state: any) {
     let buttons: any = [];
@@ -12,8 +12,8 @@ function initHomeButtons(state: any) {
 
 function initPlayerCardListButtons(state: any) {
     let buttons = [
-        new Button('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
-        new Button('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
+        new ButtonModel('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
+        new ButtonModel('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
     ];
     return Object.assign({}, state, {
         toolBarButtons: buttons
@@ -21,7 +21,7 @@ function initPlayerCardListButtons(state: any) {
 }
 
 function updateButtonOnSelecting(state: any, selectedPlayers: number[]) {
-    let buttons = state.toolBarButtons.map((button: Button) => {
+    let buttons = state.toolBarButtons.map((button: ButtonModel) => {
         if (button.id === 'coc.player.delete') {
             button.isDisabled = selectedPlayers.length === 0;
         }

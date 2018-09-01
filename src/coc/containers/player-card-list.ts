@@ -1,4 +1,4 @@
-import { appStore } from '../../..';
+import { appStore } from './../../../index';
 import { Police } from '../models/profession';
 import { connect } from "react-redux";
 import { Injector } from "../../platform/decorators/inject";
@@ -6,8 +6,8 @@ import PlayerDataService from "../components/player-card/player-data-service";
 import PlayerCardListComponent from "../components/player-card/player-card-list";
 import Player from "../models/player";
 import { Sex } from "../../base/models/sex";
-import { selectPlayerCard } from '../../actions/coc/player-card-list';
-import { updateButtonOnSelecting } from '../../actions/base/tool-bar';
+import { selectPlayerCard } from '../../base/actions/coc/player-card-list';
+import { updateButtonOnSelecting } from '../../base/actions/base/tool-bar';
 
 let dataService: PlayerDataService = Injector.get(PlayerDataService);
 let players: Player[] = [];

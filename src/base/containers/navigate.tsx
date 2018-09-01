@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import NavigateComponent from "../components/navigate/navigate";
-import { initToolBarButtons } from "../../actions/base/tool-bar";
+import { initToolBarButtons } from "../actions/base/tool-bar";
 import { Dispatch } from "redux";
 
 const mapStateToProps = (state: any) => ({
