@@ -22,3 +22,10 @@ export default function Inject(classType: any, ...args: any[]) {
     };
 }
 
+export class Injector {
+    public static get<T>(classType: any, ...args: any[]): T {
+        let target: any = {};
+        Inject(classType, args)(target, 'result');
+        return target.result;
+    }
+} 

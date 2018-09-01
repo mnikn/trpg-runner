@@ -1,31 +1,29 @@
 import * as React from 'react';
-import { Menu, Icon, Button } from 'antd';
-import { Link } from 'react-router-dom';
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+import { Menu, Icon } from 'antd';
+import { NAVIGATE_LOCATION } from '../navigate/navigate';
+import { NavigateContainer } from '../../containers/navigate';
 
-export default class NavgiationBar extends React.Component {
-    constructor(props: any) {
-        super(props);
-        this.handleOnRouteChange = this.handleOnRouteChange.bind(this);
-    }
+interface Props {
+    selectedNavTab: string;
+}
+
+
+export default class NavgiationBarComponent extends React.Component<Props> {
     render() {
         const element =
-
             <div>
-                <Link to='/coc/home'>
+                <NavigateContainer navigateLocation={NAVIGATE_LOCATION.COC_HOME}>
                     <span style={{ width: 100 + '%', lineHeight: 64 + 'px', color: 'white' }}>
                         Trpg 跑团搞事器
                     </span>
-                </Link>
+                </NavigateContainer>
                 <Menu mode="vertical" theme='light'>
                     <Menu.Item>
-                        <Link to='/coc/player-card/list' onChange={this.handleOnRouteChange}>
+                        <NavigateContainer navigateLocation={NAVIGATE_LOCATION.COC_PLAYER_CARD}>
                             <Icon type='user' />
                             <span>人物卡</span>
-                        </Link>
+                        </NavigateContainer>
                     </Menu.Item>
-
                     <Menu.Item>
                         <span>
                             <Icon type="medicine-box" />
@@ -33,13 +31,7 @@ export default class NavgiationBar extends React.Component {
                         </span>
                     </Menu.Item>
                 </Menu>
-            </div>
-            ;
+            </div>;
         return element;
-    }
-
-
-    handleOnRouteChange(a: any): void {
-        console.log(a);
     }
 }

@@ -1,4 +1,4 @@
-export default class MenuButton {
+export default class IconButton {
     id: string;
     icon: string;
     onClick: () => void;
