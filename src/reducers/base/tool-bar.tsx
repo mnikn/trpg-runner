@@ -1,6 +1,7 @@
 import Button from '../../platform/components/button';
 import CommandMessager from '../../platform/services/command-messager';
-import { appStore } from '../../..';
+import { AnyAction } from 'redux';
+import { NAVIGATE_LOCATION } from '../../base/constants/navigate';
 
 function initHomeButtons(state: any) {
     let buttons: any = [];
@@ -9,7 +10,7 @@ function initHomeButtons(state: any) {
     });
 }
 
-function initPlayerCardListButtons(state: any){
+function initPlayerCardListButtons(state: any) {
     let buttons = [
         new Button('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
         new Button('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
@@ -32,12 +33,15 @@ function updateButtonOnSelecting(state: any, selectedPlayers: number[]) {
 }
 
 
-export default function toolBar(state: any = {toolBarButtons: []}, action: any) {
+export default function toolBar(state: any = { toolBarButtons: [] }, action: AnyAction) {
     switch (action.type) {
-        case 'INIT_COC_HOME_BUTTONS':
-            return initHomeButtons(state);
-        case 'INIT_COC_PLAYER_CARD_LIST_BUTTONS':
-            return initPlayerCardListButtons(state);
+        case 'INIT_TOOLBAR_BUTTONS':
+            const { navigateLocation } = action;
+            if (navigateLocation === NAVIGATE_LOCATION.COC_HOME) {
+                return initHomeButtons(state);
+            } else if (navigateLocation === NAVIGATE_LOCATION.COC_PLAYER_CARD) {
+                return initPlayerCardListButtons(state);
+            }
         case 'UPDATE_BUTTON_ON_SELECTING':
             return updateButtonOnSelecting(state, action.selectedPlayers);
     }

@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Menu, Icon } from 'antd';
-import { NAVIGATE_LOCATION } from '../navigate/navigate';
 import { NavigateContainer } from '../../containers/navigate';
+import { NAVIGATE_LOCATION } from '../../constants/navigate';
 
 interface Props {
     selectedNavTab: string;
 }
 
-
-export default class NavgiationBarComponent extends React.Component<Props> {
+export default class NavgiateBarComponent extends React.Component<Props> {
     render() {
         const element =
             <div>

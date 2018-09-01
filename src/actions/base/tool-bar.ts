@@ -1,16 +1,13 @@
-export function initHomeButtons() {
+import { AnyAction } from "redux";
+
+export function initToolBarButtons(navigateLocation: string): AnyAction {
     return {
-        type: 'INIT_COC_HOME_BUTTONS'
+        type: 'INIT_TOOLBAR_BUTTONS',
+        navigateLocation: navigateLocation
     }
 }
 
-export function initPlayerCardListButtons() {
-    return {
-        type: 'INIT_COC_PLAYER_CARD_LIST_BUTTONS'
-    }
-}
-
-export function updateButtonOnSelecting(selectedPlayers: number[]) {
+export function updateButtonOnSelecting(selectedPlayers: number[]): AnyAction {
     return {
         type: 'UPDATE_BUTTON_ON_SELECTING',
         selectedPlayers: selectedPlayers
