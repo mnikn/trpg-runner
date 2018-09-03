@@ -8,8 +8,8 @@ import { PlayerCardListContainer } from './coc/containers/player-card-list';
 import { ToolBarContianer } from './base/containers/tool-bar';
 
 import './coc/commands/index';
-import NavgiateBarComponent from './base/components/navigate-bar/navigate-bar';
 import { NAVIGATE_LOCATION } from './base/constants/navigate';
+import { NavigateBarContainer } from './base/containers/navigate-bar';
 
 interface Props {
     selectedNavTab: number
@@ -20,7 +20,7 @@ export default class App extends React.Component<Props> {
         const element =
             <Layout className='full-height'>
                 <Sider className='full-height theme-gray'>
-                    <NavgiateBarComponent selectedNavTab={NAVIGATE_LOCATION.COC_HOME} />
+                    <NavigateBarContainer selectedNavTab={NAVIGATE_LOCATION.COC_HOME} />
                 </Sider>
                 <Layout className='full-height'>
                     <Header className='theme-gray' style={{ marginLeft: 1 + 'px' }}>
