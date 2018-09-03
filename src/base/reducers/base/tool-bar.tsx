@@ -2,6 +2,7 @@ import { AnyAction } from 'redux';
 import CommandMessager from '../../../platform/services/command-messager';
 import ButtonModel from '../../../platform/components/button';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
+import { ACTION_INIT_TOOLBAR_BUTTONS, ACTION_COC_UPDATE_BUTTON_ON_SELECTING } from '../../actions/base/tool-bar';
 
 function initHomeButtons(state: any) {
     let buttons: any = [];
@@ -35,14 +36,14 @@ function updateButtonOnSelecting(state: any, selectedPlayers: number[]) {
 
 export default function toolBar(state: any = { toolBarButtons: [] }, action: AnyAction) {
     switch (action.type) {
-        case 'INIT_TOOLBAR_BUTTONS':
+        case ACTION_INIT_TOOLBAR_BUTTONS:
             const { navigateLocation } = action;
             if (navigateLocation === NAVIGATE_LOCATION.COC_HOME) {
                 return initHomeButtons(state);
             } else if (navigateLocation === NAVIGATE_LOCATION.COC_PLAYER_CARD) {
                 return initPlayerCardListButtons(state);
             }
-        case 'UPDATE_BUTTON_ON_SELECTING':
+        case ACTION_COC_UPDATE_BUTTON_ON_SELECTING:
             return updateButtonOnSelecting(state, action.selectedPlayers);
     }
     return state;

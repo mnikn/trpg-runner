@@ -8,10 +8,14 @@ interface Props {
     players: Player[];
     selectedPlayers: number[],
     selectPlayerCard: (selectingPlayer: number) => void;
+    refreshPlayers: () => void;
 }
 
 export default class PlayerCardListComponent extends React.Component<Props> {
-
+    componentDidMount() {
+        this.props.refreshPlayers();
+    }
+    
     render() {
         const { players, selectedPlayers, selectPlayerCard } = this.props;
         const element =
