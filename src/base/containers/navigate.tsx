@@ -1,14 +1,14 @@
 import { connect } from "react-redux";
 import NavigateComponent from "../components/navigate/navigate";
-import { initToolBarButtons } from "../actions/base/tool-bar";
 import { Dispatch } from "redux";
+import { createInitToolBarButtonsAction } from "../actions/base/tool-bar";
 
 const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     onNavigating: (navigateLocation: string) => {
-        dispatch(initToolBarButtons(navigateLocation));
+        dispatch(createInitToolBarButtonsAction(navigateLocation));
     }
 });
 

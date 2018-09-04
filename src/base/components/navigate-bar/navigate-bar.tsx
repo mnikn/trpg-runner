@@ -2,18 +2,24 @@ import * as React from 'react';
 import { Menu, Icon, Button, Modal, Select } from 'antd';
 import { NavigateContainer } from '../../containers/navigate';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
+import { COC, DND } from '../../constants/app-mode';
 const Option = Select.Option;
 
 interface Props {
-    selectedNavTab: string;
     isSettingsModalVisable: boolean,
+    appMode: string,
     handleShowSettingsClick: () => void,
-    handleCloseSettingsClick: () => void
+    handleCloseSettingsClick: () => void,
+    selectAppMode: (mode: string) => void
 }
 
 export default class NavgiateBarComponent extends React.Component<Props> {
     render() {
-        const { isSettingsModalVisable, handleShowSettingsClick, handleCloseSettingsClick } = this.props;
+        const { appMode,
+            isSettingsModalVisable,
+            handleShowSettingsClick,
+            handleCloseSettingsClick,
+            selectAppMode } = this.props;
         const element =
             <React.Fragment>
                 <NavigateContainer navigateLocation={NAVIGATE_LOCATION.COC_HOME}>
@@ -51,9 +57,11 @@ export default class NavgiateBarComponent extends React.Component<Props> {
                         onOk={handleCloseSettingsClick}
                         onCancel={handleCloseSettingsClick}>
                         <div>
-                            Trpg类型: <Select defaultValue="coc" style={{ width: 120 }}>
-                                <Option value="coc">DND</Option>
-                                <Option value="dnd">COC</Option>
+                            Trpg类型: <Select defaultValue={appMode}
+                                style={{ width: 120 }}
+                                onChange={(mode: string) => selectAppMode(mode)}>
+                                <Option value={DND}>DND</Option>
+                                <Option value={COC}>COC</Option>
                             </Select>
                         </div>
                     </Modal>

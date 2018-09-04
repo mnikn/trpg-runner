@@ -1,20 +1,24 @@
 import { connect } from "react-redux";
 import NavigateBarComponent from "../components/navigate-bar/navigate-bar";
 import { Dispatch } from "redux";
-import { actionShowSettingsModal, actionCloseSettingsModal } from "../actions/base/navigate-bar";
+import { createSelectAppModeAction, createShowSettingsModalAction, createCloseSettingsModalAction } from "../actions/base/navigate-bar";
+import { IRootState } from "../reducers";
 
-const mapStateToProps = (state: any) => ({
-    isSettingsModalVisable: state.navigateBar.isSettingsModalVisable
+const mapStateToProps = (state: IRootState) => ({
+    isSettingsModalVisable: state.navigateBar.isSettingsModalVisable,
+    appMode: state.app.appMode
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     handleShowSettingsClick: () => {
-        dispatch(actionShowSettingsModal());
+        dispatch(createShowSettingsModalAction());
     },
     handleCloseSettingsClick: () => {
-        dispatch(actionCloseSettingsModal());
-    }
-});
+        dispatch(createCloseSettingsModalAction());
+    },
+    selectAppMode: (mode: string) => {
+        dispatch(createSelectAppModeAction(mode));
+    }});
 
 
 export const NavigateBarContainer = connect
