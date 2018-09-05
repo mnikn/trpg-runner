@@ -1,9 +1,10 @@
-import { ACTION_COC_SELECT_PLAYER_CARD, ACTION_COC_GET_PLAYERS_REQUEST, ACTION_COC_GET_PLAYERS_SUCCESS } from './../../actions/coc/player-card-list';
+import { ACTION_DND_GET_PLAYERS_SUCCESS } from './../../actions/dnd/player-card-list';
 import { AnyAction, combineReducers } from 'redux';
 import { isUndefined } from 'util';
 import Player from '../../../coc/models/player';
+import { ACTION_DND_SELECT_PLAYER_CARD, ACTION_DND_GET_PLAYERS_REQUEST } from '../../actions/dnd/player-card-list';
 
-function selectCocPlayerCard(state: any, selectingPlayer: number, beforeSelectedPlayers: number[]) {
+function selectPlayerCard(state: any, selectingPlayer: number, beforeSelectedPlayers: number[]) {
     let hasPlayer = !isUndefined(beforeSelectedPlayers.find((player: number) => player === selectingPlayer));
     let currentSelectedPlayers: number[] = [];
     if (hasPlayer) {
@@ -17,26 +18,26 @@ function selectCocPlayerCard(state: any, selectingPlayer: number, beforeSelected
     });
 }
 
-interface IPlayerCardListState {
+export interface IPlayerCardListState {
     players: Player[],
     selectedPlayers: number[],
     isFetchingPlayers: boolean
 }
 
-export function playerCardList(state: IPlayerCardListState = {
+function playerCardList(state: IPlayerCardListState = {
     players: [],
     selectedPlayers: [],
     isFetchingPlayers: false,
 },
     action: AnyAction) {
     switch (action.type) {
-        case ACTION_COC_SELECT_PLAYER_CARD:
-            return selectCocPlayerCard(state, action.selectingPlayer, state.selectedPlayers);
-        case ACTION_COC_GET_PLAYERS_REQUEST:
+        case ACTION_DND_SELECT_PLAYER_CARD:
+            return selectPlayerCard(state, action.selectingPlayer, state.selectedPlayers);
+        case ACTION_DND_GET_PLAYERS_REQUEST:
             return Object.assign({}, state, {
                 isFetchingPlayers: true
             });
-        case ACTION_COC_GET_PLAYERS_SUCCESS:
+        case ACTION_DND_GET_PLAYERS_SUCCESS:
             return Object.assign({}, state, {
                 isFetchingPlayers: false,
                 players: action.data
@@ -45,8 +46,7 @@ export function playerCardList(state: IPlayerCardListState = {
     return state;
 }
 
-export interface ICocState {
+export interface IDndState{
     playerCardList: IPlayerCardListState
 }
-export const coc = combineReducers({playerCardList});
-
+export const dnd = combineReducers({playerCardList});

@@ -20,16 +20,20 @@ export default class NavgiateBarComponent extends React.Component<Props> {
             handleShowSettingsClick,
             handleCloseSettingsClick,
             selectAppMode } = this.props;
+
+        const homeNavigateLocation = appMode === COC ? NAVIGATE_LOCATION.COC_HOME : NAVIGATE_LOCATION.DND_HOME;
+        const playerCardNavigateLocation = appMode === COC ? NAVIGATE_LOCATION.COC_PLAYER_CARD : NAVIGATE_LOCATION.DND_PLAYER_CARD;
+        let selectedAppMode = appMode;
         const element =
             <React.Fragment>
-                <NavigateContainer navigateLocation={NAVIGATE_LOCATION.COC_HOME}>
+                <NavigateContainer navigateLocation={homeNavigateLocation}>
                     <span style={{ width: 100 + '%', lineHeight: 64 + 'px', color: 'white' }}>
                         Trpg 跑团搞事器
                     </span>
                 </NavigateContainer>
                 <Menu mode="vertical" theme='light'>
                     <Menu.Item>
-                        <NavigateContainer navigateLocation={NAVIGATE_LOCATION.COC_PLAYER_CARD}>
+                        <NavigateContainer navigateLocation={playerCardNavigateLocation}>
                             <Icon type='user' />
                             <span>人物卡</span>
                         </NavigateContainer>
@@ -54,12 +58,15 @@ export default class NavgiateBarComponent extends React.Component<Props> {
                         onClick={handleShowSettingsClick} />
                     <Modal title='设置'
                         visible={isSettingsModalVisable}
-                        onOk={handleCloseSettingsClick}
+                        onOk={() => {
+                            selectAppMode(selectedAppMode);
+                            handleCloseSettingsClick();
+                        }}
                         onCancel={handleCloseSettingsClick}>
                         <div>
                             Trpg类型: <Select defaultValue={appMode}
                                 style={{ width: 120 }}
-                                onChange={(mode: string) => selectAppMode(mode)}>
+                                onChange={(mode: string) => {selectedAppMode = mode}}>
                                 <Option value={DND}>DND</Option>
                                 <Option value={COC}>COC</Option>
                             </Select>
