@@ -9,6 +9,7 @@ const mapStateToProps = (state: IRootState) => {
     return {
         appMode: state.app.appMode,
         players: state.coc.playerCardList.players,
+        defaultAvtarUrl: 'coc-default-player-avtar.jpg',
         selectedPlayers: state.coc.playerCardList.selectedPlayers
     }
 };

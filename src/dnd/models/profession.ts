@@ -11,3 +11,12 @@ export class Unknow extends Profession {
         return '未知';
     }
 }
+
+export class Warrior extends Profession {
+    getId(): number {
+        return 1;
+    }
+    getName(): string {
+        return '战士';
+    }
+}

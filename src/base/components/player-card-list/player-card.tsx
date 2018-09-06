@@ -1,10 +1,10 @@
 import *  as React from 'react';
 import { Card, Button } from 'antd';
 import './player-card.css';
-import Player from '../models/player';
 
 interface Props {
-    player: Player;
+    player: any;
+    defaultAvtarUrl: string,
     isPlayerCardSelected: boolean;
     selectPlayerCard: (selectingPlayer: number) => void;
 }
@@ -20,14 +20,14 @@ export default class PlayerCardComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { selectPlayerCard, isPlayerCardSelected } = this.props;
+        const { selectPlayerCard, isPlayerCardSelected, defaultAvtarUrl } = this.props;
         let { player } = this.props;
-        player = player ? player : new Player();
-        const defaultAvtar = require('../resources/default-player-avtar.jpg');
+        player = player ? player : {};
+        const defaultAvtar = require('../../resources/' + defaultAvtarUrl);
         const element =
             <Card className='player-card' style={isPlayerCardSelected ? { borderColor: 'rgb(0,136,237)', borderWidth: 4 + 'px' } : {}}
                 onClick={() => selectPlayerCard(player.id)}>
-                <img className='player-card-avtar' src={defaultAvtar} />
+                <img className='player-card-avtar' src={defaultAvtar} style={{width: 160 + 'px', height: 140 + 'px'}} />
                 <div style={{
                     marginTop: 24 + 'px',
                     fontSize: 16 + 'px'

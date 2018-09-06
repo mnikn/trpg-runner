@@ -9,6 +9,7 @@ const mapStateToProps = (state: IRootState) => {
     return {
         appMode: state.app.appMode,
         players: state.dnd.playerCardList.players,
+        defaultAvtarUrl: 'dnd-default-player-avtar.jpg',
         selectedPlayers: state.dnd.playerCardList.selectedPlayers
     }
 };
