@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Menu, Icon, Button, Modal, Select } from 'antd';
-import { NavigateContainer } from '../../containers/navigate';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
 import { COC, DND } from '../../constants/app-mode';
+import './navigate-bar.css';
 const Option = Select.Option;
 
 interface Props {
@@ -10,15 +10,20 @@ interface Props {
     appMode: string,
     handleShowSettingsClick: () => void,
     handleCloseSettingsClick: () => void,
-    selectAppMode: (mode: string) => void
+    selectAppMode: (mode: string) => void,
+    navigateToHome: () => void,
+    navigateToRoleCard: () => void
 }
 
 export default class NavgiateBarComponent extends React.Component<Props> {
     render() {
-        const { appMode,
+        const {
+            appMode,
             isSettingsModalVisable,
             handleShowSettingsClick,
             handleCloseSettingsClick,
+            navigateToHome,
+            navigateToRoleCard,
             selectAppMode } = this.props;
 
         const homeNavigateLocation = appMode === COC ? NAVIGATE_LOCATION.COC_HOME : NAVIGATE_LOCATION.DND_HOME;
@@ -26,17 +31,13 @@ export default class NavgiateBarComponent extends React.Component<Props> {
         let selectedAppMode = appMode;
         const element =
             <React.Fragment>
-                <NavigateContainer navigateLocation={homeNavigateLocation}>
-                    <span style={{ width: 100 + '%', lineHeight: 64 + 'px', color: 'white' }}>
-                        Trpg 跑团搞事器
-                    </span>
-                </NavigateContainer>
+                <span className='app-icon' onClick={navigateToHome}>
+                    Trpg 跑团搞事器
+                </span>
                 <Menu mode="vertical" theme='light'>
-                    <Menu.Item>
-                        <NavigateContainer navigateLocation={roleCardNavigateLocation}>
-                            <Icon type='user' />
-                            <span>人物卡</span>
-                        </NavigateContainer>
+                    <Menu.Item onClick={navigateToRoleCard}>
+                        <Icon type='user' />
+                        <span>人物卡</span>
                     </Menu.Item>
                     <Menu.Item>
                         <span>
@@ -66,7 +67,7 @@ export default class NavgiateBarComponent extends React.Component<Props> {
                         <div>
                             Trpg类型: <Select defaultValue={appMode}
                                 style={{ width: 120 }}
-                                onChange={(mode: string) => {selectedAppMode = mode}}>
+                                onChange={(mode: string) => { selectedAppMode = mode }}>
                                 <Option value={DND}>DND</Option>
                                 <Option value={COC}>COC</Option>
                             </Select>

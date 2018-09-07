@@ -8,6 +8,7 @@ import { ToolBarContianer } from '../containers/tool-bar';
 import { NavigateBarContainer } from '../containers/navigate-bar';
 import { RoleCardListContainer as CocRoleCardListContainer } from '../../coc/containers/role-card-list';
 import { RoleCardListContainer as DndRoleCardListContainer } from '../../dnd/containers/role-card-list';
+import DndRoleEditorComponent from '../../dnd/components/role-editor';
 
 interface Props {
 }
@@ -29,6 +30,8 @@ export default class AppComponent extends React.Component<Props> {
                         <Switch>
                             <Route path='/coc/role-card/list' component={CocRoleCardListContainer} />
                             <Route path='/dnd/role-card/list' component={DndRoleCardListContainer} />
+                            <Route path='/dnd/role-card/edit/:id' component={DndRoleEditorComponent} />
+
                         </Switch>
                     </Content>
                 </Layout>

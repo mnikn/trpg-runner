@@ -7,6 +7,7 @@ interface Props {
     defaultAvtarUrl: string,
     isRoleCardSelected: boolean;
     selectRoleCard: (selectingRole: number) => void;
+    navigateToEditor: (roleId: number) => void;
 }
 
 interface State {
@@ -20,14 +21,17 @@ export default class RoleCardComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { selectRoleCard, isRoleCardSelected, defaultAvtarUrl } = this.props;
+        const { selectRoleCard,
+            isRoleCardSelected,
+            defaultAvtarUrl,
+            navigateToEditor } = this.props;
         let { role } = this.props;
         role = role ? role : {};
         const defaultAvtar = require('../../resources/' + defaultAvtarUrl);
         const element =
             <Card className='role-card' style={isRoleCardSelected ? { borderColor: 'rgb(0,136,237)', borderWidth: 4 + 'px' } : {}}
                 onClick={() => selectRoleCard(role.id)}>
-                <img className='role-card-avtar' src={defaultAvtar} style={{width: 160 + 'px', height: 140 + 'px'}} />
+                <img className='role-card-avtar' src={defaultAvtar} style={{ width: 160 + 'px', height: 140 + 'px' }} />
                 <div style={{
                     marginTop: 24 + 'px',
                     fontSize: 16 + 'px'
@@ -35,9 +39,18 @@ export default class RoleCardComponent extends React.Component<Props, State> {
                     姓名: {role.name}<br />
                     职业: {role.profession.getName()}<br />
                 </div>
+                {/* <NavigateContainer
+                    navigateLocation={navigateEditorLocation}
+                    param={role.id}
+                    onClick={this.handleOnEditButtonClick}>
+                </NavigateContainer> */}
+
                 <Button
                     style={{ position: 'absolute', right: 16 + 'px', bottom: 16 + 'px' }}
-                    onClick={this.handleOnEditButtonClick}
+                    onClick={(event: any) => {
+                        this.handleOnEditButtonClick(event);
+                        navigateToEditor(role.id);
+                    }}
                     shape='circle-outline' icon='edit' size='default' />
             </Card>;
         return element;
@@ -47,5 +60,6 @@ export default class RoleCardComponent extends React.Component<Props, State> {
         event.preventDefault();
         event.stopPropagation();
         event.nativeEvent.stopImmediatePropagation();
+        
     }
 }

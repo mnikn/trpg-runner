@@ -4,9 +4,10 @@ export interface INavigateAction extends AnyAction {
     navigateLocation: string
 }
 export const ACTION_NAVIGATE = 'NAVIGATE';
-export function createNavigateAction(navigateLocation: string): INavigateAction {
+export function createNavigateAction(navigateLocation: string, param?: string): INavigateAction {
     return {
         type: ACTION_NAVIGATE,
-        navigateLocation: navigateLocation
+        navigateLocation: navigateLocation,
+        param: param
     }
 }
