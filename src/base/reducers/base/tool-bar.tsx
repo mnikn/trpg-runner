@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import CommandMessager from '../../../platform/services/command-messager';
-import ButtonModel from '../../../platform/components/button';
+import ButtonModel from '../../../platform/models/button';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
 import { ACTION_INIT_TOOLBAR_BUTTONS, ACTION_COC_UPDATE_BUTTON_ON_SELECTING } from '../../actions/base/tool-bar';
 
@@ -13,8 +13,8 @@ function initHomeButtons(state: any) {
 
 function initRoleCardListButtons(state: any) {
     let buttons = [
-        new ButtonModel('coc.role.create', 'plus', () => CommandMessager.execute('coc.role.create')),
-        new ButtonModel('coc.role.delete', 'minus', () => CommandMessager.execute('coc.role.delete'), true)
+        new ButtonModel('coc.role.create', 'plus', () => alert('Create')),
+        new ButtonModel('coc.role.delete', 'minus', () => alert('Delete'), true)
     ];
     return Object.assign({}, state, {
         toolBarButtons: buttons

@@ -5,8 +5,6 @@ const { Header, Sider, Content } = Layout;
 import 'antd/dist/antd.min.css'
 import './app.css';
 import { ToolBarContianer } from '../containers/tool-bar';
-
-import '../../coc/commands';
 import { NavigateBarContainer } from '../containers/navigate-bar';
 import { RoleCardListContainer as CocRoleCardListContainer } from '../../coc/containers/role-card-list';
 import { RoleCardListContainer as DndRoleCardListContainer } from '../../dnd/containers/role-card-list';
