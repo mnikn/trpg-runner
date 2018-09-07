@@ -4,12 +4,12 @@ import { Switch, Route } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 import 'antd/dist/antd.min.css'
 import './app.css';
-import { PlayerCardListContainer as CocPlayerCardListContainer } from '../../coc/containers/player-card-list';
 import { ToolBarContianer } from '../containers/tool-bar';
 
 import '../../coc/commands';
 import { NavigateBarContainer } from '../containers/navigate-bar';
-import { PlayerCardListContainer as DndPlayerCardListContainer } from '../../dnd/containers/player-card-list';
+import { RoleCardListContainer as CocRoleCardListContainer } from '../../coc/containers/role-card-list';
+import { RoleCardListContainer as DndRoleCardListContainer } from '../../dnd/containers/role-card-list';
 
 interface Props {
 }
@@ -29,8 +29,8 @@ export default class AppComponent extends React.Component<Props> {
                         className='full-height'
                         style={{ padding: 12 + 'px' }}>
                         <Switch>
-                            <Route path='/coc/player-card/list' component={CocPlayerCardListContainer} />
-                            <Route path='/dnd/player-card/list' component={DndPlayerCardListContainer} />
+                            <Route path='/coc/role-card/list' component={CocRoleCardListContainer} />
+                            <Route path='/dnd/role-card/list' component={DndRoleCardListContainer} />
                         </Switch>
                     </Content>
                 </Layout>

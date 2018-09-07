@@ -1,5 +1,5 @@
+import { DND, COC } from './../../constants/app-mode';
 import { NAVIGATE_TABLE } from './../../constants/navigate';
-import { COC } from '../../constants/app-mode';
 import { ACTION_SELECT_APP_MODE } from '../../actions/base/navigate-bar';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
 import { ACTION_NAVIGATE } from '../../actions/base/app';
@@ -9,7 +9,7 @@ export interface IAppState {
     navigateLocation: string
 }
 
-export default function app(state: IAppState = { appMode: COC, navigateLocation: NAVIGATE_LOCATION.COC_HOME }, action: any) {
+export default function app(state: IAppState = { appMode: DND, navigateLocation: NAVIGATE_LOCATION.COC_HOME }, action: any) {
     switch (action.type) {
         case ACTION_SELECT_APP_MODE:
             const navigateLocation = action.appMode === COC ?

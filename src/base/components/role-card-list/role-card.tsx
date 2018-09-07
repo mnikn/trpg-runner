@@ -1,18 +1,18 @@
 import *  as React from 'react';
 import { Card, Button } from 'antd';
-import './player-card.css';
+import './role-card.css';
 
 interface Props {
-    player: any;
+    role: any;
     defaultAvtarUrl: string,
-    isPlayerCardSelected: boolean;
-    selectPlayerCard: (selectingPlayer: number) => void;
+    isRoleCardSelected: boolean;
+    selectRoleCard: (selectingRole: number) => void;
 }
 
 interface State {
 }
 
-export default class PlayerCardComponent extends React.Component<Props, State> {
+export default class RoleCardComponent extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -20,20 +20,20 @@ export default class PlayerCardComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { selectPlayerCard, isPlayerCardSelected, defaultAvtarUrl } = this.props;
-        let { player } = this.props;
-        player = player ? player : {};
+        const { selectRoleCard, isRoleCardSelected, defaultAvtarUrl } = this.props;
+        let { role } = this.props;
+        role = role ? role : {};
         const defaultAvtar = require('../../resources/' + defaultAvtarUrl);
         const element =
-            <Card className='player-card' style={isPlayerCardSelected ? { borderColor: 'rgb(0,136,237)', borderWidth: 4 + 'px' } : {}}
-                onClick={() => selectPlayerCard(player.id)}>
-                <img className='player-card-avtar' src={defaultAvtar} style={{width: 160 + 'px', height: 140 + 'px'}} />
+            <Card className='role-card' style={isRoleCardSelected ? { borderColor: 'rgb(0,136,237)', borderWidth: 4 + 'px' } : {}}
+                onClick={() => selectRoleCard(role.id)}>
+                <img className='role-card-avtar' src={defaultAvtar} style={{width: 160 + 'px', height: 140 + 'px'}} />
                 <div style={{
                     marginTop: 24 + 'px',
                     fontSize: 16 + 'px'
                 }}>
-                    姓名: {player.name}<br />
-                    职业: {player.profession.getName()}<br />
+                    姓名: {role.name}<br />
+                    职业: {role.profession.getName()}<br />
                 </div>
                 <Button
                     style={{ position: 'absolute', right: 16 + 'px', bottom: 16 + 'px' }}

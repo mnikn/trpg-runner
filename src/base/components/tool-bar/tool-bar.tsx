@@ -31,10 +31,10 @@ export default class ToolBarComponent extends React.Component<Props> {
     // initButtons(): void {
     //     if (location.hash === '#/coc/home') {
     //         this._toolBarService.clearToolBarButtons();
-    //     } else if (location.hash === '#/coc/player-card/list') {
+    //     } else if (location.hash === '#/coc/role-card/list') {
     //         const toolbarButtons: MenuButton[] = [
-    //             new MenuButton('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
-    //             new MenuButton('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
+    //             new MenuButton('coc.role.create', 'plus', () => CommandMessager.execute('coc.role.create')),
+    //             new MenuButton('coc.role.delete', 'minus', () => CommandMessager.execute('coc.role.delete'), true)
     //         ];
     //         this._toolBarService.setToolBarButtons(toolbarButtons);
     //     }

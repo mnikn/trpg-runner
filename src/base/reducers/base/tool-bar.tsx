@@ -11,20 +11,20 @@ function initHomeButtons(state: any) {
     });
 }
 
-function initPlayerCardListButtons(state: any) {
+function initRoleCardListButtons(state: any) {
     let buttons = [
-        new ButtonModel('coc.player.create', 'plus', () => CommandMessager.execute('coc.player.create')),
-        new ButtonModel('coc.player.delete', 'minus', () => CommandMessager.execute('coc.player.delete'), true)
+        new ButtonModel('coc.role.create', 'plus', () => CommandMessager.execute('coc.role.create')),
+        new ButtonModel('coc.role.delete', 'minus', () => CommandMessager.execute('coc.role.delete'), true)
     ];
     return Object.assign({}, state, {
         toolBarButtons: buttons
     });
 }
 
-function updateButtonOnSelecting(state: any, selectedPlayers: number[]) {
+function updateButtonOnSelecting(state: any, selectedRoles: number[]) {
     let buttons = state.toolBarButtons.map((button: ButtonModel) => {
-        if (button.id === 'coc.player.delete') {
-            button.isDisabled = selectedPlayers.length === 0;
+        if (button.id === 'coc.role.delete') {
+            button.isDisabled = selectedRoles.length === 0;
         }
         return button;
     });
@@ -38,13 +38,15 @@ export default function toolBar(state: any = { toolBarButtons: [] }, action: Any
     switch (action.type) {
         case ACTION_INIT_TOOLBAR_BUTTONS:
             const { navigateLocation } = action;
-            if (navigateLocation === NAVIGATE_LOCATION.COC_HOME) {
+            if (navigateLocation === NAVIGATE_LOCATION.COC_HOME ||
+                navigateLocation === NAVIGATE_LOCATION.DND_HOME) {
                 return initHomeButtons(state);
-            } else if (navigateLocation === NAVIGATE_LOCATION.COC_PLAYER_CARD) {
-                return initPlayerCardListButtons(state);
+            } else if (navigateLocation === NAVIGATE_LOCATION.COC_ROLE_CARD ||
+                navigateLocation === NAVIGATE_LOCATION.DND_ROLE_CARD) {
+                return initRoleCardListButtons(state);
             }
         case ACTION_COC_UPDATE_BUTTON_ON_SELECTING:
-            return updateButtonOnSelecting(state, action.selectedPlayers);
+            return updateButtonOnSelecting(state, action.selectedRoles);
     }
     return state;
 }

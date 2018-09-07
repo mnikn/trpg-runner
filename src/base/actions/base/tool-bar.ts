@@ -12,12 +12,12 @@ export function createInitToolBarButtonsAction(navigateLocation: string): IIinit
 }
 
 export interface IUpdateButtonOnSelectingAction extends AnyAction {
-    selectedPlayers: number[]
+    selectedRoles: number[]
 }
 export const ACTION_COC_UPDATE_BUTTON_ON_SELECTING = 'COC_UPDATE_BUTTON_ON_SELECTING';
-export function createUpdateButtonOnSelectingAction(selectedPlayers: number[]): IUpdateButtonOnSelectingAction {
+export function createUpdateButtonOnSelectingAction(selectedRoles: number[]): IUpdateButtonOnSelectingAction {
     return {
         type: ACTION_COC_UPDATE_BUTTON_ON_SELECTING,
-        selectedPlayers: selectedPlayers
+        selectedRoles: selectedRoles
     }
 }

@@ -22,7 +22,7 @@ export default class NavgiateBarComponent extends React.Component<Props> {
             selectAppMode } = this.props;
 
         const homeNavigateLocation = appMode === COC ? NAVIGATE_LOCATION.COC_HOME : NAVIGATE_LOCATION.DND_HOME;
-        const playerCardNavigateLocation = appMode === COC ? NAVIGATE_LOCATION.COC_PLAYER_CARD : NAVIGATE_LOCATION.DND_PLAYER_CARD;
+        const roleCardNavigateLocation = appMode === COC ? NAVIGATE_LOCATION.COC_ROLE_CARD : NAVIGATE_LOCATION.DND_ROLE_CARD;
         let selectedAppMode = appMode;
         const element =
             <React.Fragment>
@@ -33,7 +33,7 @@ export default class NavgiateBarComponent extends React.Component<Props> {
                 </NavigateContainer>
                 <Menu mode="vertical" theme='light'>
                     <Menu.Item>
-                        <NavigateContainer navigateLocation={playerCardNavigateLocation}>
+                        <NavigateContainer navigateLocation={roleCardNavigateLocation}>
                             <Icon type='user' />
                             <span>人物卡</span>
                         </NavigateContainer>

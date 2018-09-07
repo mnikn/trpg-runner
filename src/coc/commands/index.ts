@@ -1,2 +1,2 @@
-import './create-player';
-import './delete-player';
+import './create-role';
+import './delete-role';

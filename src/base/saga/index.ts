@@ -1,10 +1,10 @@
-import { ACTION_DND_GET_PLAYERS_REQUEST } from './../actions/dnd/player-card-list';
+import { ACTION_DND_GET_ROLES_REQUEST } from '../actions/dnd/role-card-list';
 import { takeLatest } from 'redux-saga/effects';
-import cocGetPlayers from './coc/get-players';
-import dndGetPlayers from './dnd/ger-players';
-import { ACTION_COC_GET_PLAYERS_REQUEST } from '../actions/coc/player-card-list';
+import cocGetRoles from './coc/get-roles';
+import dndGetRoles from './dnd/ger-roles';
+import { ACTION_COC_GET_ROLES_REQUEST } from '../actions/coc/role-card-list';
 
 export default function* rootSaga() {
-    yield takeLatest(ACTION_COC_GET_PLAYERS_REQUEST, cocGetPlayers);
-    yield takeLatest(ACTION_DND_GET_PLAYERS_REQUEST, dndGetPlayers);
+    yield takeLatest(ACTION_COC_GET_ROLES_REQUEST, cocGetRoles);
+    yield takeLatest(ACTION_DND_GET_ROLES_REQUEST, dndGetRoles);
 }

@@ -1,28 +1,28 @@
 import { Police } from '../../models/profession';
-import Player from "../../models/player";
+import Role from "../../models/role";
 import { Sex } from "../../../base/models/sex";
 import BaseService from '../../../platform/services/base-service';
 import Service from '../../../platform/decorators/service';
 
 @Service()
-export default class PlayerDataService extends BaseService {
+export default class RoleDataService extends BaseService {
     private _selected: Set<number> = new Set<number>();
 
     private _onSelectionChanged: Array<(selectedItems: number[]) => void> = [];
 
-    getPlayers(): Promise<Player[]> {
-        return new Promise<Player[]>(resolve => {
-            let players: Player[] = [];
+    getRoles(): Promise<Role[]> {
+        return new Promise<Role[]>(resolve => {
+            let roles: Role[] = [];
             for (let i = 0; i < 10; ++i) {
-                let player = new Player();
-                player.id = i;
-                player.name = 'sans';
-                player.sex = Sex.MALE;
-                player.avtarUrl = '../resources/default-player-avtar.jpg';
-                player.profession = new Police();
-                players.push(player);
+                let role = new Role();
+                role.id = i;
+                role.name = 'sans';
+                role.sex = Sex.MALE;
+                role.avtarUrl = '../resources/default-role-avtar.jpg';
+                role.profession = new Police();
+                roles.push(role);
             }
-            resolve(players);
+            resolve(roles);
         });
     }
 

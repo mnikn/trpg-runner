@@ -1,4 +1,4 @@
-.player-card {
+.role-card {
     display: flex;
     flex-direction: column;
     background: gray;
@@ -8,11 +8,11 @@
     min-height: 310px;
 }
 
-.player-card:hover {
+.role-card:hover {
     cursor: pointer;
 }
 
-.player-card-avtar {
+.role-card-avtar {
     width: 100%;
     height: auto;
     max-width: 160px;
