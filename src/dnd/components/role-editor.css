@@ -15,3 +15,8 @@
     border-color: gainsboro;
     height: 250px;
 }
+
+.skill-card {
+    border-radius: 16px;
+    border-color: gainsboro;
+}

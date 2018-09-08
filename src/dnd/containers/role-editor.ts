@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { IRootState } from "../../base/reducers";
 import DndRoleEditorComponent from '../components/role-editor';
-import { createDndChangeAbilityAction } from '../../base/actions/dnd/dnd';
+import { createDndChangeAbilityAction, createDndAssignSkillPointAction } from '../../base/actions/dnd/dnd';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: IRootState) => {
@@ -13,6 +13,9 @@ const mapStateToProps = (state: IRootState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     onAbilityChange: (abilityType: string, value: number) => {
         dispatch(createDndChangeAbilityAction(abilityType, value));
+    },
+    assignSkillPoint: (skillId: number, assignPoint: number) => {
+        dispatch(createDndAssignSkillPointAction(skillId, assignPoint));
     }
 });
 

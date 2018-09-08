@@ -1,6 +1,6 @@
 import *  as React from 'react';
 import Role from '../models/role';
-import { Card, Form, Input, Select, Row, Col, InputNumber, Button } from 'antd';
+import { Card, Form, Input, Select, Row, Col, InputNumber, Button, Table } from 'antd';
 import './role-editor.css';
 import { Cleric, Fighter } from '../models/profession';
 import { Male, Female } from '../../base/models/sex';
@@ -10,15 +10,18 @@ import { HeironeousBelief, MoradinBelief } from '../models/belief';
 import { Human, Drawf } from '../models/race';
 import { LawfulGood, LawfulNeutral, LawfulEvil } from '../models/alignment';
 import CalculateService from '../../coc/services/calculate-service';
+import { SKILLS } from '../models/skill';
+import { Wisdom, Charisma, Intelligence, Constitution, Dexterity, Strength } from '../models/ability';
 
 interface Props {
     role: Role,
     onAbilityChange: (abilityType: string, value: number) => void;
+    assignSkillPoint: (skillId: number, assignPoint: number) => void
 }
 
 export default class DndRoleEditorComponent extends React.Component<Props> {
     render() {
-        const { role, onAbilityChange } = this.props;
+        const { role, onAbilityChange, assignSkillPoint } = this.props;
         const formItemLayout = {
         };
 
@@ -89,32 +92,32 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
             </Card>;
         const abilityCard =
             <Card className='ability-card' title='人物属性'>
-                <Form.Item {...formItemLayout} label="力量">
+                <Form.Item {...formItemLayout} label={Strength.getLabel()}>
                     <InputNumber min={0} max={50}
                         defaultValue={role.abilities.str.number}
                         onChange={(value: number) => onAbilityChange('str', value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label="敏捷">
+                <Form.Item {...formItemLayout} label={Dexterity.getLabel()}>
                     <InputNumber min={0} max={50}
                         defaultValue={role.abilities.dex.number}
                         onChange={(value: number) => onAbilityChange('dex', value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label="体质">
+                <Form.Item {...formItemLayout} label={Constitution.getLabel()}>
                     <InputNumber min={0} max={50}
                         defaultValue={role.abilities.con.number}
                         onChange={(value: number) => onAbilityChange('con', value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label="智力">
+                <Form.Item {...formItemLayout} label={Intelligence.getLabel()}>
                     <InputNumber min={0} max={50}
                         defaultValue={role.abilities.int.number}
                         onChange={(value: number) => onAbilityChange('int', value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label="感知">
+                <Form.Item {...formItemLayout} label={Wisdom.getLabel()}>
                     <InputNumber min={0} max={50}
                         defaultValue={role.abilities.wid.number}
                         onChange={(value: number) => onAbilityChange('wid', value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label="魅力">
+                <Form.Item {...formItemLayout} label={Charisma.getLabel()}>
                     <InputNumber min={0} max={50}
                         defaultValue={role.abilities.cha.number}
                         onChange={(value: number) => onAbilityChange('cha', value)} />
@@ -133,12 +136,50 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <InputNumber value={CalculateService.calculateAttackOrder(role)} disabled={true} />
                 </Form.Item>
             </Card>;
+        const skillCard =
+            <Card className='skill-card' title='人物技能'>
+                <Form.Item {...formItemLayout} label="剩余技能点">
+                    <Input value={CalculateService.calculateRemainSkillPoint(role)} disabled={true} />
+                </Form.Item>
+                <Table columns={[{
+                    title: '技能名称',
+                    dataIndex: 'label',
+                    key: 'label'
+                }, {
+                    title: '关键属性',
+                    dataIndex: 'keyAbility',
+                    key: 'keyAbility'
+                }, {
+                    title: '花费的技能点',
+                    dataIndex: 'usedSkillPoint',
+                    render: (text, record) => (
+                        <InputNumber 
+                            defaultValue={record.assignedSkillPoint}
+                            max={CalculateService.calculateRemainSkillPoint(role) === 0 ? record.assignedSkillPoint : 100}
+                            min={0}
+                            onChange={(value: number) => assignSkillPoint(record.key, value)} />
+                    )
+                }]}
+                    dataSource={
+                        Object.keys(SKILLS).map(key => {
+                            let skills: any = SKILLS;
+                            let skill = skills[key];
+                            return {
+                                key: skill.id,
+                                label: skill.label,
+                                keyAbility: skill.keyAbility.getLabel(),
+                                assignedSkillPoint: role.skills.find(roleSkill => roleSkill.getId() === skill.id).assignedPoint
+                            }
+                        })
+                    } />
+            </Card>
         const element =
             <Form layout='inline'>
                 <Row type="flex" justify="start" gutter={16}>
                     <Col span={12}>{basicsInfoCard} </Col>
                     <Col span={12}>{introductionCard}</Col>
                     <Col style={{ marginTop: 16 + 'px' }} span={24}>{abilityCard}</Col>
+                    <Col style={{ marginTop: 16 + 'px' }} span={24}>{skillCard}</Col>
                 </Row>
             </Form>;
         return element;

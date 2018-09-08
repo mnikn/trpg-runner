@@ -1,6 +1,6 @@
 import { CommonLanguage } from './../../../dnd/models/language';
 import { HeironeousBelief } from './../../../dnd/models/belief';
-import { ACTION_DND_EDIT_ROLE } from './../../actions/dnd/dnd';
+import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT } from './../../actions/dnd/dnd';
 import "reflect-metadata";
 import { AnyAction } from 'redux';
 import Role from "../../../dnd/models/role";
@@ -41,9 +41,17 @@ function handleEditRole(state: IDndState, roleId: number) {
     });
 }
 
-function handleChangeAbility(state: IDndState, abilityType: string, value: number, editRole: Role) {
-    let newEditRole = Object.assign({}, editRole);
+function handleChangeAbility(state: IDndState, abilityType: string, value: number) {
+    let newEditRole = Object.assign({}, state.editRole);
     Reflect.get(newEditRole.abilities, abilityType).number = value;
+    return Object.assign({}, state, {
+        editRole: newEditRole
+    });
+}
+
+function handleAssignSkillPoint(state: IDndState, skillId: number, assignPoint: number): IDndState {
+    let newEditRole = Object.assign({}, state.editRole);
+    newEditRole.skills.find(skill => skill.getId() === skillId).assignedPoint = assignPoint;    
     return Object.assign({}, state, {
         editRole: newEditRole
     });
@@ -55,9 +63,11 @@ export default function dnd(state: IDndState = {
     action: AnyAction) {
     switch (action.type) {
         case ACTION_DND_CHANGE_ABILITY:
-            return handleChangeAbility(state, action.abilityType, action.value, state.editRole);
+            return handleChangeAbility(state, action.abilityType, action.value);
         case ACTION_DND_EDIT_ROLE:
             return handleEditRole(state, action.roleId);
+        case ACTION_DND_ASSIGN_SKILL_POINT:
+            return handleAssignSkillPoint(state, action.skillId, action.assignPoint)
 
     }
     return state;

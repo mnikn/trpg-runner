@@ -16,3 +16,12 @@ export function createDndChangeAbilityAction(abilityType: string, value: number)
         value: value
     }
 }
+
+export const ACTION_DND_ASSIGN_SKILL_POINT = 'DND_ASSIGN_SKILL_POINT';
+export function createDndAssignSkillPointAction(skillId: number, assignPoint: number): AnyAction {
+    return {
+        type: ACTION_DND_ASSIGN_SKILL_POINT,
+        skillId: skillId,
+        assignPoint: assignPoint
+    }
+}

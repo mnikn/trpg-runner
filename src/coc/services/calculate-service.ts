@@ -1,4 +1,5 @@
 import Role from "../../dnd/models/role";
+import { Skill } from "../../dnd/models/skill";
 
 export default class CalculateService {
     public static calculateHp(role: Role): number {
@@ -15,5 +16,15 @@ export default class CalculateService {
 
     public static calculateAttackRoll(role: Role): number {
         return 0 + role.abilities.dex.getModifier();
+    }
+
+    public static calculateRemainSkillPoint(role: Role): number {
+        let total =  20 + role.abilities.int.getModifier();
+        let assignedPoint = role.skills.reduce<number>((result, current) => result + current.assignedPoint, 0);
+        return total - assignedPoint;
+    }
+
+    public static calculateTotalSkillPoint(skill: Skill): number {
+        return skill.initialPoint + skill.assignedPoint;
     }
 }
