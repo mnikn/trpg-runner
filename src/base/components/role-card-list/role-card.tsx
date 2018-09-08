@@ -37,13 +37,8 @@ export default class RoleCardComponent extends React.Component<Props, State> {
                     fontSize: 16 + 'px'
                 }}>
                     姓名: {role.name}<br />
-                    职业: {role.profession.getName()}<br />
+                    职业: {role.profession.getLabel()}<br />
                 </div>
-                {/* <NavigateContainer
-                    navigateLocation={navigateEditorLocation}
-                    param={role.id}
-                    onClick={this.handleOnEditButtonClick}>
-                </NavigateContainer> */}
 
                 <Button
                     style={{ position: 'absolute', right: 16 + 'px', bottom: 16 + 'px' }}

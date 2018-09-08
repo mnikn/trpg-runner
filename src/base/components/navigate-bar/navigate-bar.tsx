@@ -69,7 +69,7 @@ export default class NavgiateBarComponent extends React.Component<Props> {
                                 style={{ width: 120 }}
                                 onChange={(mode: string) => { selectedAppMode = mode }}>
                                 <Option value={DND}>DND</Option>
-                                <Option value={COC}>COC</Option>
+                                {/* <Option value={COC}>COC</Option> */}
                             </Select>
                         </div>
                     </Modal>

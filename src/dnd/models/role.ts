@@ -1,9 +1,14 @@
-import { Sex } from './../../base/models/sex';
-import { Unknow, Profession } from './profession';
-export default class Role {
-    id: number;
-    name: string;
-    sex: Sex;
-    avtarUrl: string;
-    profession: Profession = new Unknow();
+import BaseRole from '../../base/models/base-role';
+import { Shape } from './shape';
+import { Language } from './language';
+import { Belief } from './belief';
+import { Race } from './race';
+import { Alignment } from './alignment';
+
+export default class Role extends BaseRole {
+    race: Race;
+    alignment: Alignment;
+    shape: Shape;
+    languages: Language[];
+    belief: Belief;
 }

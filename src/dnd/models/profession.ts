@@ -1,22 +1,31 @@
-export abstract class Profession {
-    abstract getId(): number;
-    abstract getName(): string;
+import BaseProfession from "../../base/models/base-profession";
+
+export class Cleric extends BaseProfession {
+    public static getId(): number {
+        return 3;
+    }
+    public static getLabel(): string {
+        return '牧师';
+    }
+    getId(): number {
+        return Cleric.getId();
+    }
+    getLabel(): string {
+        return Cleric.getLabel();
+    }
 }
 
-export class Unknow extends Profession {
-    getId(): number {
-        return -1;
+export class Fighter extends BaseProfession {
+    public static getId(): number {
+        return 5;
     }
-    getName(): string {
-        return '未知';
-    }
-}
-
-export class Warrior extends Profession {
-    getId(): number {
-        return 1;
-    }
-    getName(): string {
+    public static getLabel(): string {
         return '战士';
+    }
+    getId(): number {
+        return Fighter.getId();
+    }
+    getLabel(): string {
+        return Fighter.getLabel();
     }
 }

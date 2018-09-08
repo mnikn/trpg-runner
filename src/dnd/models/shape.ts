@@ -1,35 +1,34 @@
-
-export abstract class Sex {
+export abstract class Shape {
     abstract getId(): number;
     abstract getLabel(): string;
 }
 
-export class Male extends Sex {
+export class SmallShape extends Shape {
     public static getId(): number {
         return 1;
     }
     public static getLabel(): string {
-        return '男';
+        return '小型';
     }
     getId(): number {
-        return Male.getId();
+        return SmallShape.getId();
     }
     getLabel(): string {
-        return Male.getLabel();
+        return SmallShape.getLabel();
     }
 }
 
-export class Female extends Sex {
+export class MediumShape extends Shape {
     public static getId(): number {
         return 2;
     }
     public static getLabel(): string {
-        return '女';
+        return '中型';
     }
     getId(): number {
-        return Female.getId();
+        return MediumShape.getId();
     }
     getLabel(): string {
-        return Female.getLabel();
+        return MediumShape.getLabel();
     }
 }

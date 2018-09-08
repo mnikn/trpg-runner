@@ -1,6 +1,6 @@
+import { Male } from './../../../base/models/sex';
 import { Police } from '../../models/profession';
 import Role from "../../models/role";
-import { Sex } from "../../../base/models/sex";
 import BaseService from '../../../platform/services/base-service';
 import Service from '../../../platform/decorators/service';
 
@@ -17,7 +17,7 @@ export default class RoleDataService extends BaseService {
                 let role = new Role();
                 role.id = i;
                 role.name = 'sans';
-                role.sex = Sex.MALE;
+                role.sex = new Male();
                 role.avtarUrl = '../resources/default-role-avtar.jpg';
                 role.profession = new Police();
                 roles.push(role);

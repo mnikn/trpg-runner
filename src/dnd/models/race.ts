@@ -1,35 +1,34 @@
-
-export abstract class Sex {
+export abstract class Race {
     abstract getId(): number;
     abstract getLabel(): string;
 }
 
-export class Male extends Sex {
+export class Human extends Race {
     public static getId(): number {
         return 1;
     }
     public static getLabel(): string {
-        return '男';
+        return '人类';
     }
     getId(): number {
-        return Male.getId();
+        return Human.getId();
     }
     getLabel(): string {
-        return Male.getLabel();
+        return Human.getLabel();
     }
 }
 
-export class Female extends Sex {
+export class Drawf extends Race {
     public static getId(): number {
         return 2;
     }
     public static getLabel(): string {
-        return '女';
+        return '侏儒';
     }
     getId(): number {
-        return Female.getId();
+        return Drawf.getId();
     }
     getLabel(): string {
-        return Female.getLabel();
+        return Drawf.getLabel();
     }
 }

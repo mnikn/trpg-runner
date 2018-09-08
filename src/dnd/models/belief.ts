@@ -1,35 +1,34 @@
-
-export abstract class Sex {
+export abstract class Belief {
     abstract getId(): number;
     abstract getLabel(): string;
 }
 
-export class Male extends Sex {
+export class HeironeousBelief extends Belief {
     public static getId(): number {
         return 1;
     }
     public static getLabel(): string {
-        return '男';
+        return '勇者之神-海若尼斯';
     }
     getId(): number {
-        return Male.getId();
+        return HeironeousBelief.getId();
     }
     getLabel(): string {
-        return Male.getLabel();
+        return HeironeousBelief.getLabel();
     }
 }
 
-export class Female extends Sex {
+export class MoradinBelief extends Belief {
     public static getId(): number {
         return 2;
     }
     public static getLabel(): string {
-        return '女';
+        return '矮人之神-摩拉丁';
     }
     getId(): number {
-        return Female.getId();
+        return MoradinBelief.getId();
     }
     getLabel(): string {
-        return Female.getLabel();
+        return MoradinBelief.getLabel();
     }
 }
