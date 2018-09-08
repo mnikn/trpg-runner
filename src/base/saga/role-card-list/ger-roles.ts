@@ -1,10 +1,13 @@
-import { ACTION_DND_GET_ROLES_SUCCESS } from '../../actions/dnd/role-card-list';
+import { ACTION_DND_GET_ROLES_SUCCESS, ACTION_COC_GET_ROLES_SUCCESS } from './../../actions/base/role-card-list';
 import { call, put } from 'redux-saga/effects';
 import Role from '../../../dnd/models/role';
 import { Sex } from '../../models/sex';
 import { Warrior } from '../../../dnd/models/profession';
+import RoleDataService from '../../../coc/components/role-card/role-data-service';
+import { Injector } from '../../../platform/decorators/inject';
 
-export default function* getRoles() {
+
+export function* getDndRoles() {
     let promise = new Promise<Role[]>((resolve => {
         let roles: Role[] = [];
         for (let i = 0; i < 10; ++i) {
@@ -17,6 +20,12 @@ export default function* getRoles() {
         }
         resolve(roles);
     }));
-    const data = yield call(() => promise); 
+    const data = yield call(() => promise);
     yield put({ type: ACTION_DND_GET_ROLES_SUCCESS, data });
+}
+
+export function* getCocRoles() {
+    let dataService: RoleDataService = Injector.get(RoleDataService);
+    const data = yield call(dataService.getRoles);
+    yield put({ type: ACTION_COC_GET_ROLES_SUCCESS, data });
 }

@@ -4,19 +4,19 @@ import { BrowserRouter, HashRouter } from 'react-router-dom';
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { NAVIGATE_LOCATION_TABLE } from './src/base/constants/navigate';
 import { root } from './src/base/reducers';
 import rootSaga from './src/base/saga';
 import AppComponent from './src/base/components/app';
-import { createInitToolBarButtonsAction } from './src/base/actions/base/tool-bar';
+import { createSelectAppModeAction } from './src/base/actions/base/navigate-bar';
+import { DND } from './src/base/constants/app-mode';
 
 export const saga = createSagaMiddleware();
 export const appStore = createStore(root, applyMiddleware(saga));
 saga.run(rootSaga);
 
-const nowLocation = window.location.hash.substring(1);
-const navigateLocation = NAVIGATE_LOCATION_TABLE.get(nowLocation);
-appStore.dispatch(createInitToolBarButtonsAction(navigateLocation));
+// const nowLocation = window.location.hash.substring(1);
+// const navigateLocation = NAVIGATE_LOCATION_TABLE.get(nowLocation);
+appStore.dispatch(createSelectAppModeAction(DND));
 
 const appElement =
     <HashRouter>

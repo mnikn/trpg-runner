@@ -1,21 +1,16 @@
-import { dnd, IDndState } from './dnd/role-card-list';
 import { combineReducers } from "redux";
-import { ICocState, coc } from './coc/role-card-list';
-import toolBar from './base/tool-bar';
 import app, { IAppState } from './base/app';
 import navigateBar, { INavigateBarState } from './base/navigate-bar';
+import roleCardList, { IRoleCardListState } from "./base/role-card-list";
 
 export interface IRootState {
     app: IAppState,
-    dnd: IDndState,
-    coc: ICocState,
+    roleCardList: IRoleCardListState
     navigateBar: INavigateBarState
-} 
+}
 
 export const root = combineReducers({
     app,
-    coc,
-    dnd,
-    navigateBar,
-    toolBar
+    roleCardList,
+    navigateBar
 });

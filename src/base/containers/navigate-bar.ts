@@ -7,7 +7,7 @@ import { IRootState } from "../reducers";
 import { appStore } from "../../..";
 import { DND } from "../constants/app-mode";
 import { NAVIGATE_LOCATION } from "../constants/navigate";
-import { createInitToolBarButtonsAction } from "../actions/base/tool-bar";
+import { createRequestRolesAction } from "../actions/base/role-card-list";
 
 const mapStateToProps = (state: IRootState) => ({
     isSettingsModalVisable: state.navigateBar.isSettingsModalVisable,
@@ -28,13 +28,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
         const {appMode} = appStore.getState().app;
         const homeLocation = appMode === DND ? NAVIGATE_LOCATION.DND_HOME : NAVIGATE_LOCATION.COC_HOME;
         dispatch(createNavigateAction(homeLocation));
-        dispatch(createInitToolBarButtonsAction(homeLocation));
     },
     navigateToRoleCard: () => {
         const {appMode} = appStore.getState().app;
         const roleCardLocation = appMode === DND ? NAVIGATE_LOCATION.DND_ROLE_CARD : NAVIGATE_LOCATION.COC_ROLE_CARD;
         dispatch(createNavigateAction(roleCardLocation));
-        dispatch(createInitToolBarButtonsAction(roleCardLocation));
+        dispatch(createRequestRolesAction(appMode));
     }
 });
 

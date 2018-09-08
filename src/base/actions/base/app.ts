@@ -11,3 +11,14 @@ export function createNavigateAction(navigateLocation: string, param?: string): 
         param: param
     }
 }
+
+export interface IUpdateButtonOnSelectingAction extends AnyAction {
+    selectedRoles: number[]
+}
+export const ACTION_UPDATE_BUTTON_ON_SELECTING = 'UPDATE_BUTTON_ON_SELECTING';
+export function createUpdateButtonOnSelectingAction(selectedRoles: number[]): IUpdateButtonOnSelectingAction {
+    return {
+        type: ACTION_UPDATE_BUTTON_ON_SELECTING,
+        selectedRoles: selectedRoles
+    }
+}
