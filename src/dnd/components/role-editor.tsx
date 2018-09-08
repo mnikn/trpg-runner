@@ -1,6 +1,6 @@
 import *  as React from 'react';
 import Role from '../models/role';
-import { Card, Form, Input, Select, Row, Col } from 'antd';
+import { Card, Form, Input, Select, Row, Col, InputNumber, Button } from 'antd';
 import './role-editor.css';
 import { Cleric, Fighter } from '../models/profession';
 import { Male, Female } from '../../base/models/sex';
@@ -9,29 +9,16 @@ import { CommonLanguage } from '../models/language';
 import { HeironeousBelief, MoradinBelief } from '../models/belief';
 import { Human, Drawf } from '../models/race';
 import { LawfulGood, LawfulNeutral, LawfulEvil } from '../models/alignment';
+import CalculateService from '../../coc/services/calculate-service';
 
 interface Props {
-    role: Role
+    role: Role,
+    onAbilityChange: (abilityType: string, value: number) => void;
 }
 
-export default class RoleEditorComponent extends React.Component<Props> {
+export default class DndRoleEditorComponent extends React.Component<Props> {
     render() {
-        let { role } = this.props;
-        role = new Role();
-        role.name = '莱昂';
-        role.age = 21;
-        role.race = new Human();
-        role.profession = new Cleric();
-        role.shape = new MediumShape();
-        role.belief = new HeironeousBelief();
-        role.sex = new Male();
-        role.alignment = new LawfulGood();
-
-        role.languages = [];
-        role.languages[0] = new CommonLanguage();
-
-        role.introduction = '莱昂出生在费伦大陆中部，自小无父无母，在孤儿院长大，由于孤儿的生活经历，莱昂擅长观察别人的脸色。在 6 岁的时候，被一名迪奈尔牧师所收养，开始住进修道院。在修道院的生活简单而充实，莱昂跟随养父信仰迪奈尔，追求文学的奥秘。这次听闻路斯坎有“最终文卷”的传闻，决心前往探险。\n\n莱昂生长相丑陋，一头棕发、穿普通的旅行者套装，左腰上有一把小匕首，背上的背包里面放着的是一般的常用杂物和武器。';
-
+        const { role, onAbilityChange } = this.props;
         const formItemLayout = {
         };
 
@@ -95,16 +82,63 @@ export default class RoleEditorComponent extends React.Component<Props> {
         const introductionCard =
             <Card className='introduction-card' title='人物简介'>
                 <Input.TextArea
-                style={{borderColor: 'white', resize: 'none'}}
+                    style={{ borderColor: 'white', resize: 'none' }}
                     placeholder="请输入人物简介"
                     autosize={{ minRows: 2, maxRows: 6 }}
                     defaultValue={role.introduction} />
+            </Card>;
+        const abilityCard =
+            <Card className='ability-card' title='人物属性'>
+                <Form.Item {...formItemLayout} label="力量">
+                    <InputNumber min={0} max={50}
+                        defaultValue={role.abilities.str.number}
+                        onChange={(value: number) => onAbilityChange('str', value)} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="敏捷">
+                    <InputNumber min={0} max={50}
+                        defaultValue={role.abilities.dex.number}
+                        onChange={(value: number) => onAbilityChange('dex', value)} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="体质">
+                    <InputNumber min={0} max={50}
+                        defaultValue={role.abilities.con.number}
+                        onChange={(value: number) => onAbilityChange('con', value)} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="智力">
+                    <InputNumber min={0} max={50}
+                        defaultValue={role.abilities.int.number}
+                        onChange={(value: number) => onAbilityChange('int', value)} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="感知">
+                    <InputNumber min={0} max={50}
+                        defaultValue={role.abilities.wid.number}
+                        onChange={(value: number) => onAbilityChange('wid', value)} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="魅力">
+                    <InputNumber min={0} max={50}
+                        defaultValue={role.abilities.cha.number}
+                        onChange={(value: number) => onAbilityChange('cha', value)} />
+                </Form.Item>
+                <br />
+
+                <Form.Item {...formItemLayout} label="生命值">
+                    <InputNumber
+                        value={CalculateService.calculateHp(role)}
+                        disabled={true} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="防御等级">
+                    <InputNumber value={CalculateService.calculateArrorClass(role)} disabled={true} />
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="先攻调整">
+                    <InputNumber value={CalculateService.calculateAttackOrder(role)} disabled={true} />
+                </Form.Item>
             </Card>;
         const element =
             <Form layout='inline'>
                 <Row type="flex" justify="start" gutter={16}>
                     <Col span={12}>{basicsInfoCard} </Col>
                     <Col span={12}>{introductionCard}</Col>
+                    <Col style={{ marginTop: 16 + 'px' }} span={24}>{abilityCard}</Col>
                 </Row>
             </Form>;
         return element;

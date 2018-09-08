@@ -6,8 +6,8 @@ import 'antd/dist/antd.min.css'
 import './app.css';
 import { ToolBarContianer } from '../containers/tool-bar';
 import { NavigateBarContainer } from '../containers/navigate-bar';
-import DndRoleEditorComponent from '../../dnd/components/role-editor';
 import { RoleCardListContainer } from '../containers/role-card-list';
+import { DndRoleEditorContainer } from '../../dnd/containers/role-editor';
 
 interface Props {
 }
@@ -28,7 +28,7 @@ export default class AppComponent extends React.Component<Props> {
                         style={{ padding: 12 + 'px' }}>
                         <Switch>
                             <Route path='/:mode/role-card/list' component={RoleCardListContainer} />
-                            <Route path='/:mode/role-card/edit/:id' component={DndRoleEditorComponent} />
+                            <Route path='/:mode/role-card/edit/:id' component={DndRoleEditorContainer} />
                         </Switch>
                     </Content>
                 </Layout>
