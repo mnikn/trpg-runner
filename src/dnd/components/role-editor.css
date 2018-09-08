@@ -1,5 +1,11 @@
 .basics-info-card {
-    width: 600px;
     border-radius: 16px;
     border-color: gainsboro;
+    height: 250px;
+}
+
+.introduction-card {
+    border-radius: 16px;
+    border-color: gainsboro;
+    height: 250px;
 }

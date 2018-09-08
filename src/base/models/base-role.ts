@@ -8,4 +8,5 @@ export default abstract class BaseRole {
     sex: Sex;
     avtarUrl: string;
     profession: BaseProfession;
+    introduction: string;
 }
