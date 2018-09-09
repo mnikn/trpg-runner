@@ -39,9 +39,13 @@ module.exports = {
             'react'
         ]
     },
+    target: 'node',
+    externals: {
+        fs: "commonjs fs",
+        path: "commonjs path"
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-
     ],
     devServer: {
         // contentBase: './',

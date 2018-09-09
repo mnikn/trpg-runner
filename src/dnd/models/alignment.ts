@@ -1,52 +1,20 @@
-export abstract class Alignment {
-    abstract getId(): number;
-    abstract getLabel(): string;
+interface Alignment {
+    id: number;
+    label: string;
 }
 
-export abstract class Lawful extends Alignment {
-}
-
-export class LawfulGood extends Lawful {
-    public static getId(): number {
-        return 1;
-    }
-    public static getLabel(): string {
-        return '守序善良';
-    }
-    getId(): number {
-        return LawfulGood.getId();
-    }
-    getLabel(): string {
-        return LawfulGood.getLabel();
-    }
-}
-
-export class LawfulNeutral extends Lawful {
-    public static getId(): number {
-        return 2;
-    }
-    public static getLabel(): string {
-        return '守序中立';
-    }
-    getId(): number {
-        return LawfulNeutral.getId();
-    }
-    getLabel(): string {
-        return LawfulNeutral.getLabel();
-    }
-}
-
-export class LawfulEvil extends Lawful {
-    public static getId(): number {
-        return 3;
-    }
-    public static getLabel(): string {
-        return '守序邪恶';
-    }
-    getId(): number {
-        return LawfulEvil.getId();
-    }
-    getLabel(): string {
-        return LawfulEvil.getLabel();
+export class AlignmentInfo {
+    public static readonly LAWFUL_GOOD: Alignment = {id: 1, label: '守序善良'};
+    public static readonly LAWFUL_NEUTRAL: Alignment = {id: 2, label: '守序中立'};
+    public static readonly LAWFUL_EVIL: Alignment = {id: 3, label: '守序邪恶'};
+    
+    private static readonly _alignmentIds: Map<number, Alignment> = new Map<number, Alignment>([
+        [AlignmentInfo.LAWFUL_GOOD.id, AlignmentInfo.LAWFUL_GOOD],
+        [AlignmentInfo.LAWFUL_NEUTRAL.id, AlignmentInfo.LAWFUL_NEUTRAL],
+        [AlignmentInfo.LAWFUL_EVIL.id, AlignmentInfo.LAWFUL_EVIL]
+    ]);
+    
+    public static getRace(id: number): Alignment {
+        return AlignmentInfo._alignmentIds.get(id);
     }
 }

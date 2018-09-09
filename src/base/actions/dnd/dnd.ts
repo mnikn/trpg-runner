@@ -9,7 +9,7 @@ export function createDndEditRoleAction(roleId: number): AnyAction {
 }
 
 export const ACTION_DND_CHANGE_ABILITY = 'DND_CHANGE_ABILITY';
-export function createDndChangeAbilityAction(abilityType: string, value: number): AnyAction {
+export function createDndChangeAbilityAction(abilityType: number, value: number): AnyAction {
     return {
         type: ACTION_DND_CHANGE_ABILITY,
         abilityType: abilityType,

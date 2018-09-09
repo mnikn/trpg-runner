@@ -2,20 +2,20 @@ import *  as React from 'react';
 import Role from '../models/role';
 import { Card, Form, Input, Select, Row, Col, InputNumber, Button, Table } from 'antd';
 import './role-editor.css';
-import { Cleric, Fighter } from '../models/profession';
-import { Male, Female } from '../../base/models/sex';
-import { SmallShape, MediumShape } from '../models/shape';
-import { CommonLanguage } from '../models/language';
-import { HeironeousBelief, MoradinBelief } from '../models/belief';
-import { Human, Drawf } from '../models/race';
-import { LawfulGood, LawfulNeutral, LawfulEvil } from '../models/alignment';
-import CalculateService from '../../coc/services/calculate-service';
+import { SexInfo } from '../../base/models/sex';
+import { ShapeInfo } from '../models/shape';
+import { BeliefInfo } from '../models/belief';
+import CalculateService from '../services/calculate-service';
 import { SKILLS } from '../models/skill';
-import { Wisdom, Charisma, Intelligence, Constitution, Dexterity, Strength } from '../models/ability';
+import { ProfessionInfo } from '../models/profession';
+import { RaceInfo } from '../models/race';
+import { AlignmentInfo } from '../models/alignment';
+import { LanguageInfo } from '../models/language';
+import { AbilityInfo } from '../models/ability';
 
 interface Props {
     role: Role,
-    onAbilityChange: (abilityType: string, value: number) => void;
+    onAbilityChange: (abilityType: number, value: number) => void;
     assignSkillPoint: (skillId: number, assignPoint: number) => void
 }
 
@@ -31,43 +31,43 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Input placeholder="请输入人物姓名..." defaultValue={role.name} />
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="种族">
-                    <Select placeholder="请选择人物种族..." defaultValue={role.race.getId()}>
-                        <Select.Option value={Human.getId()}>{Human.getLabel()}</Select.Option>
-                        <Select.Option value={Drawf.getId()}>{Drawf.getLabel()}</Select.Option>
+                    <Select placeholder="请选择人物种族..." defaultValue={role.race}>
+                        <Select.Option value={RaceInfo.HUMAN.id}>{RaceInfo.HUMAN.label}</Select.Option>
+                        <Select.Option value={RaceInfo.DRAWF.id}>{RaceInfo.DRAWF.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="阵营">
-                    <Select placeholder="请选择人物阵营..." defaultValue={role.alignment.getId()}>
-                        <Select.Option value={LawfulGood.getId()}>{LawfulGood.getLabel()}</Select.Option>
-                        <Select.Option value={LawfulNeutral.getId()}>{LawfulNeutral.getLabel()}</Select.Option>
-                        <Select.Option value={LawfulEvil.getId()}>{LawfulEvil.getLabel()}</Select.Option>
+                    <Select placeholder="请选择人物阵营..." defaultValue={role.alignment}>
+                        <Select.Option value={AlignmentInfo.LAWFUL_GOOD.id}>{AlignmentInfo.LAWFUL_GOOD.label}</Select.Option>
+                        <Select.Option value={AlignmentInfo.LAWFUL_NEUTRAL.id}>{AlignmentInfo.LAWFUL_NEUTRAL.label}</Select.Option>
+                        <Select.Option value={AlignmentInfo.LAWFUL_EVIL.id}>{AlignmentInfo.LAWFUL_EVIL.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="职业">
-                    <Select placeholder="请选择人物职业..." defaultValue={role.profession.getId()}>
-                        <Select.Option value={Cleric.getId()}>{Cleric.getLabel()}</Select.Option>
-                        <Select.Option value={Fighter.getId()}>{Fighter.getLabel()}</Select.Option>
+                    <Select placeholder="请选择人物职业..." defaultValue={role.profession}>
+                        <Select.Option value={ProfessionInfo.CLERIC.id}>{ProfessionInfo.CLERIC.label}</Select.Option>
+                        <Select.Option value={ProfessionInfo.FIGHTER.id}>{ProfessionInfo.FIGHTER.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="性别">
-                    <Select placeholder="请选择人物性别..." defaultValue={role.sex.getId()}>
-                        <Select.Option value={Male.getId()}>{Male.getLabel()}</Select.Option>
-                        <Select.Option value={Female.getId()}>{Female.getLabel()}</Select.Option>
+                    <Select placeholder="请选择人物性别..." defaultValue={role.sex}>
+                        <Select.Option value={SexInfo.MALE.id}>{SexInfo.MALE.label}</Select.Option>
+                        <Select.Option value={SexInfo.FEMALE.id}>{SexInfo.FEMALE.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="年龄">
                     <Input placeholder="请输入人物年龄..." defaultValue={role.age.toString()} />
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="体型">
-                    <Select placeholder="请选择人物体型..." defaultValue={role.shape.getId()}>
-                        <Select.Option value={SmallShape.getId()}>{SmallShape.getLabel()}</Select.Option>
-                        <Select.Option value={MediumShape.getId()}>{MediumShape.getLabel()}</Select.Option>
+                    <Select placeholder="请选择人物体型..." defaultValue={role.shape}>
+                        <Select.Option value={ShapeInfo.SMALL.id}>{ShapeInfo.SMALL.label}</Select.Option>
+                        <Select.Option value={ShapeInfo.MEDIUM.id}>{ShapeInfo.MEDIUM.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="信仰">
-                    <Select placeholder="请选择人物信仰..." defaultValue={role.belief.getId()}>
-                        <Select.Option value={HeironeousBelief.getId()}>{HeironeousBelief.getLabel()}</Select.Option>
-                        <Select.Option value={MoradinBelief.getId()}>{MoradinBelief.getLabel()}</Select.Option>
+                    <Select placeholder="请选择人物信仰..." defaultValue={role.belief}>
+                        <Select.Option value={BeliefInfo.HEIRONEOUS.id}>{BeliefInfo.HEIRONEOUS.label}</Select.Option>
+                        <Select.Option value={BeliefInfo.MORADIN.id}>{BeliefInfo.MORADIN.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="语言">
@@ -75,9 +75,9 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         style={{ width: 300 + 'px' }}
                         mode='multiple'
                         placeholder="请选择人物会的语言..."
-                        defaultValue={role.languages.map(lan => lan.getId())} >
-                        <Select.Option value={CommonLanguage.getId()}>{
-                            CommonLanguage.getLabel()}
+                        defaultValue={role.languages} >
+                        <Select.Option value={LanguageInfo.COMMON.id}>{
+                            LanguageInfo.COMMON.label}
                         </Select.Option>
                     </Select>
                 </Form.Item>
@@ -92,35 +92,35 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
             </Card>;
         const abilityCard =
             <Card className='ability-card' title='人物属性'>
-                <Form.Item {...formItemLayout} label={Strength.getLabel()}>
+                <Form.Item {...formItemLayout} label={AbilityInfo.STRENGTH.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.str.number}
-                        onChange={(value: number) => onAbilityChange('str', value)} />
+                        defaultValue={role.abilities.str}
+                        onChange={(value: number) => onAbilityChange(AbilityInfo.STRENGTH.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={Dexterity.getLabel()}>
+                <Form.Item {...formItemLayout} label={AbilityInfo.DEXTERITY.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.dex.number}
-                        onChange={(value: number) => onAbilityChange('dex', value)} />
+                        defaultValue={role.abilities.dex}
+                        onChange={(value: number) => onAbilityChange(AbilityInfo.DEXTERITY.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={Constitution.getLabel()}>
+                <Form.Item {...formItemLayout} label={AbilityInfo.CONSTITUTION.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.con.number}
-                        onChange={(value: number) => onAbilityChange('con', value)} />
+                        defaultValue={role.abilities.con}
+                        onChange={(value: number) => onAbilityChange(AbilityInfo.CONSTITUTION.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={Intelligence.getLabel()}>
+                <Form.Item {...formItemLayout} label={AbilityInfo.INTELLIGENCE.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.int.number}
-                        onChange={(value: number) => onAbilityChange('int', value)} />
+                        defaultValue={role.abilities.int}
+                        onChange={(value: number) => onAbilityChange(AbilityInfo.INTELLIGENCE.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={Wisdom.getLabel()}>
+                <Form.Item {...formItemLayout} label={AbilityInfo.WISDOM.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.wid.number}
-                        onChange={(value: number) => onAbilityChange('wid', value)} />
+                        defaultValue={role.abilities.wis}
+                        onChange={(value: number) => onAbilityChange(AbilityInfo.WISDOM.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={Charisma.getLabel()}>
+                <Form.Item {...formItemLayout} label={AbilityInfo.CHARISMA.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.cha.number}
-                        onChange={(value: number) => onAbilityChange('cha', value)} />
+                        defaultValue={role.abilities.cha}
+                        onChange={(value: number) => onAbilityChange(AbilityInfo.CHARISMA.id, value)} />
                 </Form.Item>
                 <br />
 
@@ -167,7 +167,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                             return {
                                 key: skill.id,
                                 label: skill.label,
-                                keyAbility: skill.keyAbility.getLabel(),
+                                keyAbility: skill.keyAbility,
                                 assignedSkillPoint: role.skills.find(roleSkill => roleSkill.getId() === skill.id).assignedPoint
                             }
                         })

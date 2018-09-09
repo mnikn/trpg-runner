@@ -1,34 +1,18 @@
-export abstract class Belief {
-    abstract getId(): number;
-    abstract getLabel(): string;
+interface Belief {
+    id: number;
+    label: string;
 }
 
-export class HeironeousBelief extends Belief {
-    public static getId(): number {
-        return 1;
-    }
-    public static getLabel(): string {
-        return '勇者之神-海若尼斯';
-    }
-    getId(): number {
-        return HeironeousBelief.getId();
-    }
-    getLabel(): string {
-        return HeironeousBelief.getLabel();
-    }
-}
-
-export class MoradinBelief extends Belief {
-    public static getId(): number {
-        return 2;
-    }
-    public static getLabel(): string {
-        return '矮人之神-摩拉丁';
-    }
-    getId(): number {
-        return MoradinBelief.getId();
-    }
-    getLabel(): string {
-        return MoradinBelief.getLabel();
+export class BeliefInfo {
+    public static readonly HEIRONEOUS: Belief = {id: 1, label: '勇者之神-海若尼斯'};
+    public static readonly MORADIN: Belief = {id: 2, label: '矮人之神-摩拉丁'};
+    
+    private static readonly _beliefIds: Map<number, Belief> = new Map<number, Belief>([
+        [BeliefInfo.HEIRONEOUS.id, BeliefInfo.HEIRONEOUS],
+        [BeliefInfo.MORADIN.id, BeliefInfo.MORADIN],
+    ]);
+    
+    public static getBelief(id: number): Belief {
+        return BeliefInfo._beliefIds.get(id);
     }
 }

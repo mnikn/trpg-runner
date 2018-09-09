@@ -1,35 +1,18 @@
-
-export abstract class Sex {
-    abstract getId(): number;
-    abstract getLabel(): string;
+interface Sex {
+    id: number;
+    label: string;
 }
 
-export class Male extends Sex {
-    public static getId(): number {
-        return 1;
-    }
-    public static getLabel(): string {
-        return '男';
-    }
-    getId(): number {
-        return Male.getId();
-    }
-    getLabel(): string {
-        return Male.getLabel();
-    }
-}
+export class SexInfo {
+    public static readonly MALE: Sex = { id: 1, label: '男' };
+    public static readonly FEMALE: Sex = { id: 2, label: '女' };
 
-export class Female extends Sex {
-    public static getId(): number {
-        return 2;
-    }
-    public static getLabel(): string {
-        return '女';
-    }
-    getId(): number {
-        return Female.getId();
-    }
-    getLabel(): string {
-        return Female.getLabel();
+    private static readonly _sexIds: Map<number, Sex> = new Map<number, Sex>([
+        [SexInfo.MALE.id, SexInfo.MALE],
+        [SexInfo.FEMALE.id, SexInfo.FEMALE]
+    ]);
+
+    public static getSex(id: number): Sex {
+        return SexInfo._sexIds.get(id);
     }
 }

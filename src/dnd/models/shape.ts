@@ -1,34 +1,18 @@
-export abstract class Shape {
-    abstract getId(): number;
-    abstract getLabel(): string;
+interface Shape {
+    id: number;
+    label: string;
 }
 
-export class SmallShape extends Shape {
-    public static getId(): number {
-        return 1;
-    }
-    public static getLabel(): string {
-        return '小型';
-    }
-    getId(): number {
-        return SmallShape.getId();
-    }
-    getLabel(): string {
-        return SmallShape.getLabel();
-    }
-}
-
-export class MediumShape extends Shape {
-    public static getId(): number {
-        return 2;
-    }
-    public static getLabel(): string {
-        return '中型';
-    }
-    getId(): number {
-        return MediumShape.getId();
-    }
-    getLabel(): string {
-        return MediumShape.getLabel();
+export class ShapeInfo {
+    public static readonly SMALL: Shape = {id: 1, label: '小型'};
+    public static readonly MEDIUM: Shape = {id: 2, label: '中型'};
+    
+    private static readonly _shapeIds: Map<number, Shape> = new Map<number, Shape>([
+        [ShapeInfo.SMALL.id, ShapeInfo.SMALL],
+        [ShapeInfo.MEDIUM.id, ShapeInfo.MEDIUM]
+    ]);
+    
+    public static getShape(id: number): Shape {
+        return ShapeInfo._shapeIds.get(id);
     }
 }

@@ -1,31 +1,23 @@
-import BaseProfession from "../../base/models/base-profession";
-
-export class Cleric extends BaseProfession {
-    public static getId(): number {
-        return 3;
-    }
-    public static getLabel(): string {
-        return '牧师';
-    }
-    getId(): number {
-        return Cleric.getId();
-    }
-    getLabel(): string {
-        return Cleric.getLabel();
-    }
+interface Profession {
+    id: number;
+    label: string;
 }
 
-export class Fighter extends BaseProfession {
-    public static getId(): number {
-        return 5;
-    }
-    public static getLabel(): string {
-        return '战士';
-    }
-    getId(): number {
-        return Fighter.getId();
-    }
-    getLabel(): string {
-        return Fighter.getLabel();
+// export enum PROFESSIONS {
+//     CLERIC = 3,
+//     FIGHTER = 5
+// }
+
+export class ProfessionInfo {
+    public static readonly CLERIC: Profession = {id: 3, label: '牧师'};
+    public static readonly FIGHTER: Profession = {id: 5, label: '战士'};
+    
+    private static readonly _prefessionIds: Map<number, Profession> = new Map<number, Profession>([
+        [ProfessionInfo.CLERIC.id, ProfessionInfo.CLERIC],
+        [ProfessionInfo.FIGHTER.id, ProfessionInfo.FIGHTER],
+    ]);
+    
+    public static getProfession(id: number): Profession {
+        return ProfessionInfo._prefessionIds.get(id);
     }
 }

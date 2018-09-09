@@ -1,6 +1,7 @@
 import *  as React from 'react';
 import { Card, Button } from 'antd';
 import './role-card.css';
+import { ProfessionInfo } from '../../../dnd/models/profession';
 
 interface Props {
     role: any;
@@ -18,6 +19,7 @@ export default class RoleCardComponent extends React.Component<Props, State> {
         super(props);
         this.state = {
         };
+        
     }
 
     render() {
@@ -37,7 +39,7 @@ export default class RoleCardComponent extends React.Component<Props, State> {
                     fontSize: 16 + 'px'
                 }}>
                     姓名: {role.name}<br />
-                    职业: {role.profession.getLabel()}<br />
+                    职业: {ProfessionInfo.getProfession(role.profession).label}<br />
                 </div>
 
                 <Button
