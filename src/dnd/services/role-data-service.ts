@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from 'util';
 import Role from "../models/role";
-import { Abilities } from '../models/ability';
+import { Abilities } from '../models/ability/abilities';
 
 export default class RoleDataService {
     private static _roles: Role[] = [];
@@ -28,18 +28,12 @@ export default class RoleDataService {
                         let role = new Role();
                         role = Object.assign({}, role, json);
                         role.abilities = new Abilities(
-                            role.abilities.str,
-                            role.abilities.dex,
-                            role.abilities.con,
-                            role.abilities.int,
-                            role.abilities.wis,
-                            role.abilities.cha);
-                        // role.id = json.id;
-                        // role.name = json.name;
-                        // role.age = json.age;
-                        // role.race = json.race;
-                        // role.profession = json.profession;
-                        // role.introduction = json.introduction;
+                            json.abilities.str,
+                            json.abilities.dex,
+                            json.abilities.con,
+                            json.abilities.int,
+                            json.abilities.wis,
+                            json.abilities.cha);
                         return role;
                     })
                 }

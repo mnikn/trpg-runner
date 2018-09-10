@@ -11,7 +11,7 @@ import { ProfessionInfo } from '../models/profession';
 import { RaceInfo } from '../models/race';
 import { AlignmentInfo } from '../models/alignment';
 import { LanguageInfo } from '../models/language';
-import { AbilityInfo } from '../models/ability';
+import AbilityInfos from '../models/ability/ability-info';
 
 interface Props {
     role: Role,
@@ -92,35 +92,35 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
             </Card>;
         const abilityCard =
             <Card className='ability-card' title='人物属性'>
-                <Form.Item {...formItemLayout} label={AbilityInfo.STRENGTH.label}>
+                <Form.Item {...formItemLayout} label={AbilityInfos.STRENGTH.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.str}
-                        onChange={(value: number) => onAbilityChange(AbilityInfo.STRENGTH.id, value)} />
+                        defaultValue={role.abilities.str.value}
+                        onChange={(value: number) => onAbilityChange(AbilityInfos.STRENGTH.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfo.DEXTERITY.label}>
+                <Form.Item {...formItemLayout} label={AbilityInfos.DEXTERITY.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.dex}
-                        onChange={(value: number) => onAbilityChange(AbilityInfo.DEXTERITY.id, value)} />
+                        defaultValue={role.abilities.dex.value}
+                        onChange={(value: number) => onAbilityChange(AbilityInfos.DEXTERITY.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfo.CONSTITUTION.label}>
+                <Form.Item {...formItemLayout} label={AbilityInfos.CONSTITUTION.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.con}
-                        onChange={(value: number) => onAbilityChange(AbilityInfo.CONSTITUTION.id, value)} />
+                        defaultValue={role.abilities.con.value}
+                        onChange={(value: number) => onAbilityChange(AbilityInfos.CONSTITUTION.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfo.INTELLIGENCE.label}>
+                <Form.Item {...formItemLayout} label={AbilityInfos.INTELLIGENCE.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.int}
-                        onChange={(value: number) => onAbilityChange(AbilityInfo.INTELLIGENCE.id, value)} />
+                        defaultValue={role.abilities.int.value}
+                        onChange={(value: number) => onAbilityChange(AbilityInfos.INTELLIGENCE.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfo.WISDOM.label}>
+                <Form.Item {...formItemLayout} label={AbilityInfos.WISDOM.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.wis}
-                        onChange={(value: number) => onAbilityChange(AbilityInfo.WISDOM.id, value)} />
+                        defaultValue={role.abilities.wis.value}
+                        onChange={(value: number) => onAbilityChange(AbilityInfos.WISDOM.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfo.CHARISMA.label}>
+                <Form.Item {...formItemLayout} label={AbilityInfos.CHARISMA.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.cha}
-                        onChange={(value: number) => onAbilityChange(AbilityInfo.CHARISMA.id, value)} />
+                        defaultValue={role.abilities.cha.value}
+                        onChange={(value: number) => onAbilityChange(AbilityInfos.CHARISMA.id, value)} />
                 </Form.Item>
                 <br />
 

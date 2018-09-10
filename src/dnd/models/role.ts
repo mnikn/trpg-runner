@@ -1,6 +1,6 @@
-import { Abilities } from './ability';
 import BaseRole from '../../base/models/base-role';
 import { Skill, SKILLS } from './skill';
+import { Abilities } from './ability/abilities';
 
 export default class Role extends BaseRole {
     abilities: Abilities;

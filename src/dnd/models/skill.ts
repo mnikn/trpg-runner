@@ -1,4 +1,4 @@
-import { AbilityInfo } from './ability';
+import AbilityInfos from './ability/ability-info';
 
 export abstract class Skill {
     public assignedPoint: number = 0;
@@ -168,13 +168,13 @@ export class ConcentrationSkill extends Skill {
 // }
 
 export const SKILLS = {
-    APPRAISE: { id: 1, label: '估价', keyAbility: AbilityInfo.INTELLIGENCE.id, constructor: AppraiseSkill },
-    ANIMAL_EMPATHY: { id: 2, label: '动物驯养', keyAbility: AbilityInfo.INTELLIGENCE.id, constructor: AnimalEmpathySkill },
-    HEAL: { id: 3, label: '医疗', keyAbility: AbilityInfo.INTELLIGENCE.id, constructor: HealSkill },
-    RELIGION_KNOWLEDGE: { id: 4, label: '宗教知识', keyAbility: AbilityInfo.INTELLIGENCE.id, constructor: ReligionKnowledgeSkill },
-    HISTORY_KNOWLEDGE: { id: 5, label: '历史知识', keyAbility: AbilityInfo.INTELLIGENCE.id, constructor: HistoryKnowledgeSkill },
-    ARCANA_KNOWLEDGE: { id: 6, label: '神秘知识', keyAbility: AbilityInfo.INTELLIGENCE.id, constructor: ArcanaKnowledgeSkill },
-    CONCENTRATION: { id: 7, label: '专注', keyAbility: AbilityInfo.WISDOM.id, constructor: ConcentrationSkill },
+    APPRAISE: { id: 1, label: '估价', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AppraiseSkill },
+    ANIMAL_EMPATHY: { id: 2, label: '动物驯养', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AnimalEmpathySkill },
+    HEAL: { id: 3, label: '医疗', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HealSkill },
+    RELIGION_KNOWLEDGE: { id: 4, label: '宗教知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ReligionKnowledgeSkill },
+    HISTORY_KNOWLEDGE: { id: 5, label: '历史知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HistoryKnowledgeSkill },
+    ARCANA_KNOWLEDGE: { id: 6, label: '神秘知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ArcanaKnowledgeSkill },
+    CONCENTRATION: { id: 7, label: '专注', keyAbility: AbilityInfos.WISDOM.id, constructor: ConcentrationSkill },
 }
 
 
