@@ -1,15 +1,32 @@
-import { isNullOrUndefined } from 'util';
 import Role from "../models/role";
-import { Abilities } from '../models/ability/abilities';
+import * as fs from 'fs';
+import RoleJsonConverter from './converters/json-converter';
+import * as _ from 'lodash';
+import { ProfessionInfo } from "../models/profession";
+import { Abilities } from "../models/ability/abilities";
 
 export default class RoleDataService {
     private static _roles: Role[] = [];
 
-    public static createRole(): Promise<Role> {
-        return new Promise<Role>((resolve) => {
+    public static createRole(): Promise<Role[]> {
+        return new Promise<Role[]>((resolve) => {
             let role = new Role();
-            resolve(role);
-        })
+            role.id = RoleDataService._roles.length + 1;
+            role.name = '角色' + role.id;
+            role.profession = ProfessionInfo.FIGHTER.id;
+            role.abilities = new Abilities(8, 8, 8, 8, 8, 8);
+
+            RoleDataService._roles.push(role);
+            RoleJsonConverter.toJson(RoleDataService._roles).then(json => {
+                let dataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/dist/data/dnd/roles.json';
+                fs.writeFile(dataPath, json, (error => {
+                    console.log(error);
+                    resolve(RoleDataService._roles);
+                }));
+            })
+
+            // return role;
+        });
     }
 
     public static readRoles(): Promise<Role[]> {
@@ -19,26 +36,12 @@ export default class RoleDataService {
             // "/Users/zhengzhizhao/Local Documents/project/trpg-runner/dist/data/dnd/roles.json"
             const fs = require('fs');
             let dataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/dist/data/dnd/roles.json'
-            fs.readFile(dataPath, 'utf8', (err: any, data: any) => {
+            fs.readFile(dataPath, 'utf8', (err: any, json: any) => {
                 if (err) throw err;
-                const roleJson = JSON.parse(data);
-                let roles: Role[] = [];
-                if (!isNullOrUndefined(roleJson) && !isNullOrUndefined(roleJson.roles)) {
-                    roles = roleJson.roles.map((json: any) => {
-                        let role = new Role();
-                        role = Object.assign({}, role, json);
-                        role.abilities = new Abilities(
-                            json.abilities.str,
-                            json.abilities.dex,
-                            json.abilities.con,
-                            json.abilities.int,
-                            json.abilities.wis,
-                            json.abilities.cha);
-                        return role;
-                    })
-                }
-                RoleDataService._roles = roles;
-                resolve(roles);
+                RoleJsonConverter.toRole(json).then((roles: Role[]) => {
+                    RoleDataService._roles = roles;
+                    resolve(roles);
+                })
             });
         }));
     }

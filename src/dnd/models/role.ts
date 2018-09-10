@@ -15,5 +15,5 @@ export default class Role extends BaseRole {
         return new skill.constructor();
     });
 
-    hpDiceNumber: number;
+    hpDiceNumber: number = 0;
 }

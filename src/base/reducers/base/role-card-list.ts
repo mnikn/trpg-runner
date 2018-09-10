@@ -1,4 +1,4 @@
-import { ACTION_SELECT_ROLE_CARD, ACTION_COC_GET_ROLES_REQUEST, ACTION_DND_GET_ROLES_REQUEST, ACTION_COC_GET_ROLES_SUCCESS, ACTION_DND_GET_ROLES_SUCCESS } from './../../actions/base/role-card-list';
+import { ACTION_SELECT_ROLE_CARD, ACTION_COC_GET_ROLES_REQUEST, ACTION_DND_GET_ROLES_REQUEST, ACTION_COC_GET_ROLES_SUCCESS, ACTION_DND_GET_ROLES_SUCCESS, ACTION_DND_CREATE_ROLE_SUCCESS } from './../../actions/base/role-card-list';
 import { AnyAction } from 'redux';
 import { isNullOrUndefined } from 'util';
 
@@ -38,6 +38,11 @@ export default function roleCardList(state: IRoleCardListState = {
             });
         case ACTION_COC_GET_ROLES_SUCCESS:
         case ACTION_DND_GET_ROLES_SUCCESS:
+            return Object.assign({}, state, {
+                isFetchingRoles: false,
+                roles: action.data
+            })
+        case ACTION_DND_CREATE_ROLE_SUCCESS:
             return Object.assign({}, state, {
                 isFetchingRoles: false,
                 roles: action.data

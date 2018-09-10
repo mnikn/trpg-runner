@@ -1,3 +1,4 @@
+import { appStore } from './../../../../index';
 import { IAppState } from './app';
 import { ACTION_UPDATE_BUTTON_ON_SELECTING } from './../../actions/base/app';
 import { DND, COC } from './../../constants/app-mode';
@@ -7,19 +8,22 @@ import { NAVIGATE_LOCATION } from '../../constants/navigate';
 import { ACTION_NAVIGATE } from '../../actions/base/app';
 import { isNullOrUndefined } from 'util';
 import ButtonModel from '../../../platform/models/button';
+import { createRequestCreateRoleAction } from '../../actions/base/role-card-list';
 
 function navigate(url: string) {
     window.location.href = '#' + url;
 }
 
-function createToolBarButtons(navigateLocation: string): ButtonModel[] {
+function createToolBarButtons(navigateLocation: string, appMode: string): ButtonModel[] {
     if (navigateLocation === NAVIGATE_LOCATION.COC_HOME ||
         navigateLocation === NAVIGATE_LOCATION.DND_HOME) {
         return [];
     } else if (navigateLocation === NAVIGATE_LOCATION.COC_ROLE_CARD ||
         navigateLocation === NAVIGATE_LOCATION.DND_ROLE_CARD) {
         return [
-            new ButtonModel('role.create', 'plus', () => alert('Create')),
+            new ButtonModel('role.create', 'plus', () => {
+                appStore.dispatch(createRequestCreateRoleAction(appMode));
+            }),
             new ButtonModel('role.delete', 'minus', () => alert('Delete'), true)];
     }
     return [];
@@ -38,7 +42,7 @@ function handleSelectAppMode(state: IAppState, appMode: string): IAppState {
     navigate(navigateLocation);
     return Object.assign({}, state, {
         appMode: appMode,
-        toolBarButtons: createToolBarButtons(navigateLocation),
+        toolBarButtons: createToolBarButtons(navigateLocation, state.appMode),
         navigateLocation: navigateLocation
     });
 }
@@ -52,7 +56,7 @@ function handleNavigate(state: IAppState, navigateLocation: string, param?: stri
     navigate(navigateUrl);
     return Object.assign({}, state, {
         navigateLocation: navigateLocation,
-        toolBarButtons: createToolBarButtons(navigateLocation)
+        toolBarButtons: createToolBarButtons(navigateLocation, state.appMode)
     });
 }
 

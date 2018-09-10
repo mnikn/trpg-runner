@@ -56,7 +56,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="年龄">
-                    <Input placeholder="请输入人物年龄..." defaultValue={role.age.toString()} />
+                    <Input placeholder="请输入人物年龄..." defaultValue={role.age ? role.age.toString() : null} />
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="体型">
                     <Select placeholder="请选择人物体型..." defaultValue={role.shape}>
@@ -153,7 +153,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     title: '花费的技能点',
                     dataIndex: 'usedSkillPoint',
                     render: (text, record) => (
-                        <InputNumber 
+                        <InputNumber
                             defaultValue={record.assignedSkillPoint}
                             max={CalculateService.calculateRemainSkillPoint(role) === 0 ? record.assignedSkillPoint : 100}
                             min={0}
