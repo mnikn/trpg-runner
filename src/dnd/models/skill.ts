@@ -1,180 +1,135 @@
 import AbilityInfos from './ability/ability-info';
+import * as _ from 'lodash';
 
 export abstract class Skill {
     public assignedPoint: number = 0;
     public initialPoint: number = 0;
 
-    abstract getId(): number;
-    abstract getLabel(): string;
-    abstract getKeyAbility(): number;
+    public abstract id: number;
+    public abstract label: string;
+    public abstract keyAbility: number;
+
+    constructor(assignedPoint?: number){
+        this.assignedPoint = assignedPoint;
+    }
+
+    // public abstract get id(): number;
+    // public abstract get label(): string;
+    // public abstract get keyAbility(): number;
 }
 
 export class AppraiseSkill extends Skill {
-    constructor() {
-        super();
-        this.initialPoint = 20;
-    }
-
-    getId(): number {
-        return SKILLS.APPRAISE.id;
-    }
-    getLabel(): string {
-        return SKILLS.APPRAISE.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.APPRAISE.keyAbility;
+    public id: number = SkillInfo.APPRAISE.id;
+    public label: string = SkillInfo.APPRAISE.label;
+    public keyAbility: number = SkillInfo.APPRAISE.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
 export class AnimalEmpathySkill extends Skill {
-    constructor() {
-        super();
-    }
-
-    getId(): number {
-        return SKILLS.ANIMAL_EMPATHY.id;
-    }
-    getLabel(): string {
-        return SKILLS.ANIMAL_EMPATHY.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.ANIMAL_EMPATHY.keyAbility;
+    public id: number = SkillInfo.ANIMAL_EMPATHY.id;
+    public label: string = SkillInfo.ANIMAL_EMPATHY.label;
+    public keyAbility: number = SkillInfo.ANIMAL_EMPATHY.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
 export class HealSkill extends Skill {
-    constructor() {
-        super();
-    }
-
-    getId(): number {
-        return SKILLS.HEAL.id;
-    }
-    getLabel(): string {
-        return SKILLS.HEAL.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.HEAL.keyAbility;
+    public id: number = SkillInfo.HEAL.id;
+    public label: string = SkillInfo.HEAL.label;
+    public keyAbility: number = SkillInfo.HEAL.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
 export class ReligionKnowledgeSkill extends Skill {
-    constructor() {
-        super();
-    }
-
-    getId(): number {
-        return SKILLS.RELIGION_KNOWLEDGE.id;
-    }
-    getLabel(): string {
-        return SKILLS.RELIGION_KNOWLEDGE.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.RELIGION_KNOWLEDGE.keyAbility;
+    public id: number = SkillInfo.RELIGION_KNOWLEDGE.id;
+    public label: string = SkillInfo.RELIGION_KNOWLEDGE.label;
+    public keyAbility: number = SkillInfo.RELIGION_KNOWLEDGE.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
 export class HistoryKnowledgeSkill extends Skill {
-    constructor() {
-        super();
-    }
-
-    getId(): number {
-        return SKILLS.HISTORY_KNOWLEDGE.id;
-    }
-    getLabel(): string {
-        return SKILLS.HISTORY_KNOWLEDGE.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.HISTORY_KNOWLEDGE.keyAbility;
+    public id: number = SkillInfo.HISTORY_KNOWLEDGE.id;
+    public label: string = SkillInfo.HISTORY_KNOWLEDGE.label;
+    public keyAbility: number = SkillInfo.HISTORY_KNOWLEDGE.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
 export class ArcanaKnowledgeSkill extends Skill {
-    constructor() {
-        super();
-    }
-
-    getId(): number {
-        return SKILLS.ARCANA_KNOWLEDGE.id;
-    }
-    getLabel(): string {
-        return SKILLS.ARCANA_KNOWLEDGE.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.ARCANA_KNOWLEDGE.keyAbility;
+    public id: number = SkillInfo.ARCANA_KNOWLEDGE.id;
+    public label: string = SkillInfo.ARCANA_KNOWLEDGE.label;
+    public keyAbility: number = SkillInfo.ARCANA_KNOWLEDGE.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
 export class ConcentrationSkill extends Skill {
-    constructor() {
-        super();
-    }
-
-    getId(): number {
-        return SKILLS.CONCENTRATION.id;
-    }
-    getLabel(): string {
-        return SKILLS.CONCENTRATION.label;
-    }
-    getKeyAbility(): number {
-        return SKILLS.CONCENTRATION.keyAbility;
+    public id: number = SkillInfo.CONCENTRATION.id;
+    public label: string = SkillInfo.CONCENTRATION.label;
+    public keyAbility: number = SkillInfo.CONCENTRATION.keyAbility;
+    constructor(assignedPoint?: number) {
+        super(assignedPoint);
     }
 }
 
-// interface Skill {
-//     id: number;
-//     label: string;
-//     keyAbility: number;
+// export const SKILLS = {
+//     APPRAISE: { id: 1, label: '估价', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AppraiseSkill },
+//     ANIMAL_EMPATHY: { id: 2, label: '动物驯养', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AnimalEmpathySkill },
+//     HEAL: { id: 3, label: '医疗', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HealSkill },
+//     RELIGION_KNOWLEDGE: { id: 4, label: '宗教知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ReligionKnowledgeSkill },
+//     HISTORY_KNOWLEDGE: { id: 5, label: '历史知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HistoryKnowledgeSkill },
+//     ARCANA_KNOWLEDGE: { id: 6, label: '神秘知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ArcanaKnowledgeSkill },
+//     CONCENTRATION: { id: 7, label: '专注', keyAbility: AbilityInfos.WISDOM.id, constructor: ConcentrationSkill },
 // }
 
-// export class SkillInfo {
-//     public static readonly APPRAISE: Skill =  { id: 1, label: '估价', keyAbility: AbilityInfo.INTELLIGENCE.id };
-//     public static readonly ANIMAL_EMPATHY: Skill = { id: 2, label: '动物驯养', keyAbility: AbilityInfo.INTELLIGENCE.id };
-//     public static readonly HEAL: Skill = { id: 3, label: '医疗', keyAbility: AbilityInfo.INTELLIGENCE.id };
-//     public static readonly RELIGION_KNOWLEDGE: Skill = { id: 4, label: '宗教知识', keyAbility: AbilityInfo.INTELLIGENCE.id };
-//     public static readonly HISTORY_KNOWLEDGE: Skill = { id: 5, label: '历史知识', keyAbility: AbilityInfo.INTELLIGENCE.id };
-//     public static readonly ARCANA_KNOWLEDGE: Skill = { id: 6, label: '神秘知识', keyAbility: AbilityInfo.INTELLIGENCE.id };
-//     public static readonly CONCENTRATION: Skill = { id: 7, label: '专注', keyAbility: AbilityInfo.WISDOM.id };
+export class SkillInfo {
     
-//     private static readonly _skillIds: Map<number, Skill> = new Map<number, Skill>([
-//         [SkillInfo.APPRAISE.id, SkillInfo.APPRAISE],
-//         [SkillInfo.ANIMAL_EMPATHY.id, SkillInfo.ANIMAL_EMPATHY],
-//         [SkillInfo.HEAL.id, SkillInfo.HEAL],
-//         [SkillInfo.RELIGION_KNOWLEDGE.id, SkillInfo.RELIGION_KNOWLEDGE],
-//         [SkillInfo.HISTORY_KNOWLEDGE.id, SkillInfo.HISTORY_KNOWLEDGE],
-//         [SkillInfo.ARCANA_KNOWLEDGE.id, SkillInfo.ARCANA_KNOWLEDGE],
-//         [SkillInfo.CONCENTRATION.id, SkillInfo.CONCENTRATION]
-//     ]);
-    
-//     public static getSkill(id: number): Skill {
-//         return SkillInfo._skillIds.get(id);
-//     }
-// }
+    public static readonly APPRAISE = { id: 1, label: '估价', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AppraiseSkill };
+    public static readonly ANIMAL_EMPATHY = { id: 2, label: '动物驯养', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AnimalEmpathySkill };
+    public static readonly HEAL = { id: 3, label: '医疗', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HealSkill };
+    public static readonly RELIGION_KNOWLEDGE = { id: 4, label: '宗教知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ReligionKnowledgeSkill };
+    public static readonly HISTORY_KNOWLEDGE = { id: 5, label: '历史知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HistoryKnowledgeSkill };
+    public static readonly ARCANA_KNOWLEDGE = { id: 6, label: '神秘知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ArcanaKnowledgeSkill };
+    public static readonly CONCENTRATION = { id: 7, label: '专注', keyAbility: AbilityInfos.WISDOM.id, constructor: ConcentrationSkill };
 
-// interface SkillObject {
-//     assignedPoint: number;
-//     initialPoint: number;
-// }
+    private static readonly _skillIds: Map<number, any> = new Map<number, any>([
+        [SkillInfo.APPRAISE.id, SkillInfo.APPRAISE],
+        [SkillInfo.ANIMAL_EMPATHY.id, SkillInfo.ANIMAL_EMPATHY],
+        [SkillInfo.HEAL.id, SkillInfo.HEAL],
+        [SkillInfo.RELIGION_KNOWLEDGE.id, SkillInfo.RELIGION_KNOWLEDGE],
+        [SkillInfo.HISTORY_KNOWLEDGE.id, SkillInfo.HISTORY_KNOWLEDGE],
+        [SkillInfo.ARCANA_KNOWLEDGE.id, SkillInfo.ARCANA_KNOWLEDGE],
+        [SkillInfo.CONCENTRATION.id, SkillInfo.CONCENTRATION],
+    ]);
 
-// export class Skills {
-//     public appraise: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-//     public animalEmpathy: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-//     public heal: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-//     public religionKnowledge: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-//     public historyKnowledge: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-//     public arcanaKnowledge: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-//     public concentration: SkillObject =  { assignedPoint: 0, initialPoint: 0 };
-// }
+    public static getSkillById(id: number): any {
+        return SkillInfo._skillIds.get(id);
+    }
 
-export const SKILLS = {
-    APPRAISE: { id: 1, label: '估价', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AppraiseSkill },
-    ANIMAL_EMPATHY: { id: 2, label: '动物驯养', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: AnimalEmpathySkill },
-    HEAL: { id: 3, label: '医疗', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HealSkill },
-    RELIGION_KNOWLEDGE: { id: 4, label: '宗教知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ReligionKnowledgeSkill },
-    HISTORY_KNOWLEDGE: { id: 5, label: '历史知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: HistoryKnowledgeSkill },
-    ARCANA_KNOWLEDGE: { id: 6, label: '神秘知识', keyAbility: AbilityInfos.INTELLIGENCE.id, constructor: ArcanaKnowledgeSkill },
-    CONCENTRATION: { id: 7, label: '专注', keyAbility: AbilityInfos.WISDOM.id, constructor: ConcentrationSkill },
+    public static createSkills(): Skill[] {
+        let skills: Skill[] = [];
+        SkillInfo._skillIds.forEach(skill => {
+            skills.push(new skill.constructor())
+        });
+        return skills;
+    }
+
+    public static getSkillInfos(): any[] {
+        let skills: any[] = [];
+        SkillInfo._skillIds.forEach(skill => {
+            skills.push(skill);
+        });
+        return skills;
+    }
 }
 
 

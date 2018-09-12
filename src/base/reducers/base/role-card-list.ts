@@ -1,3 +1,4 @@
+import { ACTION_DND_SAVE_ROLE_SUCCESS } from './../../actions/dnd/dnd';
 import { ACTION_SELECT_ROLE_CARD, ACTION_COC_GET_ROLES_REQUEST, ACTION_DND_GET_ROLES_REQUEST, ACTION_COC_GET_ROLES_SUCCESS, ACTION_DND_GET_ROLES_SUCCESS, ACTION_DND_CREATE_ROLE_SUCCESS } from './../../actions/base/role-card-list';
 import { AnyAction } from 'redux';
 import { isNullOrUndefined } from 'util';
@@ -46,7 +47,14 @@ export default function roleCardList(state: IRoleCardListState = {
             return Object.assign({}, state, {
                 isFetchingRoles: false,
                 roles: action.data
-            })
+            });
+        case ACTION_DND_SAVE_ROLE_SUCCESS:
+            let roles = state.roles;
+            let index = roles.findIndex(e => e.id === action.data.id);
+            roles[index] = action.data;
+            return Object.assign({}, state, {
+                roles: roles
+            });
     }
     return state;
 }

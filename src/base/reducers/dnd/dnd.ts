@@ -1,5 +1,5 @@
 import AbilityInfos from '../../../dnd/models/ability/ability-info';
-import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT } from './../../actions/dnd/dnd';
+import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE } from './../../actions/dnd/dnd';
 import "reflect-metadata";
 import { AnyAction } from 'redux';
 import Role from "../../../dnd/models/role";
@@ -48,11 +48,19 @@ function handleChangeAbility(state: IDndState, abilityType: number, value: numbe
 
 function handleAssignSkillPoint(state: IDndState, skillId: number, assignPoint: number): IDndState {
     let newEditRole = Object.assign({}, state.editRole);
-    newEditRole.skills.find(skill => skill.getId() === skillId).assignedPoint = assignPoint;
+    newEditRole.skills.find(skill => skill.id === skillId).assignedPoint = assignPoint;
     return Object.assign({}, state, {
         editRole: newEditRole
     });
 }
+
+function handleUpdateEditRole(state: IDndState, value: any): IDndState {
+    let newEditRole = Object.assign({}, state.editRole, value);
+    return Object.assign({}, state, {
+        editRole: newEditRole
+    });
+}
+
 
 export default function dnd(state: IDndState = {
     editRole: null
@@ -63,9 +71,10 @@ export default function dnd(state: IDndState = {
             return handleChangeAbility(state, action.abilityType, action.value);
         case ACTION_DND_EDIT_ROLE:
             return handleEditRole(state, action.roleId);
+        case ACTION_DND_UPDATE_EDIT_ROLE:
+            return handleUpdateEditRole(state, action.roleData);
         case ACTION_DND_ASSIGN_SKILL_POINT:
-            return handleAssignSkillPoint(state, action.skillId, action.assignPoint)
-
+            return handleAssignSkillPoint(state, action.skillId, action.assignPoint);
     }
     return state;
 }

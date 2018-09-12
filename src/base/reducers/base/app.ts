@@ -7,24 +7,33 @@ import { ACTION_SELECT_APP_MODE } from '../../actions/base/navigate-bar';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
 import { ACTION_NAVIGATE } from '../../actions/base/app';
 import { isNullOrUndefined } from 'util';
-import ButtonModel from '../../../platform/models/button';
 import { createRequestCreateRoleAction } from '../../actions/base/role-card-list';
+import ButtonModel from '../../../platform/models/button';
+import { createDndSaveRoleRequestAction } from '../../actions/dnd/dnd';
+import Role from '../../../dnd/models/role';
 
 function navigate(url: string) {
     window.location.href = '#' + url;
 }
 
 function createToolBarButtons(navigateLocation: string, appMode: string): ButtonModel[] {
-    if (navigateLocation === NAVIGATE_LOCATION.COC_HOME ||
-        navigateLocation === NAVIGATE_LOCATION.DND_HOME) {
-        return [];
-    } else if (navigateLocation === NAVIGATE_LOCATION.COC_ROLE_CARD ||
-        navigateLocation === NAVIGATE_LOCATION.DND_ROLE_CARD) {
-        return [
-            new ButtonModel('role.create', 'plus', () => {
-                appStore.dispatch(createRequestCreateRoleAction(appMode));
-            }),
-            new ButtonModel('role.delete', 'minus', () => alert('Delete'), true)];
+    switch(navigateLocation){
+        case NAVIGATE_LOCATION.COC_HOME:
+        case NAVIGATE_LOCATION.DND_HOME:
+            return [];
+        case NAVIGATE_LOCATION.COC_ROLE_CARD:
+        case NAVIGATE_LOCATION.DND_ROLE_CARD:
+            return [
+                new ButtonModel('role.create', 'plus', () => {
+                    appStore.dispatch(createRequestCreateRoleAction(appMode));
+                }),
+                new ButtonModel('role.delete', 'minus', () => alert('Delete'), true)];
+        case NAVIGATE_LOCATION.DND_ROLE_EDITOR:
+            return [
+                new ButtonModel('dnd.role.save', 'save', () => {
+                    appStore.dispatch(createDndSaveRoleRequestAction(appStore.getState().dnd.editRole));
+                }),
+            ]
     }
     return [];
 }

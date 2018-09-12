@@ -49,4 +49,18 @@ export default class RoleDataService {
     public static getRole(roleId: number): Role {
         return RoleDataService._roles.find(role => role.id === roleId);
     }
+
+    public static updateRole(role: Role): Promise<Role> {
+        return new Promise<Role>((resolve) => {
+            let index = RoleDataService._roles.findIndex(e => e.id === role.id);
+            RoleDataService._roles[index] = role;
+            RoleJsonConverter.toJson(RoleDataService._roles).then(json => {
+                let dataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/dist/data/dnd/roles.json';
+                fs.writeFile(dataPath, json, (error => {
+                    console.log(error);
+                    resolve(RoleDataService._roles[index]);
+                }));
+            })
+        });
+    }
 }

@@ -1,5 +1,5 @@
 import BaseRole from '../../base/models/base-role';
-import { Skill, SKILLS } from './skill';
+import { Skill, SkillInfo } from './skill';
 import { Abilities } from './ability/abilities';
 
 export default class Role extends BaseRole {
@@ -9,11 +9,7 @@ export default class Role extends BaseRole {
     shape: number;
     languages: number[];
     belief: number;
-    skills: Skill[] = Object.keys(SKILLS).map(key => {
-        let skills: any = SKILLS;
-        let skill = skills[key];
-        return new skill.constructor();
-    });
+    skills: Skill[] = SkillInfo.createSkills();
 
     hpDiceNumber: number = 0;
 }

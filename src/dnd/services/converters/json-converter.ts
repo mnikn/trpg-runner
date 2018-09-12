@@ -2,7 +2,7 @@ import RoleConverter from "./base/role-converter";
 import Role from "../../models/role";
 import { Abilities } from "../../models/ability/abilities";
 import { isNullOrUndefined } from "util";
-import { SKILLS } from "../../models/skill";
+import { SkillInfo } from "../../models/skill";
 
 export default class RoleJsonConverter extends RoleConverter {
     public static toJson(roles: Role[]): Promise<string> {
@@ -33,10 +33,9 @@ export default class RoleJsonConverter extends RoleConverter {
                         json.abilities.int.value,
                         json.abilities.wis.value,
                         json.abilities.cha.value);
-                    role.skills = Object.keys(SKILLS).map(key => {
-                        let skills: any = SKILLS;
-                        let skill = skills[key];
-                        return new skill.constructor();
+                    role.skills = json.skills.map((skill: any) => {
+                        let factory = SkillInfo.getSkillById(skill.id).constructor;
+                        return new factory(skill.assignedPoint);
                     });
                     return role;
                 });

@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import Role from '../../../dnd/models/role';
 
 export const ACTION_DND_EDIT_ROLE = 'DND_EDIT_ROLE';
 export function createDndEditRoleAction(roleId: number): AnyAction {
@@ -23,5 +24,28 @@ export function createDndAssignSkillPointAction(skillId: number, assignPoint: nu
         type: ACTION_DND_ASSIGN_SKILL_POINT,
         skillId: skillId,
         assignPoint: assignPoint
+    }
+}
+
+export const ACTION_DND_UPDATE_EDIT_ROLE = 'DND_UPDATE_EDIT_ROLE';
+export function createDndUpdateEditRoleAction(roleData: any): AnyAction {
+    return {
+        type: ACTION_DND_UPDATE_EDIT_ROLE,
+        roleData: roleData
+    }
+}
+
+
+export const ACTION_DND_SAVE_ROLE_REQUERT = 'DND_SAVE_ROLE_REQUEST';
+export const ACTION_DND_SAVE_ROLE_SUCCESS = 'DND_SAVE_ROLE_SUCCESS';
+export function createDndSaveRoleRequestAction(role: Role): AnyAction {
+    return {
+        type: ACTION_DND_SAVE_ROLE_REQUERT,
+        role: role
+    }
+}
+export function createDndSaveRoleSuccessAction(): AnyAction {
+    return {
+        type: ACTION_DND_SAVE_ROLE_SUCCESS
     }
 }
