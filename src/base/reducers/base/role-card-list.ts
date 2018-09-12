@@ -18,9 +18,23 @@ function handleSelectRoleCard(state: IRoleCardListState, selectingRole: number, 
     });
 }
 
+function handleGetRoles(state: IRoleCardListState, roles: any[]){
+    return Object.assign({}, state, {
+        isFetchingRoles: false,
+        roles: roles
+    });
+}
+
+function handleCreateRole(state: IRoleCardListState, newRole: any) {
+    return Object.assign({}, state, {
+        roles: state.roles.concat(newRole)
+    });
+}
+
 function handleDeleteRole(state: IRoleCardListState, deleteRoleIds: number[]) {
     return Object.assign({}, state, {
-        roles: state.roles.filter(role => !_.includes(deleteRoleIds,role.id))
+        roles: state.roles.filter(role => !_.includes(deleteRoleIds, role.id)),
+        selectedRoles: state.selectedRoles.filter(role => !_.includes(deleteRoleIds, role))
     });
 }
 
@@ -46,15 +60,9 @@ export default function roleCardList(state: IRoleCardListState = {
             });
         case ACTION_COC_GET_ROLES_SUCCESS:
         case ACTION_DND_GET_ROLES_SUCCESS:
-            return Object.assign({}, state, {
-                isFetchingRoles: false,
-                roles: action.data
-            })
+            return handleGetRoles(state, action.data);
         case ACTION_DND_CREATE_ROLE_SUCCESS:
-            return Object.assign({}, state, {
-                isFetchingRoles: false,
-                roles: action.data
-            });
+            return handleCreateRole(state, action.data);
         case ACTION_DND_SAVE_ROLE_SUCCESS:
             let roles = state.roles;
             let index = roles.findIndex(e => e.id === action.data.id);
@@ -63,7 +71,7 @@ export default function roleCardList(state: IRoleCardListState = {
                 roles: roles
             });
         case ACTION_DND_DELETE_ROLE_SUCCESS:
-            return handleDeleteRole(state, action.deleteRoleId);
+            return handleDeleteRole(state, action.data);
     }
     return state;
 }

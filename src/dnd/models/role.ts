@@ -9,7 +9,7 @@ export default class Role extends BaseRole {
     shape: number;
     languages: number[];
     belief: number;
-    skills: Skill[] = SkillInfo.createSkills();
+    skills: Skill[];
 
     hpDiceNumber: number = 0;
 }
