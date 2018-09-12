@@ -63,4 +63,17 @@ export default class RoleDataService {
             })
         });
     }
+
+    public static deleteRole(ids: number[]): Promise<number[]>{
+        return new Promise<number[]>((resolve) => {
+            RoleDataService._roles = RoleDataService._roles.filter(role => !_.includes(ids, role.id));
+            RoleJsonConverter.toJson(RoleDataService._roles).then(json => {
+                let dataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/dist/data/dnd/roles.json';
+                fs.writeFile(dataPath, json, (error => {
+                    console.log(error);
+                    resolve(ids);
+                }));
+            })
+        });
+    }
 }

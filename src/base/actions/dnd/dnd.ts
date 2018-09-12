@@ -49,3 +49,18 @@ export function createDndSaveRoleSuccessAction(): AnyAction {
         type: ACTION_DND_SAVE_ROLE_SUCCESS
     }
 }
+
+export const ACTION_DND_DELETE_ROLE_REQUERT = 'DND_DELETE_ROLE_REQUEST';
+export const ACTION_DND_DELETE_ROLE_SUCCESS = 'DND_DELETE_ROLE_SUCCESS';
+export function createDndDeleteRoleRequestAction(deleteRoleIds: number[]): AnyAction {
+    return {
+        type: ACTION_DND_DELETE_ROLE_REQUERT,
+        deleteRoleIds: deleteRoleIds
+    }
+}
+export function createDndDeleteRoleSuccessAction(deleteRoleIds: number[]): AnyAction {
+    return {
+        type: ACTION_DND_DELETE_ROLE_SUCCESS,
+        deleteRoleIds: deleteRoleIds
+    }
+}

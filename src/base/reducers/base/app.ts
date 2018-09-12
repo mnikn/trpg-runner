@@ -9,7 +9,7 @@ import { ACTION_NAVIGATE } from '../../actions/base/app';
 import { isNullOrUndefined } from 'util';
 import { createRequestCreateRoleAction } from '../../actions/base/role-card-list';
 import ButtonModel from '../../../platform/models/button';
-import { createDndSaveRoleRequestAction } from '../../actions/dnd/dnd';
+import { createDndSaveRoleRequestAction, createDndDeleteRoleRequestAction } from '../../actions/dnd/dnd';
 import Role from '../../../dnd/models/role';
 
 function navigate(url: string) {
@@ -27,7 +27,9 @@ function createToolBarButtons(navigateLocation: string, appMode: string): Button
                 new ButtonModel('role.create', 'plus', () => {
                     appStore.dispatch(createRequestCreateRoleAction(appMode));
                 }),
-                new ButtonModel('role.delete', 'minus', () => alert('Delete'), true)];
+                new ButtonModel('role.delete', 'minus', () => {
+                    appStore.dispatch(createDndDeleteRoleRequestAction(appStore.getState().roleCardList.selectedRoles))
+                }, true)];
         case NAVIGATE_LOCATION.DND_ROLE_EDITOR:
             return [
                 new ButtonModel('dnd.role.save', 'save', () => {
