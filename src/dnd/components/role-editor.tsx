@@ -29,60 +29,66 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
         const basicsInfoCard =
             <Card className='basics-info-card' title='基本信息'>
                 <Form.Item {...formItemLayout} label="姓名">
-                    <Input placeholder="请输入人物姓名..." 
-                    defaultValue={role.name}
-                    onChange={(e: any) => updateEditRole({name: e.target.value})}/>
+                    <Input placeholder="请输入人物姓名..."
+                        defaultValue={role.name}
+                        onChange={(e: any) => updateEditRole({ name: e.target.value })} />
+                </Form.Item>
+
+                <Form.Item {...formItemLayout} label="性别">
+                    <Select placeholder="请选择人物性别..."
+                        defaultValue={role.sex}
+                        onChange={(value: number) => updateEditRole({ sex: value })}>
+                        <Select.Option value={SexInfo.MALE.id}>{SexInfo.MALE.label}</Select.Option>
+                        <Select.Option value={SexInfo.FEMALE.id}>{SexInfo.FEMALE.label}</Select.Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="种族">
-                    <Select placeholder="请选择人物种族..." 
-                    defaultValue={role.race}
-                    onChange={(value: number) => updateEditRole({race: value})}>
+                    <Select
+                        placeholder="请选择人物种族..."
+                        defaultValue={role.race}
+                        onChange={(value: number) => updateEditRole({ race: value })}>
                         <Select.Option value={RaceInfo.HUMAN.id}>{RaceInfo.HUMAN.label}</Select.Option>
                         <Select.Option value={RaceInfo.DRAWF.id}>{RaceInfo.DRAWF.label}</Select.Option>
                     </Select>
                 </Form.Item>
+                <Form.Item {...formItemLayout} label="职业">
+                    <Select
+                        placeholder="请选择人物职业..."
+                        defaultValue={role.profession}
+                        onChange={(value: number) => updateEditRole({ profession: value })}>
+                        <Select.Option value={ProfessionInfo.CLERIC.id}>{ProfessionInfo.CLERIC.label}</Select.Option>
+                        <Select.Option value={ProfessionInfo.FIGHTER.id}>{ProfessionInfo.FIGHTER.label}</Select.Option>
+                    </Select>
+                </Form.Item>
                 <Form.Item {...formItemLayout} label="阵营">
-                    <Select placeholder="请选择人物阵营..." 
-                    defaultValue={role.alignment}
-                    onChange={(value: number) => updateEditRole({alignment: value})}>
+                    <Select
+                        placeholder="请选择人物阵营..."
+                        defaultValue={role.alignment}
+                        onChange={(value: number) => updateEditRole({ alignment: value })}>
                         <Select.Option value={AlignmentInfo.LAWFUL_GOOD.id}>{AlignmentInfo.LAWFUL_GOOD.label}</Select.Option>
                         <Select.Option value={AlignmentInfo.LAWFUL_NEUTRAL.id}>{AlignmentInfo.LAWFUL_NEUTRAL.label}</Select.Option>
                         <Select.Option value={AlignmentInfo.LAWFUL_EVIL.id}>{AlignmentInfo.LAWFUL_EVIL.label}</Select.Option>
                     </Select>
                 </Form.Item>
-                <Form.Item {...formItemLayout} label="职业">
-                    <Select placeholder="请选择人物职业..." 
-                    defaultValue={role.profession}
-                    onChange={(value: number) => updateEditRole({profession: value})}>
-                        <Select.Option value={ProfessionInfo.CLERIC.id}>{ProfessionInfo.CLERIC.label}</Select.Option>
-                        <Select.Option value={ProfessionInfo.FIGHTER.id}>{ProfessionInfo.FIGHTER.label}</Select.Option>
-                    </Select>
-                </Form.Item>
-                <Form.Item {...formItemLayout} label="性别">
-                    <Select placeholder="请选择人物性别..." 
-                    defaultValue={role.sex}
-                    onChange={(value: number) => updateEditRole({sex: value})}>
-                        <Select.Option value={SexInfo.MALE.id}>{SexInfo.MALE.label}</Select.Option>
-                        <Select.Option value={SexInfo.FEMALE.id}>{SexInfo.FEMALE.label}</Select.Option>
-                    </Select>
-                </Form.Item>
                 <Form.Item {...formItemLayout} label="年龄">
-                    <Input placeholder="请输入人物年龄..." 
-                    defaultValue={role.age ? role.age.toString() : null}
-                    onChange={(e: any) => updateEditRole({age: e.target.value})} />
+                    <Input placeholder="请输入人物年龄..."
+                        defaultValue={role.age ? role.age.toString() : null}
+                        onChange={(e: any) => updateEditRole({ age: e.target.value })} />
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="体型">
-                    <Select placeholder="请选择人物体型..." 
-                    defaultValue={role.shape}
-                    onChange={(value: number) => updateEditRole({shape: value})}>
+                    <Select
+                        placeholder="请选择人物体型..."
+                        defaultValue={role.shape}
+                        onChange={(value: number) => updateEditRole({ shape: value })}>
                         <Select.Option value={ShapeInfo.SMALL.id}>{ShapeInfo.SMALL.label}</Select.Option>
                         <Select.Option value={ShapeInfo.MEDIUM.id}>{ShapeInfo.MEDIUM.label}</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="信仰">
-                    <Select placeholder="请选择人物信仰..." 
-                    defaultValue={role.belief}
-                    onChange={(value: number) => updateEditRole({belief: value})}>
+                    <Select
+                        placeholder="请选择人物信仰..."
+                        defaultValue={role.belief}
+                        onChange={(value: number) => updateEditRole({ belief: value })}>
                         <Select.Option value={BeliefInfo.HEIRONEOUS.id}>{BeliefInfo.HEIRONEOUS.label}</Select.Option>
                         <Select.Option value={BeliefInfo.MORADIN.id}>{BeliefInfo.MORADIN.label}</Select.Option>
                     </Select>
@@ -93,7 +99,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         mode='multiple'
                         placeholder="请选择人物会的语言..."
                         defaultValue={role.languages}
-                        onChange={(value: number[]) => updateEditRole({languages: value})} >
+                        onChange={(value: number[]) => updateEditRole({ languages: value })} >
                         <Select.Option value={LanguageInfo.COMMON.id}>{
                             LanguageInfo.COMMON.label}
                         </Select.Option>
@@ -102,13 +108,29 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
             </Card>;
         const introductionCard =
             <Card className='introduction-card' title='人物简介'>
+                <h3>人物外貌:</h3>
                 <Input.TextArea
-                    style={{ borderColor: 'white', resize: 'none' }}
-                    placeholder="请输入人物简介"
-                    autosize={{ minRows: 2, maxRows: 6 }}
-                    defaultValue={role.introduction}
-                    onChange={(e: any) => updateEditRole({introduction: e.target.value})} />
+                    style={{ borderColor: 'white', resize: 'none', marginTop: 8 + 'px', marginBottom: 8 + 'px' }}
+                    placeholder="请输入人物外貌简介..."
+                    autosize={{ minRows: 2, maxRows: 2 }}
+                    defaultValue={role.appearanceDescription}
+                    onChange={(e: any) => updateEditRole({ appearanceDescription: e.target.value })} />
+                <h3>人物行为:</h3>
+                <Input.TextArea
+                    style={{ borderColor: 'white', resize: 'none', marginTop: 8 + 'px', marginBottom: 8 + 'px' }}
+                    placeholder="请输入人物行为简介..."
+                    autosize={{ minRows: 2, maxRows: 2 }}
+                    defaultValue={role.behaviorDescription}
+                    onChange={(e: any) => updateEditRole({ behaviorDescription: e.target.value })} />
+                <h3>人物背景：</h3>
+                <Input.TextArea
+                    style={{ borderColor: 'white', resize: 'none', marginTop: 8 + 'px', marginBottom: 8 + 'px' }}
+                    placeholder="请输入人物背景简介..."
+                    autosize={{ minRows: 2, maxRows: 2 }}
+                    defaultValue={role.backgroundDescription}
+                    onChange={(e: any) => updateEditRole({ backgroundDescription: e.target.value })} />
             </Card>;
+
         const abilityCard =
             <Card className='ability-card' title='人物属性'>
                 <Form.Item {...formItemLayout} label={AbilityInfos.STRENGTH.label}>
