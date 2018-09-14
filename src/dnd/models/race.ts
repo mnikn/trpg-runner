@@ -1,18 +1,17 @@
+import * as fs from 'fs';
+import * as _ from 'lodash';
+
 interface Race {
     id: number;
     label: string;
 }
 
+let raceDataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/src/dnd/resources/data/race.json';
 export class RaceInfo {
-    public static readonly HUMAN: Race = {id: 1, label: '人类'};
-    public static readonly DRAWF: Race = {id: 2, label: '侏儒'};
-    
-    private static readonly _reaceIds: Map<number, Race> = new Map<number, Race>([
-        [RaceInfo.HUMAN.id, RaceInfo.HUMAN],
-        [RaceInfo.DRAWF.id, RaceInfo.DRAWF],
-    ]);
-    
+
+    public static readonly RACES: Race[] = JSON.parse(fs.readFileSync(raceDataPath).toString());
+
     public static getRace(id: number): Race {
-        return RaceInfo._reaceIds.get(id);
+        return _.find(RaceInfo.RACES, { id: id });
     }
 }

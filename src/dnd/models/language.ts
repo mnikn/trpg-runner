@@ -1,16 +1,17 @@
+import * as fs from 'fs';
+import * as _ from 'lodash';
+
 interface Language {
     id: number;
     label: string;
 }
 
+let languageDataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/src/dnd/resources/data/language.json';
 export class LanguageInfo {
-    public static readonly COMMON: Language = {id: 1, label: '通用语'};
+
+    public static readonly LANGUAGES : Language[] = JSON.parse(fs.readFileSync(languageDataPath).toString());
     
-    private static readonly _languageIds: Map<number, Language> = new Map<number, Language>([
-        [LanguageInfo.COMMON.id, LanguageInfo.COMMON]
-    ]);
-    
-    public static getRace(id: number): Language {
-        return LanguageInfo._languageIds.get(id);
+    public static getLanguage(id: number): Language {
+        return _.find(LanguageInfo.LANGUAGES, {id: id});
     }
 }

@@ -12,6 +12,7 @@ import { AlignmentInfo } from '../models/alignment';
 import { LanguageInfo } from '../models/language';
 import AbilityInfos from '../models/ability/ability-info';
 import { SkillInfo } from '../models/skill';
+import * as _ from 'lodash';
 
 interface Props {
     role: Role,
@@ -30,14 +31,14 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
             <Card className='basics-info-card' title='基本信息'>
                 <Form.Item {...formItemLayout} label="姓名">
                     <Input placeholder="请输入人物姓名..."
-                        style={{width: 150 + 'px'}}
+                        style={{ width: 150 + 'px' }}
                         defaultValue={role.name}
                         onChange={(e: any) => updateEditRole({ name: e.target.value })} />
                 </Form.Item>
 
                 <Form.Item {...formItemLayout} label="性别">
                     <Select placeholder="请选择人物性别..."
-                        style={{width: 100 + 'px'}}
+                        style={{ width: 100 + 'px' }}
                         defaultValue={role.sex}
                         onChange={(value: number) => updateEditRole({ sex: value })}>
                         <Select.Option value={SexInfo.MALE.id}>{SexInfo.MALE.label}</Select.Option>
@@ -47,23 +48,27 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                 <Form.Item {...formItemLayout} label="种族">
                     <Select
                         placeholder="请选择人物种族..."
-                        style={{width: 100 + 'px'}}
+                        style={{ width: 100 + 'px' }}
                         defaultValue={role.race}
                         onChange={(value: number) => updateEditRole({ race: value })}>
-                        <Select.Option value={RaceInfo.HUMAN.id}>{RaceInfo.HUMAN.label}</Select.Option>
-                        <Select.Option value={RaceInfo.DRAWF.id}>{RaceInfo.DRAWF.label}</Select.Option>
+                        {
+                            _.map(RaceInfo.RACES, (race =>
+                                <Select.Option key={race.id} value={race.id}>
+                                    {race.label}
+                                </Select.Option>))
+                        }
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="年龄">
                     <Input placeholder="请输入..."
-                        style={{width: 100 + 'px'}}
+                        style={{ width: 100 + 'px' }}
                         defaultValue={role.age ? role.age.toString() : null}
                         onChange={(e: any) => updateEditRole({ age: e.target.value })} />
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="体型">
                     <Select
                         placeholder="请选择人物体型..."
-                        style={{width: 100 + 'px'}}
+                        style={{ width: 100 + 'px' }}
                         defaultValue={role.shape}
                         onChange={(value: number) => updateEditRole({ shape: value })}>
                         <Select.Option value={ShapeInfo.SMALL.id}>{ShapeInfo.SMALL.label}</Select.Option>
@@ -73,7 +78,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                 <Form.Item {...formItemLayout} label="职业">
                     <Select
                         placeholder="请选择人物职业..."
-                        style={{width: 100 + 'px'}}
+                        style={{ width: 100 + 'px' }}
                         defaultValue={role.profession}
                         onChange={(value: number) => updateEditRole({ profession: value })}>
                         <Select.Option value={ProfessionInfo.CLERIC.id}>{ProfessionInfo.CLERIC.label}</Select.Option>
@@ -83,7 +88,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                 <Form.Item {...formItemLayout} label="阵营">
                     <Select
                         placeholder="请选择人物阵营..."
-                        style={{width: 100 + 'px'}}
+                        style={{ width: 100 + 'px' }}
                         defaultValue={role.alignment}
                         onChange={(value: number) => updateEditRole({ alignment: value })}>
                         <Select.Option value={AlignmentInfo.LAWFUL_GOOD.id}>{AlignmentInfo.LAWFUL_GOOD.label}</Select.Option>
@@ -94,7 +99,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                 <Form.Item {...formItemLayout} label="信仰">
                     <Select
                         placeholder="请选择人物信仰..."
-                        style={{width: 200 + 'px'}}
+                        style={{ width: 200 + 'px' }}
                         defaultValue={role.belief}
                         onChange={(value: number) => updateEditRole({ belief: value })}>
                         <Select.Option value={BeliefInfo.HEIRONEOUS.id}>{BeliefInfo.HEIRONEOUS.label}</Select.Option>
@@ -108,9 +113,12 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         placeholder="请选择人物会的语言..."
                         defaultValue={role.languages}
                         onChange={(value: number[]) => updateEditRole({ languages: value })} >
-                        <Select.Option value={LanguageInfo.COMMON.id}>{
-                            LanguageInfo.COMMON.label}
-                        </Select.Option>
+                        {
+                            _.map(LanguageInfo.LANGUAGES, (lan =>
+                                <Select.Option key={lan.id} value={lan.id}>
+                                    {lan.label}
+                                </Select.Option>))
+                        }
                     </Select>
                 </Form.Item>
             </Card>;
@@ -210,14 +218,14 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     )
                 }]}
                     dataSource={
-                        SkillInfo.getSkillInfos().map(skill => {
+                        _.map(role.skills, (skill => {
                             return {
                                 key: skill.id,
                                 label: skill.label,
                                 keyAbility: AbilityInfos.getAbility(skill.keyAbility).label,
-                                assignedSkillPoint: role.skills.find(roleSkill => roleSkill.id === skill.id).assignedPoint
+                                assignedSkillPoint: skill.assignedPoint
                             }
-                        })
+                        }))
                     } />
             </Card>
         const element =

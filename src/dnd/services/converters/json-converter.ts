@@ -33,10 +33,7 @@ export default class RoleJsonConverter extends RoleConverter {
                         json.abilities.int.value,
                         json.abilities.wis.value,
                         json.abilities.cha.value);
-                    role.skills = json.skills.map((skill: any) => {
-                        let factory = SkillInfo.getSkillById(skill.id).constructor;
-                        return new factory(skill.assignedPoint);
-                    });
+                    role.skills = json.skills;
                     return role;
                 });
             }

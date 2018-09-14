@@ -1,0 +1,18 @@
+{
+    "HUMAN": {
+        "id": 1,
+        "label": "人类"
+    },
+    "DRAWF": {
+        "id": 2,
+        "label": "侏儒"
+    },
+    "ELF": {
+        "id": 3,
+        "label": "精灵"
+    },
+    "HALF_ELF": {
+        "id": 4,
+        "label": "半精灵"
+    }
+}
