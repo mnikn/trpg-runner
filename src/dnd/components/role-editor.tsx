@@ -81,8 +81,12 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         style={{ width: 100 + 'px' }}
                         defaultValue={role.profession}
                         onChange={(value: number) => updateEditRole({ profession: value })}>
-                        <Select.Option value={ProfessionInfo.CLERIC.id}>{ProfessionInfo.CLERIC.label}</Select.Option>
-                        <Select.Option value={ProfessionInfo.FIGHTER.id}>{ProfessionInfo.FIGHTER.label}</Select.Option>
+                        {
+                            _.map(ProfessionInfo.PROFESSIONS, (profession =>
+                                <Select.Option key={profession.id} value={profession.id}>
+                                    {profession.label}
+                                </Select.Option>))
+                        }
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="阵营">
@@ -91,9 +95,12 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         style={{ width: 100 + 'px' }}
                         defaultValue={role.alignment}
                         onChange={(value: number) => updateEditRole({ alignment: value })}>
-                        <Select.Option value={AlignmentInfo.LAWFUL_GOOD.id}>{AlignmentInfo.LAWFUL_GOOD.label}</Select.Option>
-                        <Select.Option value={AlignmentInfo.LAWFUL_NEUTRAL.id}>{AlignmentInfo.LAWFUL_NEUTRAL.label}</Select.Option>
-                        <Select.Option value={AlignmentInfo.LAWFUL_EVIL.id}>{AlignmentInfo.LAWFUL_EVIL.label}</Select.Option>
+                        {
+                            _.map(AlignmentInfo.ALIGNMENTS, (alignment =>
+                                <Select.Option key={alignment.id} value={alignment.id}>
+                                    {alignment.label}
+                                </Select.Option>))
+                        }
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="信仰">
@@ -102,8 +109,12 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         style={{ width: 200 + 'px' }}
                         defaultValue={role.belief}
                         onChange={(value: number) => updateEditRole({ belief: value })}>
-                        <Select.Option value={BeliefInfo.HEIRONEOUS.id}>{BeliefInfo.HEIRONEOUS.label}</Select.Option>
-                        <Select.Option value={BeliefInfo.MORADIN.id}>{BeliefInfo.MORADIN.label}</Select.Option>
+                        {
+                            _.map(BeliefInfo.BELIEFS, (belief =>
+                                <Select.Option key={belief.id} value={belief.id}>
+                                    {belief.label}
+                                </Select.Option>))
+                        }
                     </Select>
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="语言">

@@ -1,0 +1,14 @@
+{
+    "HEIRONEOUS": {
+        "id": 1,
+        "label": "勇者之神-海若尼斯"
+    },
+    "MORADIN": {
+        "id": 2,
+        "label": "矮人之神-摩拉丁"
+    },
+    "OLIDAMMARA": {
+        "id": 3,
+        "label": "游荡者之神-渥利达马拉"
+    }
+}

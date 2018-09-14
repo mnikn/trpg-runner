@@ -1,0 +1,14 @@
+{
+    "CLERIC": {
+        "id": 3,
+        "label": "牧师"
+    },
+    "FIGHTER": {
+        "id": 5,
+        "label": "战士"
+    },
+    "ROGUE": {
+        "id": 6,
+        "label": "游荡者"
+    }
+}

@@ -14,7 +14,6 @@ export default class RoleDataService {
             let role = new Role();
             role.id = RoleDataService._roles.length + 1;
             role.name = '角色' + role.id;
-            role.profession = ProfessionInfo.FIGHTER.id;
             role.abilities = new Abilities(8, 8, 8, 8, 8, 8);
             role.skills = SkillInfo.createSkills();
 

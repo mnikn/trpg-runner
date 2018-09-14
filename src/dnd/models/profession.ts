@@ -1,23 +1,17 @@
+import * as fs from 'fs';
+import * as _ from 'lodash';
+
 interface Profession {
     id: number;
     label: string;
 }
 
-// export enum PROFESSIONS {
-//     CLERIC = 3,
-//     FIGHTER = 5
-// }
-
+let professionDataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/src/dnd/resources/data/profession.json';
 export class ProfessionInfo {
-    public static readonly CLERIC: Profession = {id: 3, label: '牧师'};
-    public static readonly FIGHTER: Profession = {id: 5, label: '战士'};
-    
-    private static readonly _prefessionIds: Map<number, Profession> = new Map<number, Profession>([
-        [ProfessionInfo.CLERIC.id, ProfessionInfo.CLERIC],
-        [ProfessionInfo.FIGHTER.id, ProfessionInfo.FIGHTER],
-    ]);
+
+    public static readonly PROFESSIONS : Profession[] = JSON.parse(fs.readFileSync(professionDataPath).toString());
     
     public static getProfession(id: number): Profession {
-        return ProfessionInfo._prefessionIds.get(id);
+        return _.find(ProfessionInfo.PROFESSIONS, {id: id});
     }
 }
