@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as _ from 'lodash';
 
-interface Language {
+export interface Language {
     id: number;
     label: string;
 }
@@ -13,5 +13,9 @@ export class LanguageInfo {
     
     public static getLanguage(id: number): Language {
         return _.find(LanguageInfo.LANGUAGES, {id: id});
+    }
+
+    public static getLanguages(ids: number[]): Language[] {
+        return _.filter(LanguageInfo.LANGUAGES, lan => _.includes(ids,lan.id));
     }
 }

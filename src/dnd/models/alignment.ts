@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-interface Alignment {
+export interface Alignment {
     id: number;
     label: string;
 }

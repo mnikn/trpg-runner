@@ -48,8 +48,8 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物种族..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.race}
-                        onChange={(value: number) => updateEditRole({ race: value })}>
+                        defaultValue={role.race? role.race.id : null}
+                        onChange={(value: number) => updateEditRole({ race: RaceInfo.getRace(value) })}>
                         {
                             _.map(RaceInfo.RACES, (race =>
                                 <Select.Option key={race.id} value={race.id}>
@@ -68,10 +68,14 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物体型..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.shape}
-                        onChange={(value: number) => updateEditRole({ shape: value })}>
-                        <Select.Option value={ShapeInfo.SMALL.id}>{ShapeInfo.SMALL.label}</Select.Option>
-                        <Select.Option value={ShapeInfo.MEDIUM.id}>{ShapeInfo.MEDIUM.label}</Select.Option>
+                        defaultValue={role.shape? role.shape.id : null}
+                        onChange={(value: number) => updateEditRole({ shape: ShapeInfo.getShape(value) })}>
+                        {
+                            _.map(ShapeInfo.SHAPES, (shape =>
+                                <Select.Option key={shape.id} value={shape.id}>
+                                    {shape.label}
+                                </Select.Option>))
+                        }
                     </Select>
                 </Form.Item>
 
@@ -84,7 +88,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物职业..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.profession.id}
+                        defaultValue={role.profession? role.profession.id : null}
                         onChange={(value: number) => updateEditRole({ profession: ProfessionInfo.getProfession(value) })}>
                         {
                             _.map(ProfessionInfo.PROFESSIONS, (profession =>
@@ -98,8 +102,8 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物阵营..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.alignment}
-                        onChange={(value: number) => updateEditRole({ alignment: value })}>
+                        defaultValue={role.alignment? role.alignment.id : null}
+                        onChange={(value: number) => updateEditRole({ alignment: AlignmentInfo.getAlignment(value) })}>
                         {
                             _.map(AlignmentInfo.ALIGNMENTS, (alignment =>
                                 <Select.Option key={alignment.id} value={alignment.id}>
@@ -112,8 +116,8 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物信仰..."
                         style={{ width: 200 + 'px' }}
-                        defaultValue={role.belief}
-                        onChange={(value: number) => updateEditRole({ belief: value })}>
+                        defaultValue={role.belief? role.belief.id : null}
+                        onChange={(value: number) => updateEditRole({ belief: BeliefInfo.getBelief(value) })}>
                         {
                             _.map(BeliefInfo.BELIEFS, (belief =>
                                 <Select.Option key={belief.id} value={belief.id}>
@@ -127,8 +131,8 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         style={{ width: 300 + 'px' }}
                         mode='multiple'
                         placeholder="请选择人物会的语言..."
-                        defaultValue={role.languages}
-                        onChange={(value: number[]) => updateEditRole({ languages: value })} >
+                        defaultValue={role.languages.map(lan => lan.id)}
+                        onChange={(value: number[]) => updateEditRole({ languages: LanguageInfo.getLanguages(value) })} >
                         {
                             _.map(LanguageInfo.LANGUAGES, (lan =>
                                 <Select.Option key={lan.id} value={lan.id}>

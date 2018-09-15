@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as _ from 'lodash';
 
-interface Race {
+export interface Race {
     id: number;
     label: string;
 }
