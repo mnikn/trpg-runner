@@ -11,7 +11,6 @@ import { RaceInfo } from '../models/race';
 import { AlignmentInfo } from '../models/alignment';
 import { LanguageInfo } from '../models/language';
 import AbilityInfos from '../models/ability/ability-info';
-import { SkillInfo } from '../models/skill';
 import * as _ from 'lodash';
 
 interface Props {
@@ -75,12 +74,18 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                         <Select.Option value={ShapeInfo.MEDIUM.id}>{ShapeInfo.MEDIUM.label}</Select.Option>
                     </Select>
                 </Form.Item>
+
+                <Form.Item {...formItemLayout} label="等级">
+                    <InputNumber min={0} max={100}
+                        defaultValue={role.level}
+                        onChange={(value: number) => updateEditRole({ level: value })} />
+                </Form.Item>
                 <Form.Item {...formItemLayout} label="职业">
                     <Select
                         placeholder="请选择人物职业..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.profession}
-                        onChange={(value: number) => updateEditRole({ profession: value })}>
+                        defaultValue={role.profession.id}
+                        onChange={(value: number) => updateEditRole({ profession: ProfessionInfo.getProfession(value) })}>
                         {
                             _.map(ProfessionInfo.PROFESSIONS, (profession =>
                                 <Select.Option key={profession.id} value={profession.id}>

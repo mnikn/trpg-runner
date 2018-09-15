@@ -4,7 +4,7 @@ import { Skill } from "../models/skill";
 export default class CalculateService {
     public static calculateHp(role: Role): number {
         return role.hpDiceNumber + role.abilities.con.getModifier();
-    } 
+    }
 
     public static calculateArrorClass(role: Role): number {
         return 10 + role.abilities.dex.getModifier();
@@ -19,7 +19,10 @@ export default class CalculateService {
     }
 
     public static calculateRemainSkillPoint(role: Role): number {
-        let total =  20 + role.abilities.int.getModifier();
+        let total =
+            (role.profession.skillPointIncrement + role.abilities.int.getModifier()) * 4 +
+            (role.profession.skillPointIncrement + role.abilities.int.getModifier()) * (role.level - 1);
+
         let assignedPoint = role.skills.reduce<number>((result, current) => result + current.assignedPoint, 0);
         return total - assignedPoint;
     }

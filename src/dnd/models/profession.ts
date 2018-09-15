@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import * as _ from 'lodash';
 
-interface Profession {
+export interface Profession {
     id: number;
     label: string;
+    hpDice: number,
+    skillPointIncrement: number
 }
 
 let professionDataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/src/dnd/resources/data/profession.json';

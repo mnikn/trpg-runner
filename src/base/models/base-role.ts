@@ -4,7 +4,6 @@ export default abstract class BaseRole {
     name: string;
     sex: number;
     avtarUrl: string;
-    profession: number;
 
     appearanceDescription: string;
     behaviorDescription: string;

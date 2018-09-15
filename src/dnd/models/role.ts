@@ -1,6 +1,7 @@
 import BaseRole from '../../base/models/base-role';
-import { Skill, SkillInfo } from './skill';
+import { Skill } from './skill';
 import { Abilities } from './ability/abilities';
+import { Profession } from './profession';
 
 export default class Role extends BaseRole {
     abilities: Abilities;
@@ -9,6 +10,8 @@ export default class Role extends BaseRole {
     shape: number;
     languages: number[];
     belief: number;
+    level: number;
+    profession: Profession;
     skills: Skill[];
 
     hpDiceNumber: number = 0;

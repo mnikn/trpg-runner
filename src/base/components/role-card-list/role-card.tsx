@@ -39,7 +39,7 @@ export default class RoleCardComponent extends React.Component<Props, State> {
                     fontSize: 16 + 'px'
                 }}>
                     姓名: {role.name}<br />
-                    职业: {ProfessionInfo.getProfession(role.profession).label}<br />
+                    职业: {role.profession.label}<br />
                 </div>
 
                 <Button
