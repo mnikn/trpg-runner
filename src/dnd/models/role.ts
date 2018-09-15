@@ -19,5 +19,5 @@ export default class Role extends BaseRole {
     skills: Skill[];
     languages: Language[];
 
-    hpDiceNumber: number = 0;
+    hpDiceNumbers: number[] = [];
 }

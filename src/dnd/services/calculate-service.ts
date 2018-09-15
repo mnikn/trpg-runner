@@ -1,9 +1,10 @@
 import Role from "../models/role";
 import { Skill } from "../models/skill";
+import * as _ from 'lodash';
 
 export default class CalculateService {
     public static calculateHp(role: Role): number {
-        return role.hpDiceNumber + role.abilities.con.getModifier();
+        return _.sum(role.hpDiceNumbers) + role.abilities.con.getModifier();
     }
 
     public static calculateArrorClass(role: Role): number {

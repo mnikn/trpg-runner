@@ -27,6 +27,14 @@ export function createDndAssignSkillPointAction(skillId: number, assignPoint: nu
     }
 }
 
+export const ACTION_DND_LEVEL_CHANGE = 'DND_LEVEL_CHANGE';
+export function createDndLevelChangeAction(level: number): AnyAction {
+    return {
+        type: ACTION_DND_LEVEL_CHANGE,
+        level: level
+    }
+}
+
 export const ACTION_DND_UPDATE_EDIT_ROLE = 'DND_UPDATE_EDIT_ROLE';
 export function createDndUpdateEditRoleAction(roleData: any): AnyAction {
     return {

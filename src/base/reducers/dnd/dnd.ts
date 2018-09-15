@@ -1,10 +1,12 @@
+import { isNullOrUndefined } from 'util';
 import AbilityInfos from '../../../dnd/models/ability/ability-info';
-import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE } from './../../actions/dnd/dnd';
+import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE, ACTION_DND_DELETE_ROLE_SUCCESS, ACTION_DND_LEVEL_CHANGE } from './../../actions/dnd/dnd';
 import "reflect-metadata";
 import { AnyAction } from 'redux';
 import Role from "../../../dnd/models/role";
 import { ACTION_DND_CHANGE_ABILITY } from '../../actions/dnd/dnd';
 import RoleDataService from '../../../dnd/services/role-data-service';
+import * as _ from 'lodash';
 
 export interface IDndState {
     editRole: Role,
@@ -40,7 +42,6 @@ function handleChangeAbility(state: IDndState, abilityType: number, value: numbe
             newEditRole.abilities.cha.value = value;
             break;
     }
-    // Reflect.get(newEditRole.abilities, abilityType).number = value;
     return Object.assign({}, state, {
         editRole: newEditRole
     });
@@ -54,12 +55,28 @@ function handleAssignSkillPoint(state: IDndState, skillId: number, assignPoint: 
     });
 }
 
+function handleLevelChange(state: IDndState, level: number): IDndState {
+    let newEditRole = Object.assign({}, state.editRole);
+    newEditRole.level = level;
+    newEditRole.hpDiceNumbers.length = level;
+    _.range(0, level).forEach(level => {
+        if (isNullOrUndefined(newEditRole.hpDiceNumbers[level])) {
+            newEditRole.hpDiceNumbers[level] = newEditRole.profession.hpDice;
+        }
+    });
+    return Object.assign({}, state, {
+        editRole: newEditRole
+    });
+}
+
 function handleUpdateEditRole(state: IDndState, value: any): IDndState {
     let newEditRole = Object.assign({}, state.editRole, value);
     return Object.assign({}, state, {
         editRole: newEditRole
     });
 }
+
+
 
 
 export default function dnd(state: IDndState = {
@@ -75,6 +92,11 @@ export default function dnd(state: IDndState = {
             return handleUpdateEditRole(state, action.roleData);
         case ACTION_DND_ASSIGN_SKILL_POINT:
             return handleAssignSkillPoint(state, action.skillId, action.assignPoint);
+        case ACTION_DND_LEVEL_CHANGE:
+            return handleLevelChange(state, action.level);
+        case ACTION_DND_DELETE_ROLE_SUCCESS:
+            return handleUpdateEditRole(state, action.roleData);
+
     }
     return state;
 }

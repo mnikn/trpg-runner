@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { IRootState } from "../../base/reducers";
 import DndRoleEditorComponent from '../components/role-editor';
-import { createDndChangeAbilityAction, createDndAssignSkillPointAction, createDndUpdateEditRoleAction } from '../../base/actions/dnd/dnd';
+import { createDndChangeAbilityAction, createDndAssignSkillPointAction, createDndUpdateEditRoleAction, createDndLevelChangeAction } from '../../base/actions/dnd/dnd';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: IRootState) => {
@@ -18,8 +18,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
         dispatch(createDndAssignSkillPointAction(skillId, assignPoint));
     },
     updateEditRole: (value: any) => {
-        console.log(value);
         dispatch(createDndUpdateEditRoleAction(value));
+    },
+    onLevelChange: (level: number) => {
+        dispatch(createDndLevelChangeAction(level));
     }
 });
 

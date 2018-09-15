@@ -1,6 +1,6 @@
 import *  as React from 'react';
 import Role from '../models/role';
-import { Card, Form, Input, Select, Row, Col, InputNumber, Button, Table } from 'antd';
+import { Card, Form, Input, Select, Row, Col, InputNumber, Button, Table, Dropdown, Menu } from 'antd';
 import './role-editor.css';
 import { SexInfo } from '../../base/models/sex';
 import { ShapeInfo } from '../models/shape';
@@ -12,17 +12,30 @@ import { AlignmentInfo } from '../models/alignment';
 import { LanguageInfo } from '../models/language';
 import AbilityInfos from '../models/ability/ability-info';
 import * as _ from 'lodash';
+import HpDiceModal from './hp-dice-modal';
 
 interface Props {
     role: Role,
     onAbilityChange: (abilityType: number, value: number) => void;
     assignSkillPoint: (skillId: number, assignPoint: number) => void,
     updateEditRole: (roleData: any) => void;
+    onLevelChange: (level: number) => void;
 }
 
-export default class DndRoleEditorComponent extends React.Component<Props> {
+interface State {
+    isHpDiceModalVisiable: boolean;
+}
+
+export default class DndRoleEditorComponent extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            isHpDiceModalVisiable: false
+        }
+    }
+
     render() {
-        const { role, onAbilityChange, assignSkillPoint, updateEditRole } = this.props;
+        const { role, onAbilityChange, assignSkillPoint, updateEditRole, onLevelChange } = this.props;
         const formItemLayout = {
         };
 
@@ -48,7 +61,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物种族..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.race? role.race.id : null}
+                        defaultValue={role.race ? role.race.id : null}
                         onChange={(value: number) => updateEditRole({ race: RaceInfo.getRace(value) })}>
                         {
                             _.map(RaceInfo.RACES, (race =>
@@ -68,7 +81,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物体型..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.shape? role.shape.id : null}
+                        defaultValue={role.shape ? role.shape.id : null}
                         onChange={(value: number) => updateEditRole({ shape: ShapeInfo.getShape(value) })}>
                         {
                             _.map(ShapeInfo.SHAPES, (shape =>
@@ -80,15 +93,15 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                 </Form.Item>
 
                 <Form.Item {...formItemLayout} label="等级">
-                    <InputNumber min={0} max={100}
+                    <InputNumber min={1} max={100}
                         defaultValue={role.level}
-                        onChange={(value: number) => updateEditRole({ level: value })} />
+                        onChange={(value: number) => onLevelChange(value)} />
                 </Form.Item>
                 <Form.Item {...formItemLayout} label="职业">
                     <Select
                         placeholder="请选择人物职业..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.profession? role.profession.id : null}
+                        defaultValue={role.profession ? role.profession.id : null}
                         onChange={(value: number) => updateEditRole({ profession: ProfessionInfo.getProfession(value) })}>
                         {
                             _.map(ProfessionInfo.PROFESSIONS, (profession =>
@@ -102,7 +115,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物阵营..."
                         style={{ width: 100 + 'px' }}
-                        defaultValue={role.alignment? role.alignment.id : null}
+                        defaultValue={role.alignment ? role.alignment.id : null}
                         onChange={(value: number) => updateEditRole({ alignment: AlignmentInfo.getAlignment(value) })}>
                         {
                             _.map(AlignmentInfo.ALIGNMENTS, (alignment =>
@@ -116,7 +129,7 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Select
                         placeholder="请选择人物信仰..."
                         style={{ width: 200 + 'px' }}
-                        defaultValue={role.belief? role.belief.id : null}
+                        defaultValue={role.belief ? role.belief.id : null}
                         onChange={(value: number) => updateEditRole({ belief: BeliefInfo.getBelief(value) })}>
                         {
                             _.map(BeliefInfo.BELIEFS, (belief =>
@@ -205,7 +218,12 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <InputNumber
                         value={CalculateService.calculateHp(role)}
                         disabled={true} />
+                    <Button shape='circle'
+                        icon='reload'
+                        size='default'
+                        onClick={() => this.setState({ isHpDiceModalVisiable: !this.state.isHpDiceModalVisiable })} />
                 </Form.Item>
+
                 <Form.Item {...formItemLayout} label="防御等级">
                     <InputNumber value={CalculateService.calculateArrorClass(role)} disabled={true} />
                 </Form.Item>
@@ -256,6 +274,15 @@ export default class DndRoleEditorComponent extends React.Component<Props> {
                     <Col style={{ marginTop: 16 + 'px' }} span={24}>{abilityCard}</Col>
                     <Col style={{ marginTop: 16 + 'px' }} span={24}>{skillCard}</Col>
                 </Row>
+                <HpDiceModal
+                    hpDiceNumbers={role.hpDiceNumbers}
+                    diceType={role.profession.hpDice} 
+                    onHpDiceNumbersChange={(diceNumbers: number[]) => {
+                        role.hpDiceNumbers = diceNumbers;
+                        updateEditRole({hpDiceNumbers: role.hpDiceNumbers});
+                    }}
+                    isModalVisibable={this.state.isHpDiceModalVisiable}
+                    closeModal={() => this.setState({isHpDiceModalVisiable: false})}/>
             </Form>;
         return element;
     }
