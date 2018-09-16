@@ -22,7 +22,9 @@ export class Skill {
 interface ISkillInfo {
     id: string,
     label: string,
-    keyAbility: number
+    keyAbility: number,
+    class: string[],
+    crossClass: string[]
 }
 
 let skillDataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/src/dnd/resources/data/skill.json';

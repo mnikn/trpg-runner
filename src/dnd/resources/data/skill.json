@@ -1,49 +1,85 @@
 [{
     "id": "APPRAISE",
     "label": "估价",
-    "keyAbility": 5
+    "keyAbility": 5,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "ANIMAL_EMPATHY",
     "label": "动物驯养",
-    "keyAbility": 5
+    "keyAbility": 5,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "HIDE",
     "label": "躲藏",
-    "keyAbility": 2
+    "keyAbility": 2,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "MOVE_SILENTLY",
     "label": "潜行",
-    "keyAbility": 2
+    "keyAbility": 2,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "OPEN_LOCK",
     "label": "开锁",
-    "keyAbility": 2
+    "keyAbility": 2,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "PICK_POCKET",
     "label": "偷窃",
-    "keyAbility": 2
+    "keyAbility": 2,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "SEARCH",
     "label": "侦查",
-    "keyAbility": 5
+    "keyAbility": 5,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "LISTEN",
     "label": "聆听",
-    "keyAbility": 5
+    "keyAbility": 5,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "BALANCE",
     "label": "平衡",
-    "keyAbility": 2
+    "keyAbility": 2,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "DISABLE_DEVICE",
     "label": "解除装置",
-    "keyAbility": 4
+    "keyAbility": 4,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "INNUENDO",
     "label": "唬骗",
-    "keyAbility": 6
+    "keyAbility": 6,
+    "class": [],
+    "crossClass": []
 }, {
     "id": "TUMBLE",
     "label": "翻滚",
-    "keyAbility": 2
+    "keyAbility": 2,
+    "class": [],
+    "crossClass": []
+}, {
+    "id": "KNOWLEDGE_ARCANA",
+    "label": "神秘知识",
+    "keyAbility": 4,
+    "class": ["CLERIC"],
+    "crossClass": []
+}, {
+    "id": "CONCENTRATION",
+    "label": "专注",
+    "keyAbility": 3,
+    "class": ["CLERIC"],
+    "crossClass": []
 }]
