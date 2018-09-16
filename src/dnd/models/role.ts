@@ -1,3 +1,4 @@
+import { Weapon } from './weapon';
 import { Alignment } from './alignment';
 import { Shape } from './shape';
 import { Belief } from './belief';
@@ -18,6 +19,8 @@ export default class Role extends BaseRole {
     profession: Profession;
     skills: Skill[];
     languages: Language[];
+
+    weapons: Weapon[];
 
     hpDiceNumbers: number[] = [];
 }

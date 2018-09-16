@@ -1,6 +1,6 @@
 import *  as React from 'react';
 import Role from '../models/role';
-import { Card, Form, Input, Select, Row, Col, InputNumber, Button, Table, Dropdown, Menu } from 'antd';
+import { Card, Form, Input, Select, Row, Col, InputNumber, Button, Table, Dropdown, Menu, Transfer } from 'antd';
 import './role-editor.css';
 import { SexInfo } from '../../base/models/sex';
 import { ShapeInfo } from '../models/shape';
@@ -13,6 +13,8 @@ import { LanguageInfo } from '../models/language';
 import AbilityInfos from '../models/ability/ability-info';
 import * as _ from 'lodash';
 import HpDiceModal from './hp-dice-modal';
+import { WeaponInfo, Weapon } from '../models/weapon';
+import WeaponTransfer from './weapon-transfer';
 
 interface Props {
     role: Role,
@@ -24,13 +26,17 @@ interface Props {
 
 interface State {
     isHpDiceModalVisiable: boolean;
+    targetKeys: string[];
+    selectedKeys: string[];
 }
 
 export default class DndRoleEditorComponent extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            isHpDiceModalVisiable: false
+            isHpDiceModalVisiable: false,
+            targetKeys: _.map(this.props.role.weapons, 'id'),
+            selectedKeys: []
         }
     }
 
@@ -265,7 +271,18 @@ export default class DndRoleEditorComponent extends React.Component<Props, State
                             }
                         }))
                     } />
-            </Card>
+            </Card>;
+        const equipmentCard =
+            <Card className='equipment-card' title='人物装备'>
+                <h3>武器选择：</h3>
+                <WeaponTransfer
+                    targetKeys={_.map(role.weapons, 'id')}
+                    onTransfer={(selectedWeapons: string[]) => {
+                        let currentWeapons = _.filter(WeaponInfo.WEAPONS, (weapon: Weapon) => _.includes(selectedWeapons, weapon.id))
+                        updateEditRole({weapons: currentWeapons});
+                    }}
+                />
+            </Card>;
         const element =
             <Form layout='inline'>
                 <Row type="flex" justify="start" gutter={16}>
@@ -273,16 +290,17 @@ export default class DndRoleEditorComponent extends React.Component<Props, State
                     <Col span={12}>{introductionCard}</Col>
                     <Col style={{ marginTop: 16 + 'px' }} span={24}>{abilityCard}</Col>
                     <Col style={{ marginTop: 16 + 'px' }} span={24}>{skillCard}</Col>
+                    <Col style={{ marginTop: 16 + 'px' }} span={24}>{equipmentCard}</Col>
                 </Row>
                 <HpDiceModal
                     hpDiceNumbers={role.hpDiceNumbers}
-                    diceType={role.profession.hpDice} 
+                    diceType={role.profession.hpDice}
                     onHpDiceNumbersChange={(diceNumbers: number[]) => {
                         role.hpDiceNumbers = diceNumbers;
-                        updateEditRole({hpDiceNumbers: role.hpDiceNumbers});
+                        updateEditRole({ hpDiceNumbers: role.hpDiceNumbers });
                     }}
                     isModalVisibable={this.state.isHpDiceModalVisiable}
-                    closeModal={() => this.setState({isHpDiceModalVisiable: false})}/>
+                    closeModal={() => this.setState({ isHpDiceModalVisiable: false })} />
             </Form>;
         return element;
     }
