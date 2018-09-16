@@ -19,10 +19,16 @@ export class Skill {
 }
 
 
+interface ISkillInfo {
+    id: string,
+    label: string,
+    keyAbility: number
+}
+
 let skillDataPath = '/Users/zhengzhizhao/Local Documents/project/trpg-runner/src/dnd/resources/data/skill.json';
 export class SkillInfo {
 
-    public static readonly SKILLS = JSON.parse(fs.readFileSync(skillDataPath).toString());
+    public static readonly SKILLS : ISkillInfo[] = JSON.parse(fs.readFileSync(skillDataPath).toString());
 
     public static getSkillById(id: number): any {
         return _.find(SkillInfo.SKILLS, {id: id});

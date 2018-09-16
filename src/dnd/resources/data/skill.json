@@ -1,62 +1,49 @@
-{
-    "APPRAISE": {
-        "id": 1,
-        "label": "估价",
-        "keyAbility": 5
-    },
-    "ANIMAL_EMPATHY": {
-        "id": 2,
-        "label": "动物驯养",
-        "keyAbility": 5
-    },
-    "HIDE": {
-        "id": 3,
-        "label": "躲藏",
-        "keyAbility": 2
-    },
-    "MOVE_SILENTLY": {
-        "id": 4,
-        "label": "潜行",
-        "keyAbility": 2
-    },
-    "OPEN_LOCK": {
-        "id": 5,
-        "label": "开锁",
-        "keyAbility": 2
-    },
-    "PICK_POCKET":{
-        "id": 6,
-        "label": "偷窃",
-        "keyAbility": 2
-    },
-    "SEARCH": {
-        "id": 7,
-        "label": "侦查",
-        "keyAbility": 5
-    },
-    "LISTEN": {
-        "id": 8,
-        "label": "聆听",
-        "keyAbility": 5
-    },
-    "BALANCE": {
-        "id": 9,
-        "label": "平衡",
-        "keyAbility": 2
-    },
-    "DISABLE_DEVICE": {
-        "id": 10,
-        "label": "解除装置",
-        "keyAbility": 4
-    },
-    "INNUENDO": {
-        "id": 11,
-        "label": "唬骗",
-        "keyAbility": 6
-    },
-    "TUMBLE": {  
-        "id": 12,
-        "label": "翻滚",
-        "keyAbility": 2
-    }
-}
+[{
+    "id": "APPRAISE",
+    "label": "估价",
+    "keyAbility": 5
+}, {
+    "id": "ANIMAL_EMPATHY",
+    "label": "动物驯养",
+    "keyAbility": 5
+}, {
+    "id": "HIDE",
+    "label": "躲藏",
+    "keyAbility": 2
+}, {
+    "id": "MOVE_SILENTLY",
+    "label": "潜行",
+    "keyAbility": 2
+}, {
+    "id": "OPEN_LOCK",
+    "label": "开锁",
+    "keyAbility": 2
+}, {
+    "id": "PICK_POCKET",
+    "label": "偷窃",
+    "keyAbility": 2
+}, {
+    "id": "SEARCH",
+    "label": "侦查",
+    "keyAbility": 5
+}, {
+    "id": "LISTEN",
+    "label": "聆听",
+    "keyAbility": 5
+}, {
+    "id": "BALANCE",
+    "label": "平衡",
+    "keyAbility": 2
+}, {
+    "id": "DISABLE_DEVICE",
+    "label": "解除装置",
+    "keyAbility": 4
+}, {
+    "id": "INNUENDO",
+    "label": "唬骗",
+    "keyAbility": 6
+}, {
+    "id": "TUMBLE",
+    "label": "翻滚",
+    "keyAbility": 2
+}]

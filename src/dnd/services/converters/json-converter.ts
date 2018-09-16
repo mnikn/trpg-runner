@@ -2,7 +2,6 @@ import RoleConverter from "./base/role-converter";
 import Role from "../../models/role";
 import { Abilities } from "../../models/ability/abilities";
 import { isNullOrUndefined } from "util";
-import { SkillInfo } from "../../models/skill";
 
 export default class RoleJsonConverter extends RoleConverter {
     public static toJson(roles: Role[]): Promise<string> {
@@ -33,7 +32,6 @@ export default class RoleJsonConverter extends RoleConverter {
                         json.abilities.int.value,
                         json.abilities.wis.value,
                         json.abilities.cha.value);
-                    role.skills = json.skills;
                     return role;
                 });
             }
