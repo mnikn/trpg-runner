@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal, Form, InputNumber, Button } from 'antd';
 import * as _ from 'lodash';
-import DiceService from '../../base/services/dice-service';
+import DiceService from '../../../base/services/dice-service';
 
 interface Props {
     diceType: number;

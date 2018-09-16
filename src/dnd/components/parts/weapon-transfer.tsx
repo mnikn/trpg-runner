@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Transfer } from 'antd';
 import * as _ from 'lodash';
-import { WeaponInfo } from '../models/weapon';
+import { WeaponInfo } from '../../models/weapon';
 
 interface Props {
     targetKeys: string[];
