@@ -2,9 +2,9 @@ import * as fs from 'fs';
 import * as _ from 'lodash';
 
 export interface Profession {
-    id: number;
+    id: string;
     label: string;
-    hpDice: number,
+    hpDiceType: number,
     skillPointIncrement: number
 }
 
@@ -13,7 +13,7 @@ export class ProfessionInfo {
 
     public static readonly PROFESSIONS : Profession[] = JSON.parse(fs.readFileSync(professionDataPath).toString());
     
-    public static getProfession(id: number): Profession {
+    public static getProfession(id: string): Profession {
         return _.find(ProfessionInfo.PROFESSIONS, {id: id});
     }
 }

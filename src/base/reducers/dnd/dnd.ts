@@ -61,7 +61,7 @@ function handleLevelChange(state: IDndState, level: number): IDndState {
     newEditRole.hpDiceNumbers.length = level;
     _.range(0, level).forEach(level => {
         if (isNullOrUndefined(newEditRole.hpDiceNumbers[level])) {
-            newEditRole.hpDiceNumbers[level] = newEditRole.profession.hpDice;
+            newEditRole.hpDiceNumbers[level] = newEditRole.profession.hpDiceType;
         }
     });
     return Object.assign({}, state, {

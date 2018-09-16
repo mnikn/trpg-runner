@@ -81,7 +81,7 @@ export default class AbilityCard extends React.Component<Props, State> {
 
                 <HpDiceModal
                     hpDiceNumbers={role.hpDiceNumbers}
-                    diceType={role.profession.hpDice}
+                    diceType={role.profession.hpDiceType}
                     onHpDiceNumbersChange={(diceNumbers: number[]) => {
                         role.hpDiceNumbers = diceNumbers;
                         updateRole({ hpDiceNumbers: role.hpDiceNumbers });

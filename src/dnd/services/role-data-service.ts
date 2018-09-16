@@ -18,8 +18,8 @@ export default class RoleDataService {
             role.skills = SkillInfo.createSkills();
             role.level = 1;
             role.languages = [];
-            role.profession = ProfessionInfo.getProfession(3);
-            role.hpDiceNumbers = [role.profession.hpDice];
+            role.profession = ProfessionInfo.getProfession('FIGHTER');
+            role.hpDiceNumbers = [role.profession.hpDiceType];
 
             RoleDataService._roles.push(role);
             RoleJsonConverter.toJson(RoleDataService._roles).then(json => {

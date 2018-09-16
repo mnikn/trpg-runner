@@ -1,20 +1,21 @@
-{
-    "CLERIC": {
-        "id": 3,
-        "label": "牧师",
-        "hpDice": 6,
-        "skillPointIncrement": 8
-    },
-    "FIGHTER": {
-        "id": 5,
-        "label": "战士",
-        "hpDice": 6,
-        "skillPointIncrement": 8
-    },
-    "ROGUE": {
-        "id": 6,
-        "label": "游荡者",
-        "hpDice": 6,
-        "skillPointIncrement": 8
-    }
-}
+[{
+    "id": "CLERIC",
+    "label": "牧师",
+    "hpDiceType": 6,
+    "skillPointIncrement": 8
+}, {
+    "id": "FIGHTER",
+    "label": "战士",
+    "hpDiceType": 6,
+    "skillPointIncrement": 8
+}, {
+    "id": "ROGUE",
+    "label": "游荡者",
+    "hpDiceType": 6,
+    "skillPointIncrement": 8
+}, {
+    "id": "SORCERER",
+    "label": "术士",
+    "hpDiceType": 4,
+    "skillPointIncrement": 2
+}]

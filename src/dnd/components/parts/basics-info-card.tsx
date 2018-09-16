@@ -83,7 +83,7 @@ export default class BasicsInfoCard extends React.Component<Props> {
                         placeholder="请选择人物职业..."
                         style={{ width: 100 + 'px' }}
                         defaultValue={role.profession ? role.profession.id : null}
-                        onChange={(value: number) => updateRole({ profession: ProfessionInfo.getProfession(value) })}>
+                        onChange={(value: string) => updateRole({ profession: ProfessionInfo.getProfession(value) })}>
                         {
                             _.map(ProfessionInfo.PROFESSIONS, (profession =>
                                 <Select.Option key={profession.id} value={profession.id}>
