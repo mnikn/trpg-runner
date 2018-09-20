@@ -11,10 +11,10 @@ const mapStateToProps = (state: IRootState) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    onAbilityChange: (abilityType: number, value: number) => {
+    onAbilityChange: (abilityType: string, value: number) => {
         dispatch(createDndChangeAbilityAction(abilityType, value));
     },
-    assignSkillPoint: (skillId: number, assignPoint: number) => {
+    assignSkillPoint: (skillId: string, assignPoint: number) => {
         dispatch(createDndAssignSkillPointAction(skillId, assignPoint));
     },
     updateEditRole: (value: any) => {

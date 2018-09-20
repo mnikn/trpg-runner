@@ -1,4 +1,3 @@
-import AbilityInfos from './ability/ability-info';
 import * as _ from 'lodash';
 import * as fs from 'fs';
 
@@ -6,9 +5,9 @@ export class Skill {
     public assignedPoint: number = 0;
     public initialPoint: number = 0;
 
-    public id: number;
+    public id: string;
     public label: string;
-    public keyAbility: number;
+    public keyAbility: string;
 
     constructor(skillInfo: any, assignedPoint: number = 0){
         this.id = skillInfo.id;
@@ -17,7 +16,6 @@ export class Skill {
         this.assignedPoint = assignedPoint;
     }
 }
-
 
 interface ISkillInfo {
     id: string,

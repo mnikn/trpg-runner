@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from 'util';
-import AbilityInfos from '../../../dnd/models/ability/ability-info';
 import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE, ACTION_DND_DELETE_ROLE_SUCCESS, ACTION_DND_LEVEL_CHANGE } from './../../actions/dnd/dnd';
 import "reflect-metadata";
 import { AnyAction } from 'redux';
@@ -20,35 +19,19 @@ function handleEditRole(state: IDndState, roleId: number) {
     });
 }
 
-function handleChangeAbility(state: IDndState, abilityType: number, value: number) {
-    let newEditRole = Object.assign({}, state.editRole);
-    switch (abilityType) {
-        case AbilityInfos.STRENGTH.id:
-            newEditRole.abilities.str.value = value;
-            break;
-        case AbilityInfos.DEXTERITY.id:
-            newEditRole.abilities.dex.value = value;
-            break;
-        case AbilityInfos.CONSTITUTION.id:
-            newEditRole.abilities.con.value = value;
-            break;
-        case AbilityInfos.INTELLIGENCE.id:
-            newEditRole.abilities.int.value = value;
-            break;
-        case AbilityInfos.WISDOM.id:
-            newEditRole.abilities.wis.value = value;
-            break;
-        case AbilityInfos.CHARISMA.id:
-            newEditRole.abilities.cha.value = value;
-            break;
-    }
+function handleChangeAbility(state: IDndState, abilityType: string, value: number) {
+    let newEditRole = new Role();
+    _.assign(newEditRole, state.editRole);
+    let index = _.findIndex(newEditRole.abilities, { id: abilityType });
+    newEditRole.abilities[index].value = value;
     return Object.assign({}, state, {
         editRole: newEditRole
     });
 }
 
-function handleAssignSkillPoint(state: IDndState, skillId: number, assignPoint: number): IDndState {
-    let newEditRole = Object.assign({}, state.editRole);
+function handleAssignSkillPoint(state: IDndState, skillId: string, assignPoint: number): IDndState {
+    let newEditRole = new Role();
+    _.assign(newEditRole, state.editRole);
     newEditRole.skills.find(skill => skill.id === skillId).assignedPoint = assignPoint;
     return Object.assign({}, state, {
         editRole: newEditRole
@@ -56,7 +39,8 @@ function handleAssignSkillPoint(state: IDndState, skillId: number, assignPoint: 
 }
 
 function handleLevelChange(state: IDndState, level: number): IDndState {
-    let newEditRole = Object.assign({}, state.editRole);
+    let newEditRole = new Role();
+    _.assign(newEditRole, state.editRole);
     newEditRole.level = level;
     newEditRole.hpDiceNumbers.length = level;
     _.range(0, level).forEach(level => {
@@ -70,7 +54,9 @@ function handleLevelChange(state: IDndState, level: number): IDndState {
 }
 
 function handleUpdateEditRole(state: IDndState, value: any): IDndState {
-    let newEditRole = Object.assign({}, state.editRole, value);
+    let newEditRole = new Role();
+    _.assign(newEditRole, state.editRole, value);
+    // let newEditRole = _.assign(state.editRole, value);
     return Object.assign({}, state, {
         editRole: newEditRole
     });

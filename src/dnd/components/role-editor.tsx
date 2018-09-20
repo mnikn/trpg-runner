@@ -11,8 +11,8 @@ import EquipmentCard from './parts/equipment-card';
 
 interface Props {
     role: Role,
-    onAbilityChange: (abilityType: number, value: number) => void;
-    assignSkillPoint: (skillId: number, assignPoint: number) => void,
+    onAbilityChange: (abilityType: string, value: number) => void;
+    assignSkillPoint: (skillId: string, assignPoint: number) => void,
     updateEditRole: (roleData: any) => void;
     onLevelChange: (level: number) => void;
 }

@@ -3,10 +3,10 @@ import { Card, Input, InputNumber, Form, Table } from 'antd';
 import * as _ from 'lodash';
 import Role from '../../models/role';
 import CalculateService from '../../services/calculate-service';
-import AbilityInfos from '../../models/ability/ability-info';
+import AbilityInfo from '../../models/ability';
 interface Props {
     role: Role;
-    assignSkillPoint: (id: number, value: number) => void;
+    assignSkillPoint: (id: string, value: number) => void;
 }
 
 export default class SkillCard extends React.Component<Props> {
@@ -42,7 +42,7 @@ export default class SkillCard extends React.Component<Props> {
                             return {
                                 key: skill.id,
                                 label: skill.label,
-                                keyAbility: AbilityInfos.getAbility(skill.keyAbility).label,
+                                keyAbility: AbilityInfo.getAbility(skill.keyAbility).label,
                                 assignedSkillPoint: skill.assignedPoint
                             }
                         }))

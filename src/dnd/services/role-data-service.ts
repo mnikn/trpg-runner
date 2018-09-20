@@ -3,8 +3,8 @@ import * as fs from 'fs';
 import RoleJsonConverter from './converters/json-converter';
 import * as _ from 'lodash';
 import { ProfessionInfo } from "../models/profession";
-import { Abilities } from "../models/ability/abilities";
 import { SkillInfo } from "../models/skill";
+import AbilityInfo from "../models/ability";
 
 export default class RoleDataService {
     private static _roles: Role[] = [];
@@ -14,12 +14,12 @@ export default class RoleDataService {
             let role = new Role();
             role.id = RoleDataService._roles.length + 1;
             role.name = '角色' + role.id;
-            role.abilities = new Abilities(8, 8, 8, 8, 8, 8);
             role.skills = SkillInfo.createSkills();
             role.level = 1;
             role.languages = [];
             role.profession = ProfessionInfo.getProfession('FIGHTER');
             role.hpDiceNumbers = [role.profession.hpDiceType];
+            role.abilities = AbilityInfo.createAbilities();
 
             RoleDataService._roles.push(role);
             RoleJsonConverter.toJson(RoleDataService._roles).then(json => {

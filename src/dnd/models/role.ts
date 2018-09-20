@@ -4,13 +4,14 @@ import { Shape } from './shape';
 import { Belief } from './belief';
 import BaseRole from '../../base/models/base-role';
 import { Skill } from './skill';
-import { Abilities } from './ability/abilities';
 import { Profession } from './profession';
 import { Language } from './language';
 import { Race } from './race';
+import { Ability } from './ability';
+import * as _ from 'lodash';
 
 export default class Role extends BaseRole {
-    abilities: Abilities;
+    abilities: Ability[];
     race: Race;
     alignment: Alignment;
     shape: Shape;
@@ -23,4 +24,28 @@ export default class Role extends BaseRole {
     weapons: Weapon[];
 
     hpDiceNumbers: number[] = [];
+
+    public getStr(): Ability {
+        return _.find(this.abilities, {id: 'STRENGTH'});
+    }
+
+    public getDex(): Ability {
+        return _.find(this.abilities, {id: 'DEXTERITY'});
+    }
+
+    public getCon(): Ability {
+        return _.find(this.abilities, {id: 'CONSTITUTION'});
+    }
+
+    public getInt(): Ability {
+        return _.find(this.abilities, {id: 'INTELLIGENCE'});
+    } 
+
+    public getWis(): Ability {
+        return _.find(this.abilities, {id: 'WISDOM'});
+    } 
+
+    public getCha(): Ability {
+        return _.find(this.abilities, {id: 'CHARISMA'});
+    } 
 }

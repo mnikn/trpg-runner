@@ -3,13 +3,12 @@ import { Form, InputNumber, Card, Input, Select, Button } from 'antd';
 import * as _ from 'lodash';
 import Role from '../../models/role';
 import CalculateService from '../../services/calculate-service';
-import AbilityInfos from '../../models/ability/ability-info';
 import HpDiceModal from './hp-dice-modal';
 
 interface Props {
     role: Role;
     updateRole: (roleData: any) => void;
-    onAbilityChange: (id: number, value: number) => void;
+    onAbilityChange: (id: string, value: number) => void;
 }
 
 interface State {
@@ -27,37 +26,44 @@ export default class AbilityCard extends React.Component<Props, State> {
     render() {
         const { role, updateRole, onAbilityChange } = this.props;
         const formItemLayout = {};
+
+        const str = role.getStr();
+        const dex = role.getDex();
+        const con = role.getCon();
+        const int = role.getInt();
+        const wis = role.getWis();
+        const cha = role.getCha();
         const element =
             <Card className='ability-card' title='人物属性'>
-                <Form.Item {...formItemLayout} label={AbilityInfos.STRENGTH.label}>
+                <Form.Item {...formItemLayout} label={str.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.str.value}
-                        onChange={(value: number) => onAbilityChange(AbilityInfos.STRENGTH.id, value)} />
+                        defaultValue={str.value}
+                        onChange={(value: number) => onAbilityChange(str.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfos.DEXTERITY.label}>
+                <Form.Item {...formItemLayout} label={dex.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.dex.value}
-                        onChange={(value: number) => onAbilityChange(AbilityInfos.DEXTERITY.id, value)} />
+                        defaultValue={dex.value}
+                        onChange={(value: number) => onAbilityChange(dex.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfos.CONSTITUTION.label}>
+                <Form.Item {...formItemLayout} label={con.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.con.value}
-                        onChange={(value: number) => onAbilityChange(AbilityInfos.CONSTITUTION.id, value)} />
+                        defaultValue={con.value}
+                        onChange={(value: number) => onAbilityChange(con.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfos.INTELLIGENCE.label}>
+                <Form.Item {...formItemLayout} label={int.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.int.value}
-                        onChange={(value: number) => onAbilityChange(AbilityInfos.INTELLIGENCE.id, value)} />
+                        defaultValue={int.value}
+                        onChange={(value: number) => onAbilityChange(int.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfos.WISDOM.label}>
+                <Form.Item {...formItemLayout} label={wis.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.wis.value}
-                        onChange={(value: number) => onAbilityChange(AbilityInfos.WISDOM.id, value)} />
+                        defaultValue={wis.value}
+                        onChange={(value: number) => onAbilityChange(wis.id, value)} />
                 </Form.Item>
-                <Form.Item {...formItemLayout} label={AbilityInfos.CHARISMA.label}>
+                <Form.Item {...formItemLayout} label={cha.label}>
                     <InputNumber min={0} max={50}
-                        defaultValue={role.abilities.cha.value}
-                        onChange={(value: number) => onAbilityChange(AbilityInfos.CHARISMA.id, value)} />
+                        defaultValue={cha.value}
+                        onChange={(value: number) => onAbilityChange(cha.id, value)} />
                 </Form.Item>
                 <br />
 

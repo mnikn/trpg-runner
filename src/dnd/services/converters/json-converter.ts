@@ -1,7 +1,8 @@
+import { Ability } from './../../models/ability';
 import RoleConverter from "./base/role-converter";
 import Role from "../../models/role";
-import { Abilities } from "../../models/ability/abilities";
 import { isNullOrUndefined } from "util";
+import { Skill } from '../../models/skill';
 
 export default class RoleJsonConverter extends RoleConverter {
     public static toJson(roles: Role[]): Promise<string> {
@@ -24,17 +25,13 @@ export default class RoleJsonConverter extends RoleConverter {
             if (!isNullOrUndefined(jsonData)) {
                 roles = jsonData.map((json: any) => {
                     let role: Role = new Role();
-                    role = Object.assign({}, role, json);
-                    role.abilities = new Abilities(
-                        json.abilities.str.value,
-                        json.abilities.dex.value,
-                        json.abilities.con.value,
-                        json.abilities.int.value,
-                        json.abilities.wis.value,
-                        json.abilities.cha.value);
+                    Object.assign(role, json);
+                    role.abilities = role.abilities.map(ability => new Ability(ability, ability.value));
                     return role;
                 });
             }
+            console.log(jsonData);
+            console.log(roles);
             resolve(roles);
         });
     }
