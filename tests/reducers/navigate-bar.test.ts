@@ -1,7 +1,5 @@
-// import { COC, DND } from '../../../src/base/constants/app-mode';
-
-import { createShowSettingsModalAction, createCloseSettingsModalAction } from './../../../src/base/actions/base/navigate-bar';
-import navigateBar from './../../../src/base/reducers/base/navigate-bar';
+import { createShowSettingsModalAction, createCloseSettingsModalAction } from './../../src/base/actions/base/navigate-bar';
+import navigateBar from './../../src/base/reducers/base/navigate-bar';
 import 'mocha';
 
 import { expect } from 'chai';

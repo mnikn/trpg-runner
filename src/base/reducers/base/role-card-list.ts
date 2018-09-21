@@ -26,6 +26,7 @@ function handleGetRoles(state: IRoleCardListState, roles: any[]){
 }
 
 function handleCreateRole(state: IRoleCardListState, newRole: any) {
+    newRole = _.cloneDeep(newRole);
     return Object.assign({}, state, {
         roles: state.roles.concat(newRole)
     });
