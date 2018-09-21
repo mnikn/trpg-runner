@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
-import Role from '../../../coc/models/role';
 import { isUndefined } from 'util';
 import { RoleCardContainer } from '../../containers/role-card';
 
 interface Props {
     appMode: string,
-    roles: Role[];
+    roles: any[];
     selectedRoles: number[]
 }
 

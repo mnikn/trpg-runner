@@ -1,6 +1,41 @@
 import { AnyAction } from 'redux';
 import Role from '../../../dnd/models/role';
 
+export const ACTION_DND_SELECT_ROLE_CARD = 'DND_SELECT_ROLE_CARD';
+export function createSelectRoleCardAction(selectingRole: number): AnyAction {
+    return {
+        type: ACTION_DND_SELECT_ROLE_CARD,
+        selectingRole: selectingRole
+    }
+}
+
+export const ACTION_DND_GET_ROLES_REQUEST = 'GET_DND_ROLES_REQUEST';
+export const ACTION_DND_GET_ROLES_SUCCESS = 'GET_DND_ROLES_SUCCESS';
+export function createRequestRolesAction(): AnyAction {
+    return {
+        type: ACTION_DND_GET_ROLES_REQUEST
+    }
+}
+export function createRecieveRolesAction(): AnyAction {
+    return {
+        type: ACTION_DND_GET_ROLES_SUCCESS
+    }
+}
+
+export const ACTION_DND_CREATE_ROLE_REQUEST = 'CREATE_DND_ROLE_REQUEST';
+export const ACTION_DND_CREATE_ROLE_SUCCESS = 'CREATE_DND_ROLE_SUCCESS';
+export function createRequestCreateRoleAction(): AnyAction {
+    return {
+        type: ACTION_DND_CREATE_ROLE_REQUEST
+    }
+}
+export function createRecieveCreateRoleAction(): AnyAction {
+    return {
+        type: ACTION_DND_CREATE_ROLE_SUCCESS
+    }
+}
+
+
 export const ACTION_DND_EDIT_ROLE = 'DND_EDIT_ROLE';
 export function createDndEditRoleAction(roleId: number): AnyAction {
     return {

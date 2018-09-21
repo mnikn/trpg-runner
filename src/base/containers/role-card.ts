@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { IRootState } from '../../base/reducers';
 import { createNavigateAction, createUpdateButtonOnSelectingAction } from '../../base/actions/base/app';
 import { NAVIGATE_LOCATION } from '../../base/constants/navigate';
-import { createSelectRoleCardAction } from '../../base/actions/base/role-card-list';
+import { createSelectRoleCardAction } from '../../base/actions/dnd/dnd';
 import RoleCardComponent from '../components/role-card-list/role-card';
 import { Dispatch } from 'redux';
 import { createDndEditRoleAction } from '../actions/dnd/dnd';
@@ -18,7 +18,9 @@ const mapStateToProps = (state: IRootState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     selectRoleCard: (selectingRole: number) => {
         dispatch(createSelectRoleCardAction(selectingRole));
-        dispatch(createUpdateButtonOnSelectingAction(appStore.getState().roleCardList.selectedRoles));
+        if (appStore.getState().app.appMode === DND){
+            dispatch(createUpdateButtonOnSelectingAction(appStore.getState().dnd.selectedRoles));
+        }
     },
     navigateToEditor: (roleId: number) => {
         const { appMode } = appStore.getState().app;

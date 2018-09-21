@@ -10,6 +10,6 @@ export function* deleteDndRole(action: any) {
     const data = yield call(() => promise);
     yield put({ type: ACTION_DND_DELETE_ROLE_SUCCESS, data });
 
-    let selectedRoles = appStore.getState().roleCardList.selectedRoles.filter((id: number) => !_.includes(data, id));
+    let selectedRoles = appStore.getState().dnd.selectedRoles.filter((id: number) => !_.includes(data, id));
     yield put(createUpdateButtonOnSelectingAction(selectedRoles));
 }

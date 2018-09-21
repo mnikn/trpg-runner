@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from 'util';
-import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE, ACTION_DND_DELETE_ROLE_SUCCESS, ACTION_DND_LEVEL_CHANGE } from './../../actions/dnd/dnd';
+import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE, ACTION_DND_DELETE_ROLE_SUCCESS, ACTION_DND_LEVEL_CHANGE, ACTION_DND_SELECT_ROLE_CARD, ACTION_DND_GET_ROLES_SUCCESS, ACTION_DND_GET_ROLES_REQUEST, ACTION_DND_SAVE_ROLE_SUCCESS, ACTION_DND_CREATE_ROLE_SUCCESS } from './../../actions/dnd/dnd';
 import "reflect-metadata";
 import { AnyAction } from 'redux';
 import Role from "../../../dnd/models/role";
@@ -9,6 +9,44 @@ import * as _ from 'lodash';
 
 export interface IDndState {
     editRole: Role,
+    roles: Role[],
+    selectedRoles: number[],
+    isFetchingRoles: boolean
+}
+
+function handleSelectRoleCard(state: IDndState, selectingRole: number, beforeSelectedRoles: number[]) {
+    let hasRole = !isNullOrUndefined(beforeSelectedRoles.find((role: number) => role === selectingRole));
+    let currentSelectedRoles: number[] = [];
+    if (hasRole) {
+        currentSelectedRoles = beforeSelectedRoles.filter((role: number) => role !== selectingRole);
+    } else {
+        currentSelectedRoles = beforeSelectedRoles.concat(selectingRole);
+    }
+
+    return Object.assign({}, state, {
+        selectedRoles: currentSelectedRoles
+    });
+}
+
+function handleGetRoles(state: IDndState, roles: Role[]){
+    return Object.assign({}, state, {
+        isFetchingRoles: false,
+        roles: roles
+    });
+}
+
+function handleCreateRole(state: IDndState, newRole: Role) {
+    newRole = _.cloneDeep(newRole);
+    return Object.assign({}, state, {
+        roles: state.roles.concat(newRole)
+    });
+}
+
+function handleDeleteRole(state: IDndState, deleteRoleIds: number[]) {
+    return Object.assign({}, state, {
+        roles: state.roles.filter(role => !_.includes(deleteRoleIds, role.id)),
+        selectedRoles: state.selectedRoles.filter(role => !_.includes(deleteRoleIds, role))
+    });
 }
 
 function handleEditRole(state: IDndState, roleId: number) {
@@ -56,17 +94,16 @@ function handleLevelChange(state: IDndState, level: number): IDndState {
 function handleUpdateEditRole(state: IDndState, value: any): IDndState {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole, value);
-    // let newEditRole = _.assign(state.editRole, value);
     return Object.assign({}, state, {
         editRole: newEditRole
     });
 }
 
-
-
-
 export default function dnd(state: IDndState = {
-    editRole: null
+    editRole: null,
+    selectedRoles: [],
+    roles: [],
+    isFetchingRoles: false
 },
     action: AnyAction) {
     switch (action.type) {
@@ -80,8 +117,21 @@ export default function dnd(state: IDndState = {
             return handleAssignSkillPoint(state, action.skillId, action.assignPoint);
         case ACTION_DND_LEVEL_CHANGE:
             return handleLevelChange(state, action.level);
+        case ACTION_DND_SELECT_ROLE_CARD:
+            return handleSelectRoleCard(state, action.selectingRole, state.selectedRoles);
+        case ACTION_DND_GET_ROLES_SUCCESS:
+            return handleGetRoles(state, action.data);
+        case ACTION_DND_CREATE_ROLE_SUCCESS:
+            return handleCreateRole(state, action.data);
+        case ACTION_DND_SAVE_ROLE_SUCCESS:
+            let roles = state.roles;
+            let index = roles.findIndex(e => e.id === action.data.id);
+            roles[index] = action.data;
+            return Object.assign({}, state, {
+                roles: roles
+            });
         case ACTION_DND_DELETE_ROLE_SUCCESS:
-            return handleUpdateEditRole(state, action.roleData);
+            return handleDeleteRole(state, action.data);
 
     }
     return state;

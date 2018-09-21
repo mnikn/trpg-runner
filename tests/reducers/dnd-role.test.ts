@@ -1,7 +1,6 @@
-import { createRecieveCreateRoleAction } from './../../src/base/actions/base/role-card-list';
-import roleCardList, { IRoleCardListState } from './../../src/base/reducers/base/role-card-list';
+import { createRecieveCreateRoleAction } from './../../src/base/actions/dnd/dnd';
+import dnd, { IDndState } from './../../src/base/reducers/dnd/dnd';
 import { expect } from 'chai';
-import { DND } from '../../src/base/constants/app-mode';
 import Role from '../../src/dnd/models/role';
 import { SkillInfo } from '../../src/dnd/models/skill';
 import { ProfessionInfo } from '../../src/dnd/models/profession';
@@ -10,7 +9,7 @@ import 'mocha';
 
 describe('Test dnd role change', function () {
     it('should create dnd role', function () {
-        let action = createRecieveCreateRoleAction(DND);
+        let action = createRecieveCreateRoleAction();
         let role = new Role();
         role.id = 1;
         role.name = '角色' + role.id;
@@ -23,16 +22,18 @@ describe('Test dnd role change', function () {
         action.data = role;
 
 
-        let initState: IRoleCardListState = {
+        let initState: IDndState = {
+            editRole: null,
             roles: [],
             selectedRoles: [],
             isFetchingRoles: false};
-        let expectState: IRoleCardListState = {
+        let expectState: IDndState = {
+            editRole: null,
             roles: [role],
             selectedRoles: [],
             isFetchingRoles: false
         };
-        let actualState = roleCardList(initState, action);
+        let actualState = dnd(initState, action);
         
         expect(expectState.roles).to.deep.equal(actualState.roles);
     });

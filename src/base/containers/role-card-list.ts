@@ -5,8 +5,8 @@ import { IRootState } from '../../base/reducers';
 const mapStateToProps = (state: IRootState) => {
     return {
         appMode: state.app.appMode,
-        roles: state.roleCardList.roles,
-        selectedRoles: state.roleCardList.selectedRoles
+        roles: state.dnd.roles,
+        selectedRoles: state.dnd.selectedRoles
     }
 };
 

@@ -1,4 +1,4 @@
-import { ACTION_DND_CREATE_ROLE_SUCCESS } from './../../actions/base/role-card-list';
+import { ACTION_DND_CREATE_ROLE_SUCCESS } from './../../actions/dnd/dnd';
 import { call, put } from 'redux-saga/effects';
 import RoleDataService from "../../../dnd/services/role-data-service";
 
