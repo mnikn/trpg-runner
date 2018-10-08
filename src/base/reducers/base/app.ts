@@ -8,8 +8,7 @@ import { NAVIGATE_LOCATION } from '../../constants/navigate';
 import { ACTION_NAVIGATE } from '../../actions/base/app';
 import { isNullOrUndefined } from 'util';
 import ButtonModel from '../../../platform/models/button';
-import { createDndSaveRoleRequestAction, createDndDeleteRoleRequestAction, createRequestCreateRoleAction } from '../../actions/dnd/dnd';
-import Role from '../../../dnd/models/role';
+import { createDeleteRoleRequestAction, createSaveRoleRequestAction, createCreateRoleRequestAction } from '../../actions/base/role';
 
 function navigate(url: string) {
     window.location.href = '#' + url;
@@ -24,19 +23,15 @@ function createToolBarButtons(navigateLocation: string, appMode: string): Button
         case NAVIGATE_LOCATION.DND_ROLE_CARD:
             return [
                 new ButtonModel('role.create', 'plus', () => {
-                    if (appMode === DND){
-                        appStore.dispatch(createRequestCreateRoleAction());                        
-                    }
+                    appStore.dispatch(createCreateRoleRequestAction());
                 }),
                 new ButtonModel('role.delete', 'minus', () => {
-                    if (appMode === DND){
-                        appStore.dispatch(createDndDeleteRoleRequestAction(appStore.getState().dnd.selectedRoles))
-                    }
+                    appStore.dispatch(createDeleteRoleRequestAction(appStore.getState().role.selectedRoles));
                 }, true)];
         case NAVIGATE_LOCATION.DND_ROLE_EDITOR:
             return [
                 new ButtonModel('dnd.role.save', 'save', () => {
-                    appStore.dispatch(createDndSaveRoleRequestAction(appStore.getState().dnd.editRole));
+                    appStore.dispatch(createSaveRoleRequestAction(appStore.getState().role.editRole));
                 }),
             ]
     }

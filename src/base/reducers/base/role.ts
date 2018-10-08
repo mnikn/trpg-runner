@@ -1,20 +1,19 @@
+import { ACTION_DND_LEVEL_CHANGE, ACTION_DND_CHANGE_ABILITY, ACTION_DND_ASSIGN_SKILL_POINT } from './../../actions/dnd/dnd';
+import { ACTION_EDIT_ROLE, ACTION_UPDATE_EDIT_ROLE, ACTION_SELECT_ROLE_CARD, ACTION_FETCH_ROLES_SUCCESS, ACTION_CREATE_ROLE_SUCCESS, ACTION_SAVE_ROLE_SUCCESS, ACTION_DELETE_ROLE_SUCCESS } from './../../actions/base/role';
 import { isNullOrUndefined } from 'util';
-import { ACTION_DND_EDIT_ROLE, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_UPDATE_EDIT_ROLE, ACTION_DND_DELETE_ROLE_SUCCESS, ACTION_DND_LEVEL_CHANGE, ACTION_DND_SELECT_ROLE_CARD, ACTION_DND_GET_ROLES_SUCCESS, ACTION_DND_GET_ROLES_REQUEST, ACTION_DND_SAVE_ROLE_SUCCESS, ACTION_DND_CREATE_ROLE_SUCCESS } from './../../actions/dnd/dnd';
-import "reflect-metadata";
 import { AnyAction } from 'redux';
 import Role from "../../../dnd/models/role";
-import { ACTION_DND_CHANGE_ABILITY } from '../../actions/dnd/dnd';
 import RoleDataService from '../../../dnd/services/role-data-service';
 import * as _ from 'lodash';
 
-export interface IDndState {
+export interface IRoleState {
     editRole: Role,
     roles: Role[],
     selectedRoles: number[],
     isFetchingRoles: boolean
 }
 
-function handleSelectRoleCard(state: IDndState, selectingRole: number, beforeSelectedRoles: number[]) {
+function handleSelectRoleCard(state: IRoleState, selectingRole: number, beforeSelectedRoles: number[]) {
     let hasRole = !isNullOrUndefined(beforeSelectedRoles.find((role: number) => role === selectingRole));
     let currentSelectedRoles: number[] = [];
     if (hasRole) {
@@ -28,28 +27,28 @@ function handleSelectRoleCard(state: IDndState, selectingRole: number, beforeSel
     });
 }
 
-function handleGetRoles(state: IDndState, roles: Role[]){
+function handleGetRoles(state: IRoleState, roles: Role[]) {
     return Object.assign({}, state, {
         isFetchingRoles: false,
         roles: roles
     });
 }
 
-function handleCreateRole(state: IDndState, newRole: Role) {
+function handleCreateRole(state: IRoleState, newRole: Role) {
     newRole = _.cloneDeep(newRole);
     return Object.assign({}, state, {
         roles: state.roles.concat(newRole)
     });
 }
 
-function handleDeleteRole(state: IDndState, deleteRoleIds: number[]) {
+function handleDeleteRole(state: IRoleState, deleteRoleIds: number[]) {
     return Object.assign({}, state, {
         roles: state.roles.filter(role => !_.includes(deleteRoleIds, role.id)),
         selectedRoles: state.selectedRoles.filter(role => !_.includes(deleteRoleIds, role))
     });
 }
 
-function handleEditRole(state: IDndState, roleId: number) {
+function handleEditRole(state: IRoleState, roleId: number) {
     let role = new Role();
     role = RoleDataService.getRole(roleId);
     return Object.assign({}, state, {
@@ -57,7 +56,7 @@ function handleEditRole(state: IDndState, roleId: number) {
     });
 }
 
-function handleChangeAbility(state: IDndState, abilityType: string, value: number) {
+function handleChangeAbility(state: IRoleState, abilityType: string, value: number) {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole);
     let index = _.findIndex(newEditRole.abilities, { id: abilityType });
@@ -67,7 +66,7 @@ function handleChangeAbility(state: IDndState, abilityType: string, value: numbe
     });
 }
 
-function handleAssignSkillPoint(state: IDndState, skillId: string, assignPoint: number): IDndState {
+function handleAssignSkillPoint(state: IRoleState, skillId: string, assignPoint: number): IRoleState {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole);
     newEditRole.skills.find(skill => skill.id === skillId).assignedPoint = assignPoint;
@@ -76,7 +75,7 @@ function handleAssignSkillPoint(state: IDndState, skillId: string, assignPoint: 
     });
 }
 
-function handleLevelChange(state: IDndState, level: number): IDndState {
+function handleLevelChange(state: IRoleState, level: number): IRoleState {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole);
     newEditRole.level = level;
@@ -91,7 +90,7 @@ function handleLevelChange(state: IDndState, level: number): IDndState {
     });
 }
 
-function handleUpdateEditRole(state: IDndState, value: any): IDndState {
+function handleUpdateEditRole(state: IRoleState, value: any): IRoleState {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole, value);
     return Object.assign({}, state, {
@@ -99,7 +98,7 @@ function handleUpdateEditRole(state: IDndState, value: any): IDndState {
     });
 }
 
-export default function dnd(state: IDndState = {
+export default function role(state: IRoleState = {
     editRole: null,
     selectedRoles: [],
     roles: [],
@@ -107,31 +106,34 @@ export default function dnd(state: IDndState = {
 },
     action: AnyAction) {
     switch (action.type) {
-        case ACTION_DND_CHANGE_ABILITY:
-            return handleChangeAbility(state, action.abilityType, action.value);
-        case ACTION_DND_EDIT_ROLE:
+        // base
+        case ACTION_EDIT_ROLE:
             return handleEditRole(state, action.roleId);
-        case ACTION_DND_UPDATE_EDIT_ROLE:
+        case ACTION_UPDATE_EDIT_ROLE:
             return handleUpdateEditRole(state, action.roleData);
-        case ACTION_DND_ASSIGN_SKILL_POINT:
-            return handleAssignSkillPoint(state, action.skillId, action.assignPoint);
-        case ACTION_DND_LEVEL_CHANGE:
-            return handleLevelChange(state, action.level);
-        case ACTION_DND_SELECT_ROLE_CARD:
+        case ACTION_SELECT_ROLE_CARD:
             return handleSelectRoleCard(state, action.selectingRole, state.selectedRoles);
-        case ACTION_DND_GET_ROLES_SUCCESS:
+        case ACTION_FETCH_ROLES_SUCCESS:
             return handleGetRoles(state, action.data);
-        case ACTION_DND_CREATE_ROLE_SUCCESS:
+        case ACTION_CREATE_ROLE_SUCCESS:
             return handleCreateRole(state, action.data);
-        case ACTION_DND_SAVE_ROLE_SUCCESS:
+        case ACTION_SAVE_ROLE_SUCCESS:
             let roles = state.roles;
             let index = roles.findIndex(e => e.id === action.data.id);
             roles[index] = action.data;
             return Object.assign({}, state, {
                 roles: roles
             });
-        case ACTION_DND_DELETE_ROLE_SUCCESS:
+        case ACTION_DELETE_ROLE_SUCCESS:
             return handleDeleteRole(state, action.data);
+
+        // DND
+        case ACTION_DND_CHANGE_ABILITY:
+            return handleChangeAbility(state, action.abilityType, action.value);
+        case ACTION_DND_ASSIGN_SKILL_POINT:
+            return handleAssignSkillPoint(state, action.skillId, action.assignPoint);
+        case ACTION_DND_LEVEL_CHANGE:
+            return handleLevelChange(state, action.level);
 
     }
     return state;
