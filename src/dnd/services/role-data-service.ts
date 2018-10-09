@@ -5,6 +5,8 @@ import * as _ from 'lodash';
 import { ProfessionInfo } from "../models/profession";
 import { SkillInfo } from "../models/skill";
 import AbilityInfo from "../models/ability";
+import DiceService from "../../base/services/dice-service";
+import { HpAssignType } from "../../base/constants/dnd/hp-assign-type";
 
 export default class RoleDataService {
     private static _roles: Role[] = [];
@@ -18,7 +20,10 @@ export default class RoleDataService {
             role.level = 1;
             role.languages = [];
             role.profession = ProfessionInfo.getProfession('FIGHTER');
-            role.hpDiceNumbers = [role.profession.hpDiceType];
+
+            role.hpAssignType = HpAssignType.RADOM_PERFESSION_HP_DICE;
+            role.maxHp = DiceService.trollDice(role.profession.hpDiceType);
+
             role.abilities = AbilityInfo.createAbilities();
 
             RoleDataService._roles.push(role);

@@ -1,0 +1,6 @@
+export enum HpAssignType {
+    RADOM_PERFESSION_HP_DICE,
+    FULL_PERFESSION_HP_DICE,
+    HALF_PERFESSION_HP_DICE,
+    CUSTOM
+};

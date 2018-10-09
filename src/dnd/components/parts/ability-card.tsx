@@ -3,7 +3,7 @@ import { Form, InputNumber, Card, Input, Select, Button } from 'antd';
 import * as _ from 'lodash';
 import Role from '../../models/role';
 import CalculateService from '../../services/calculate-service';
-import HpDiceModal from './hp-dice-modal';
+import { HpSettingsModalContainer } from '../../containers/parts/hp-settings-modal';
 
 interface Props {
     role: Role;
@@ -69,10 +69,10 @@ export default class AbilityCard extends React.Component<Props, State> {
 
                 <Form.Item {...formItemLayout} label="生命值">
                     <InputNumber
-                        value={CalculateService.calculateHp(role)}
+                        value={role.maxHp}
                         disabled={true} />
                     <Button shape='circle'
-                        icon='reload'
+                        icon='setting'
                         size='default'
                         onClick={() => this.setState({ isHpDiceModalVisiable: !this.state.isHpDiceModalVisiable })} />
                 </Form.Item>
@@ -85,13 +85,9 @@ export default class AbilityCard extends React.Component<Props, State> {
                 </Form.Item>
 
 
-                <HpDiceModal
-                    hpDiceNumbers={role.hpDiceNumbers}
-                    diceType={role.profession.hpDiceType}
-                    onHpDiceNumbersChange={(diceNumbers: number[]) => {
-                        role.hpDiceNumbers = diceNumbers;
-                        updateRole({ hpDiceNumbers: role.hpDiceNumbers });
-                    }}
+                <HpSettingsModalContainer
+                    hpAssignType={role.hpAssignType}
+                    maxHp={role.maxHp}
                     isModalVisibable={this.state.isHpDiceModalVisiable}
                     closeModal={() => this.setState({ isHpDiceModalVisiable: false })} />
             </Card>;

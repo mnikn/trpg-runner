@@ -1,3 +1,4 @@
+import { HpAssignType } from './../../constants/dnd/hp-assign-type';
 import { AnyAction } from 'redux';
 
 export const ACTION_DND_CHANGE_ABILITY = 'DND_CHANGE_ABILITY';
@@ -23,5 +24,14 @@ export function createDndLevelChangeAction(level: number): AnyAction {
     return {
         type: ACTION_DND_LEVEL_CHANGE,
         level: level
+    }
+}
+
+export const ACTION_DND_CHANGE_HP_ASSIGN_TYPE = 'DND_CHANGE_HP_ASSIGN_TYPE';
+export function createDndChangeHpAssignTypeAction(assignType: HpAssignType, hpValue?: number): AnyAction {
+    return {
+        type: ACTION_DND_CHANGE_HP_ASSIGN_TYPE,
+        hpAssignType: assignType,
+        hpValue: hpValue
     }
 }

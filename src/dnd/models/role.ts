@@ -1,3 +1,4 @@
+import { HpAssignType } from './../../base/constants/dnd/hp-assign-type';
 import { Weapon } from './weapon';
 import { Alignment } from './alignment';
 import { Shape } from './shape';
@@ -23,7 +24,9 @@ export default class Role extends BaseRole {
 
     weapons: Weapon[];
 
-    hpDiceNumbers: number[] = [];
+    maxHp: number;
+    hpAssignType: HpAssignType;
+    // hpDiceNumbers: number[] = [];
 
     public getStr(): Ability {
         return _.find(this.abilities, {id: 'STRENGTH'});

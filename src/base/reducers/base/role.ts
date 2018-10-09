@@ -1,10 +1,12 @@
-import { ACTION_DND_LEVEL_CHANGE, ACTION_DND_CHANGE_ABILITY, ACTION_DND_ASSIGN_SKILL_POINT } from './../../actions/dnd/dnd';
+import { ACTION_DND_LEVEL_CHANGE, ACTION_DND_CHANGE_ABILITY, ACTION_DND_ASSIGN_SKILL_POINT, ACTION_DND_CHANGE_HP_ASSIGN_TYPE } from './../../actions/dnd/dnd';
 import { ACTION_EDIT_ROLE, ACTION_UPDATE_EDIT_ROLE, ACTION_SELECT_ROLE_CARD, ACTION_FETCH_ROLES_SUCCESS, ACTION_CREATE_ROLE_SUCCESS, ACTION_SAVE_ROLE_SUCCESS, ACTION_DELETE_ROLE_SUCCESS } from './../../actions/base/role';
 import { isNullOrUndefined } from 'util';
 import { AnyAction } from 'redux';
 import Role from "../../../dnd/models/role";
 import RoleDataService from '../../../dnd/services/role-data-service';
 import * as _ from 'lodash';
+import { HpAssignType } from '../../constants/dnd/hp-assign-type';
+import CalculateService from '../../../dnd/services/calculate-service';
 
 export interface IRoleState {
     editRole: Role,
@@ -79,12 +81,14 @@ function handleLevelChange(state: IRoleState, level: number): IRoleState {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole);
     newEditRole.level = level;
-    newEditRole.hpDiceNumbers.length = level;
-    _.range(0, level).forEach(level => {
-        if (isNullOrUndefined(newEditRole.hpDiceNumbers[level])) {
-            newEditRole.hpDiceNumbers[level] = newEditRole.profession.hpDiceType;
-        }
-    });
+
+    newEditRole.maxHp = CalculateService.calculateHp(newEditRole);
+    // newEditRole.hpDiceNumbers.length = level;
+    // _.range(0, level).forEach(level => {
+    //     if (isNullOrUndefined(newEditRole.hpDiceNumbers[level])) {
+    //         newEditRole.hpDiceNumbers[level] = newEditRole.profession.hpDiceType;
+    //     }
+    // });
     return Object.assign({}, state, {
         editRole: newEditRole
     });
@@ -93,6 +97,18 @@ function handleLevelChange(state: IRoleState, level: number): IRoleState {
 function handleUpdateEditRole(state: IRoleState, value: any): IRoleState {
     let newEditRole = new Role();
     _.assign(newEditRole, state.editRole, value);
+    return Object.assign({}, state, {
+        editRole: newEditRole
+    });
+}
+
+function handleChangeHpAssignType(state: IRoleState, assignType: HpAssignType, hpValue?: number): IRoleState {
+    let newEditRole = new Role();
+    _.assign(newEditRole, state.editRole, {
+        hpAssignType: assignType
+    });
+
+    newEditRole.maxHp = CalculateService.calculateHp(newEditRole, hpValue);
     return Object.assign({}, state, {
         editRole: newEditRole
     });
@@ -134,7 +150,8 @@ export default function role(state: IRoleState = {
             return handleAssignSkillPoint(state, action.skillId, action.assignPoint);
         case ACTION_DND_LEVEL_CHANGE:
             return handleLevelChange(state, action.level);
-
+        case ACTION_DND_CHANGE_HP_ASSIGN_TYPE:
+            return handleChangeHpAssignType(state, action.hpAssignType, action.hpValue);
     }
     return state;
 }
