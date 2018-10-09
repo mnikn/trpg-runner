@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import NavigateBarComponent from "../components/navigate-bar/navigate-bar";
 import { Dispatch } from "redux";
-import { createSelectAppModeAction, createShowSettingsModalAction, createCloseSettingsModalAction } from "../actions/base/navigate-bar";
+import { createSelectAppModeAction, createShowSettingsModalAction, createCloseSettingsModalAction } from "../actions/base/app";
 import { createNavigateAction } from "../actions/base/app";
 import { IRootState } from "../reducers";
 import { appStore } from "../../..";
@@ -10,7 +10,7 @@ import { NAVIGATE_LOCATION } from "../constants/navigate";
 import { createFetchRolesRequestAction } from "../actions/base/role";
 
 const mapStateToProps = (state: IRootState) => ({
-    isSettingsModalVisable: state.navigateBar.isSettingsModalVisable,
+    isSettingsModalVisable: state.app.isSettingsModalVisable,
     appMode: state.app.appMode
 });
 

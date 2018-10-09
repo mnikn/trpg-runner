@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { root } from './src/base/reducers';
 import rootSaga from './src/base/saga';
 import AppComponent from './src/base/components/app';
-import { createSelectAppModeAction } from './src/base/actions/base/navigate-bar';
+import { createSelectAppModeAction } from './src/base/actions/base/app';
 import { DND } from './src/base/constants/app-mode';
 
 export const saga = createSagaMiddleware();

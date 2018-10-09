@@ -1,11 +1,10 @@
 import { appStore } from './../../../../index';
 import { IAppState } from './app';
-import { ACTION_UPDATE_BUTTON_ON_SELECTING } from './../../actions/base/app';
+import { ACTION_UPDATE_BUTTON_ON_SELECTING, ACTION_SHOW_SETTINGS_MODAL, ACTION_CLOSE_SETTINGS_MODAL } from './../../actions/base/app';
 import { DND, COC } from './../../constants/app-mode';
 import { NAVIGATE_TABLE } from './../../constants/navigate';
-import { ACTION_SELECT_APP_MODE } from '../../actions/base/navigate-bar';
 import { NAVIGATE_LOCATION } from '../../constants/navigate';
-import { ACTION_NAVIGATE } from '../../actions/base/app';
+import { ACTION_NAVIGATE, ACTION_SELECT_APP_MODE } from '../../actions/base/app';
 import { isNullOrUndefined } from 'util';
 import ButtonModel from '../../../platform/models/button';
 import { createDeleteRoleRequestAction, createSaveRoleRequestAction, createCreateRoleRequestAction } from '../../actions/base/role';
@@ -15,7 +14,7 @@ function navigate(url: string) {
 }
 
 function createToolBarButtons(navigateLocation: string, appMode: string): ButtonModel[] {
-    switch(navigateLocation){
+    switch (navigateLocation) {
         case NAVIGATE_LOCATION.COC_HOME:
         case NAVIGATE_LOCATION.DND_HOME:
             return [];
@@ -41,7 +40,8 @@ function createToolBarButtons(navigateLocation: string, appMode: string): Button
 export interface IAppState {
     appMode: string,
     toolBarButtons: ButtonModel[],
-    navigateLocation: string
+    navigateLocation: string,
+    isSettingsModalVisable: boolean
 }
 
 function handleSelectAppMode(state: IAppState, appMode: string): IAppState {
@@ -72,7 +72,8 @@ function handleNavigate(state: IAppState, navigateLocation: string, param?: stri
 export default function app(state: IAppState = {
     appMode: DND,
     toolBarButtons: [],
-    navigateLocation: NAVIGATE_LOCATION.COC_HOME
+    navigateLocation: NAVIGATE_LOCATION.COC_HOME,
+    isSettingsModalVisable: false
 }, action: any) {
     switch (action.type) {
         case ACTION_SELECT_APP_MODE:
@@ -89,6 +90,14 @@ export default function app(state: IAppState = {
             });
             return Object.assign({}, state, {
                 toolBarButtons: buttons
+            });
+        case ACTION_SHOW_SETTINGS_MODAL:
+            return Object.assign({}, state, {
+                isSettingsModalVisable: action.isSettingsModalVisable
+            });
+        case ACTION_CLOSE_SETTINGS_MODAL:
+            return Object.assign({}, state, {
+                isSettingsModalVisable: action.isSettingsModalVisable
             });
     }
     return state;
